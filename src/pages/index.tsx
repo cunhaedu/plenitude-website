@@ -1,42 +1,12 @@
 import Head from 'next/head';
-import Header from '../components/Header';
-import { LibraryIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
+import { LibraryIcon } from '@heroicons/react/solid';
+import { FaMapMarkerAlt } from 'react-icons/fa'
+
+import Header from '../components/Header';
+import LeaderShipRow from '../components/LeaderShipRow';
 import { Footer } from '../components/Footer';
-
-interface ILeaderShip {
-  name: string;
-  description: string;
-  image: string;
-}
-
-const leaderShips: ILeaderShip[] = [
-  {
-    name: 'Ap. Diego Melo',
-    description: 'Descrição',
-    image: "bg-[url('/assets/leadership/main/apostolo_diego/01.jpg')]"
-  },
-  {
-    name: 'Bispa. Patricia Melo',
-    description: 'Descrição',
-    image: "bg-[url('/assets/leadership/main/bispa_patricia/02.jpg')]"
-  },
-  {
-    name: 'Pr. Emerson',
-    description: 'Descrição',
-    image: "bg-[url('/assets/leadership/main/pastor_emerson/02.jpg')]"
-  },
-  {
-    name: 'Ev. Juliana',
-    description: 'Descrição',
-    image: "bg-[url('/assets/leadership/worship/evangelista_juliana/02.jpg')]"
-  },
-  {
-    name: 'Leandro Santos',
-    description: 'Descrição',
-    image: "bg-[url('/assets/leadership/consolidation/leandro/01.jpg')]"
-  },
-]
+import Image from 'next/image';
 
 export default function Home () {
   return (
@@ -48,7 +18,7 @@ export default function Home () {
       <Header />
 
       <main>
-        <section className="bg-home bg-center bg-cover bg-no-repeat md:bg-center">
+        <section className="bg-home bg-center bg-cover bg-no-repeat md:bg-fixed">
           <div className='min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-90px)] flex flex-col align-middle justify-center text-center text-white' >
             <h1 className='font-bold text-5xl p-5'>Comunidade Plenitude</h1>
             <p className='font-semibold text-xl'>Lugar de novos começos</p>
@@ -64,29 +34,43 @@ export default function Home () {
         </section>
 
         <section className='bg-[#ECF3FF] flex flex-col align-middle justify-center py-10' >
-          <LibraryIcon color='#648BC6' className='h-12 w-full' />
+          <LibraryIcon color='#0066CC' className='h-12 w-full' />
           <h2 className='font-bold text-3xl p-5 text-gray-800 text-center'>
-            Conheça nossa <span className='text-[#648BC6]'>liderança</span>
+            Conheça nossa <span className='text-[#0066CC]'>liderança</span>
           </h2>
 
-          <div className='overflow-x-scroll scrollbar-thin my-5 flex'>
-              {leaderShips.map(leader => {
-                return (
-                <div key={leader.name} className={`${leader.image} bg-no-repeat bg-cover bg-center rounded-md mx-5`}>
-                  <div className='h-80 w-64 flex flex-col bg-gradient-to-t from-black'>
-                    <span className='mt-60 text-white font-bold pl-5'>{leader.name}</span>
-                    <span className='text-white pl-5'>{leader.description}</span>
-                  </div>
-                </div>
-              )})}
-          </div>
+          <LeaderShipRow />
 
           <Link href='/ministries'>
-            <a className='underline font-semibold text-[#648BC6] text-center hover:text-[#426396]'>
+            <a className='underline font-semibold text-[#0066CC] text-center hover:text-[#284570]'>
               Ver tudo
             </a>
           </Link>
         </section>
+
+        {/* Localization */}
+        <section className='py-20 px-10 flex justify-center md:justify-evenly'>
+          <div className='flex flex-col justify-center align-middle'>
+            <h2 className='font-bold text-3xl pb-3 flex self-center md:self-start'>
+              <FaMapMarkerAlt className='mt-1 pr-2' /> Localização
+            </h2>
+            <p className='pb-10 text-gray-500 font-medium self-center text-center md:self-start md:text-left'>Confira nossa igreja mais próxima de você</p>
+
+            <Link href='places'>
+              <a className='w-32 bg-gray-500 text-white text-center hover:bg-gray-600 py-3 px-5 rounded-md self-center md:self-start'>Conferir</a>
+            </Link>
+          </div>
+
+          <div className='hidden md:flex align-middle justify-center w-96'>
+            <Image
+              src='/assets/illustrations/map.svg'
+              alt='Igrejas em São Paulo'
+              width={400}
+              height={400}
+            />
+          </div>
+        </section>
+
       </main>
 
       <Footer />

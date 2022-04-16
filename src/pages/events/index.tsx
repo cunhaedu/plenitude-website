@@ -1,7 +1,14 @@
+import Head from 'next/head';
 import InProgress from '../../components/InProgress';
 
 export default function Events() {
   return (
-    <InProgress />
+    <div>
+      <Head>
+        <title>Eventos | Comunidade Plenitude</title>
+      </Head>
+
+      <InProgress />
+    </div>
   )
 }
