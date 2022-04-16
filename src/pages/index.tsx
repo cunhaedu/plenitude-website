@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { LibraryIcon } from '@heroicons/react/solid';
-import { FaMapMarkerAlt } from 'react-icons/fa'
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 import Header from '../components/Header';
 import LeaderShipRow from '../components/LeaderShipRow';
 import { Footer } from '../components/Footer';
 import Image from 'next/image';
+import { Testimonials } from '../components/Testimonials';
 
 export default function Home () {
   return (
@@ -54,7 +55,9 @@ export default function Home () {
             <h2 className='font-bold text-3xl pb-3 flex self-center md:self-start'>
               <FaMapMarkerAlt className='mt-1 pr-2' /> Localização
             </h2>
-            <p className='pb-10 text-gray-500 font-medium self-center text-center md:self-start md:text-left'>Confira nossa igreja mais próxima de você</p>
+            <p className='pb-10 text-gray-500 font-medium self-center text-center md:self-start md:text-left'>
+              Confira nossa igreja mais próxima de você
+            </p>
 
             <Link href='places'>
               <a className='w-32 bg-gray-500 text-white text-center hover:bg-gray-600 py-3 px-5 rounded-md self-center md:self-start'>Conferir</a>
@@ -69,6 +72,15 @@ export default function Home () {
               height={400}
             />
           </div>
+        </section>
+
+        <Testimonials />
+
+        <section className='p-10'>
+          <h2 className='text-center text-2xl font-bold'>
+            Essa obra <span className='text-red-600'>não pode</span> parar
+          </h2>
+          <p className='text-center font-medium pt-4'>Contribua com o seu melhor</p>
         </section>
 
       </main>
