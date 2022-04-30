@@ -37,8 +37,7 @@ const leaderShips: ILeaderShip[] = [
   },
 ]
 
-
-export default function LeaderShipRow() {
+export function LeaderShipRow() {
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
 

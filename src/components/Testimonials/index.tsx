@@ -1,30 +1,29 @@
 import { useState } from 'react';
-import { FaQuoteLeft } from 'react-icons/fa';
-import { BsArrowDownCircleFill, BsArrowLeftCircleFill, BsArrowRightCircleFill, BsArrowUpCircleFill } from 'react-icons/bs';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ITestimonial } from '../../interfaces/ITestimonial';
+import { FaQuoteLeft } from 'react-icons/fa';
+import { EyeIcon } from '@heroicons/react/outline';
+import {
+  BsArrowDownCircleFill,
+  BsArrowLeftCircleFill,
+  BsArrowRightCircleFill,
+  BsArrowUpCircleFill
+} from 'react-icons/bs';
 
-const testimonials: ITestimonial[] = [
-  {
-    id: 1,
-    name: 'Bruno Gabriel',
-    content: 'Entrei na Comunidade Plenitude com uma enfermidade nas pernas, ela me incomodava por muito tempo e eu não conseguia fazer algumas tarefas de casa, mas para a glória de Deus recebi minha cura naquele lugar. Eu me lembro que o Ap.Diego Melo convidou as pessoas que precisavam ser curadas para ir na frente do altar e com fé eu fui, no outro dia acordei sem a dor que me incomodava.'
-  },
-  {
-    id: 1,
-    name: 'Jorginho',
-    content: 'Entrei na Comunidade Plenitude com uma enfermidade nas pernas, ela me incomodava por muito tempo e eu não conseguia fazer algumas tarefas de casa, mas para a glória de Deus recebi minha cura naquele lugar. Eu me lembro que o Ap.Diego Melo convidou as pessoas que precisavam ser curadas para ir na frente do altar e com fé eu fui, no outro dia acordei sem a dor que me incomodava.'
-  },
-  {
-    id: 1,
-    name: 'Joãozinho',
-    content: 'Entrei na Comunidade Plenitude com uma enfermidade nas pernas, ela me incomodava por muito tempo e eu não conseguia fazer algumas tarefas de casa, mas para a glória de Deus recebi minha cura naquele lugar. Eu me lembro que o Ap.Diego Melo convidou as pessoas que precisavam ser curadas para ir na frente do altar e com fé eu fui, no outro dia acordei sem a dor que me incomodava.'
-  }
-];
+import { Dialog } from '../Dialog';
+import { testimonialsMockData } from '../../mocks/testimonials.mock';
 
 export function Testimonials() {
   const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0);
+  let [isOpen, setIsOpen] = useState(false)
+
+  function openModal() {
+    setIsOpen(true)
+  }
+
+  function closeModal() {
+    setIsOpen(false)
+  }
 
   function handleSelectedTestimonial(action: string) {
     setSelectedTestimonialIndex(
@@ -55,7 +54,7 @@ export function Testimonials() {
         </Link>
       </div>
 
-      {testimonials.length ? (
+      {testimonialsMockData.length ? (
         <div className='flex justify-center align-middle gap-10 pt-10'>
           <div className='hidden h-64 lg:flex flex-col align-middle justify-center gap-7'>
             <button
@@ -71,7 +70,7 @@ export function Testimonials() {
             <button
               className='disabled:opacity-75 cursor-pointer'
               onClick={() => handleSelectedTestimonial('add')}
-              disabled={selectedTestimonialIndex >= testimonials.length - 1}
+              disabled={selectedTestimonialIndex >= testimonialsMockData.length - 1}
             >
               <BsArrowDownCircleFill
                 className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
@@ -91,18 +90,34 @@ export function Testimonials() {
 
           <div className='flex flex-col gap-3 justify-evenly p-5 w-[calc(100vw-10rem)] lg:w-96 h-64 bg-white rounded-lg'>
             <p className='text-sm max-h-48 line-clamp-6'>
-              {testimonials[selectedTestimonialIndex].content}
+              {testimonialsMockData[selectedTestimonialIndex].content}
             </p>
 
-            <span className='font-medium'>
-              {testimonials[selectedTestimonialIndex].name}
-            </span>
+            <div className='flex flex-col align-middle justify-center gap-5 md:flex-row md:justify-between'>
+              <span className='font-medium text-center'>
+                {testimonialsMockData[selectedTestimonialIndex].name}
+              </span>
+
+              <button
+                className='w-full h-8 md:w-12 bg-indigo-700/70 hover:bg-indigo-700 rounded-md flex align-middle justify-center'
+                onClick={openModal}
+              >
+                <EyeIcon className='text-white cursor-pointer w-6 h-6 self-center'/>
+              </button>
+              <Dialog
+                title={testimonialsMockData[selectedTestimonialIndex].name}
+                text={testimonialsMockData[selectedTestimonialIndex].content}
+                isOpen={isOpen}
+                closeModal={closeModal}
+              />
+            </div>
+
           </div>
 
           <button
             className='lg:hidden disabled:opacity-75 cursor-pointer h-7 mt-32'
             onClick={() => handleSelectedTestimonial('add')}
-            disabled={selectedTestimonialIndex >= testimonials.length - 1}
+            disabled={selectedTestimonialIndex >= testimonialsMockData.length - 1}
           >
             <BsArrowRightCircleFill
               className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'

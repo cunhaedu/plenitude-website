@@ -1,70 +1,72 @@
 import { Fragment } from 'react';
-import { Popover, Transition } from '@headlessui/react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
+import { Popover, Transition } from '@headlessui/react';
+import { MenuAlt4Icon, XIcon } from '@heroicons/react/outline';
 
-export default function Header() {
+interface IHeaderProps {
+  currentPage: 'home' | 'about' | 'events' | 'ministries' | 'places';
+}
+
+export default function Header({ currentPage }: IHeaderProps) {
   return (
-    <Popover className="relative bg-black backdrop-blur-3xl">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
-              <span className="sr-only">Logo</span>
-              <img
-                className="h-8 w-auto sm:h-10"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt="Comunidade Plenitude"
-              />
-            </a>
-          </div>
-          <div className="-mr-2 -my-2 md:hidden">
-            <Popover.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-              <span className="sr-only">Open menu</span>
-              <MenuIcon className="h-6 w-6" aria-hidden="true" />
-            </Popover.Button>
-          </div>
-          <Popover.Group as="nav" className="hidden md:flex space-x-10">
-            <Link href='/' >
-              <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                início
-              </a>
-            </Link>
-
-            <Link href='/about'>
-              <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                Sobre
-              </a>
-            </Link>
-
-            <Link href='/ministries'>
-              <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                Ministérios
-              </a>
-            </Link>
-
-            <Link href='/places'>
-              <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                Locais
-              </a>
-            </Link>
-
-            <Link href='/events'>
-              <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                Eventos
-              </a>
-            </Link>
-          </Popover.Group>
-          <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a
-              href="#"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-              Agora no Insta
-            </a>
-          </div>
-        </div>
+    <Popover className="sticky top-0 z-50 w-full h-16 bg-white border-b border-gray-400/30 flex justify-between items-center py-2 px-5 md:px-24 lg:px-36">
+      <div className="flex justify-start lg:w-0 lg:flex-1">
+        <a href="#">
+          <span className="sr-only">Comunidade Plenitude</span>
+          <img
+            className="h-8 w-auto sm:h-10"
+            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+            alt="Comunidade Plenitude"
+          />
+        </a>
       </div>
+      <div className="-mr-2 -my-2 md:hidden">
+        <Popover.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+          <span className="sr-only">Open menu</span>
+          <MenuAlt4Icon className="h-6 w-6" aria-hidden="true" />
+        </Popover.Button>
+      </div>
+      <Popover.Group as="nav" className="hidden md:flex space-x-10">
+        <Link href='/' >
+          <a href="#" className="text-base font-medium text-gray-500 hover:text-black">
+            <span className={currentPage === 'home' ? 'text-black' : ''}>
+              Inicio
+            </span>
+          </a>
+        </Link>
+
+        <Link href='/about'>
+          <a href="#" className="text-base font-medium text-gray-500 hover:text-black">
+            <span className={currentPage === 'about' ? 'text-black' : ''}>
+              Sobre
+            </span>
+          </a>
+        </Link>
+
+        <Link href='/ministries'>
+          <a href="#" className="text-base font-medium text-gray-500 hover:text-black">
+            <span className={currentPage === 'ministries' ? 'text-black' : ''}>
+              Ministérios
+            </span>
+          </a>
+        </Link>
+
+        <Link href='/places'>
+          <a href="#" className="text-base font-medium text-gray-500 hover:text-black">
+            <span className={currentPage === 'places' ? 'text-black' : ''}>
+              Locais
+            </span>
+          </a>
+        </Link>
+
+        <Link href='/events'>
+          <a href="#" className="text-base font-medium text-gray-500 hover:text-black">
+            <span className={currentPage === 'events' ? 'text-black' : ''}>
+              Eventos
+            </span>
+          </a>
+        </Link>
+      </Popover.Group>
 
       <Transition
         as={Fragment}
@@ -76,14 +78,14 @@ export default function Header() {
         leaveTo="opacity-0 scale-95"
       >
         <Popover.Panel focus className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
-          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-black divide-y-2 divide-gray-900">
+          <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 divide-y-2 bg-white">
             <div className="pt-5 pb-6 px-5">
               <div className="flex items-center justify-between">
                 <div>
                   <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                    alt="Workflow"
+                    alt="Comunidade Plenitude"
                   />
                 </div>
                 <div className="-mr-2">
@@ -97,32 +99,42 @@ export default function Header() {
             <div className="py-6 px-5 space-y-6">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                 <Link href='/' >
-                  <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                    início
+                  <a href="#" className="text-base font-medium text-gray-500">
+                    <span className={currentPage === 'home' ? 'text-black' : ''}>
+                      Inicio
+                    </span>
                   </a>
                 </Link>
 
                 <Link href='/about'>
-                  <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                    Sobre
+                  <a href="#" className="text-base font-medium text-gray-500">
+                    <span className={currentPage === 'about' ? 'text-black' : ''}>
+                      Sobre
+                    </span>
                   </a>
                 </Link>
 
                 <Link href='/ministries'>
-                  <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                    Ministérios
+                  <a href="#" className="text-base font-medium text-gray-500">
+                    <span className={currentPage === 'ministries' ? 'text-black' : ''}>
+                      Ministérios
+                    </span>
                   </a>
                 </Link>
 
                 <Link href='/places'>
-                  <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
-                    Locais
+                  <a href="#" className="text-base font-medium text-gray-500">
+                    <span className={currentPage === 'places' ? 'text-black' : ''}>
+                      Locais
+                    </span>
                   </a>
                 </Link>
 
                 <Link href='/events'>
-                  <a href="#" className="text-base font-medium text-gray-300 hover:text-white">
+                  <a href="#" className="text-base font-medium text-gray-500">
+                  <span className={currentPage === 'events' ? 'text-black' : ''}>
                     Eventos
+                  </span>
                   </a>
                 </Link>
               </div>

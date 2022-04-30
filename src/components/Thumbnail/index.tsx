@@ -6,7 +6,7 @@ interface Props {
 
 export default function Thumbnail({ leader }: Props) {
   return (
-      <div className={`${leader.image} bg-no-repeat bg-cover bg-center rounded-md mx-2 grayscale hover:grayscale-0 cursor-pointer duration-200`}>
+      <div className={`${leader.image} bg-no-repeat bg-cover lg:grayscale hover:grayscale-0 bg-center rounded-md mx-2 cursor-pointer duration-200`}>
         <div className='h-80 w-64 flex flex-col bg-gradient-to-t from-black rounded-md'>
           <span className='mt-60 text-white font-bold pl-5'>{leader.name}</span>
           <span className='text-white pl-5'>{leader.description}</span>
