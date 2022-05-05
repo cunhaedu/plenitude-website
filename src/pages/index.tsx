@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { LibraryIcon } from '@heroicons/react/solid';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
-import Header from '../components/Header';
+import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { LeaderShipRow } from '../components/LeaderShipRow';
 import { Testimonials } from '../components/Testimonials';

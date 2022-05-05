@@ -7,7 +7,7 @@ interface IHeaderProps {
   currentPage: 'home' | 'about' | 'events' | 'ministries' | 'places';
 }
 
-export default function Header({ currentPage }: IHeaderProps) {
+export function Header({ currentPage }: IHeaderProps) {
   return (
     <Popover className="sticky top-0 z-50 w-full h-16 bg-white border-b border-gray-400/30 flex justify-between items-center py-2 px-5 md:px-24 lg:px-36">
       <div className="flex justify-start lg:w-0 lg:flex-1">
