@@ -4,7 +4,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuAlt4Icon, XIcon } from '@heroicons/react/outline';
 
 interface IHeaderProps {
-  currentPage: 'home' | 'about' | 'events' | 'ministries' | 'places';
+  currentPage: 'home' | 'about' | 'churches' | 'events' | 'ministries';
 }
 
 export function Header({ currentPage }: IHeaderProps) {
@@ -43,18 +43,18 @@ export function Header({ currentPage }: IHeaderProps) {
           </a>
         </Link>
 
-        <Link href='/ministries'>
+        <Link href='/churches'>
           <a href="#" className="text-base font-medium text-gray-500 hover:text-black">
-            <span className={currentPage === 'ministries' ? 'text-black' : ''}>
-              Ministérios
+            <span className={currentPage === 'churches' ? 'text-black' : ''}>
+              Igrejas
             </span>
           </a>
         </Link>
 
-        <Link href='/places'>
+        <Link href='/ministries'>
           <a href="#" className="text-base font-medium text-gray-500 hover:text-black">
-            <span className={currentPage === 'places' ? 'text-black' : ''}>
-              Locais
+            <span className={currentPage === 'ministries' ? 'text-black' : ''}>
+              Ministérios
             </span>
           </a>
         </Link>
@@ -114,18 +114,18 @@ export function Header({ currentPage }: IHeaderProps) {
                   </a>
                 </Link>
 
-                <Link href='/ministries'>
+                <Link href='/churches'>
                   <a href="#" className="text-base font-medium text-gray-500">
-                    <span className={currentPage === 'ministries' ? 'text-black' : ''}>
-                      Ministérios
+                    <span className={currentPage === 'churches' ? 'text-black' : ''}>
+                      Igrejas
                     </span>
                   </a>
                 </Link>
 
-                <Link href='/places'>
+                <Link href='/ministries'>
                   <a href="#" className="text-base font-medium text-gray-500">
-                    <span className={currentPage === 'places' ? 'text-black' : ''}>
-                      Locais
+                    <span className={currentPage === 'ministries' ? 'text-black' : ''}>
+                      Ministérios
                     </span>
                   </a>
                 </Link>

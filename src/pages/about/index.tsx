@@ -13,7 +13,7 @@ export default function About() {
       <Header currentPage='about' />
 
       <main>
-        <section className="bg-red-400 py-10">
+      <section className="bg-about bg-center bg-cover bg-no-repeat md:bg-fixed">
           <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
             <h1 className='font-bold text-5xl p-5 tracking-wide'>Sobre nós</h1>
           </div>
