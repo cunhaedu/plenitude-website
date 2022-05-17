@@ -36,6 +36,7 @@ export default function Home () {
           </h3>
         </section>
 
+        {/* Leadership */}
         <section className='bg-blue-100/30 flex flex-col align-middle justify-center py-10' >
           <LibraryIcon className='h-12 w-full text-blue-600' />
           <h3 className='font-bold text-3xl p-5 text-gray-800 text-center'>
@@ -61,7 +62,7 @@ export default function Home () {
               Confira nossa igreja mais próxima de você
             </p>
 
-            <Link href='places'>
+            <Link href='churches'>
               <a className='w-32 bg-gray-500 text-white text-center hover:bg-gray-600 py-3 px-5 rounded-md self-center md:self-start'>Conferir</a>
             </Link>
           </div>

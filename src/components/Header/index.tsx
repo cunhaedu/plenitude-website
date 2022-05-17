@@ -14,8 +14,8 @@ export function Header({ currentPage }: IHeaderProps) {
         <a href="#">
           <span className="sr-only">Comunidade Plenitude</span>
           <img
-            className="h-8 w-auto sm:h-10"
-            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+            className="h-8 w-auto sm:h-10 rounded-full"
+            src="/assets/logo/full.jpg"
             alt="Comunidade Plenitude"
           />
         </a>
