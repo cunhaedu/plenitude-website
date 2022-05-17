@@ -1,4 +1,4 @@
-import { IChurch } from '../../interfaces/IChurch';
+import { IChurch } from '../interfaces/IChurch';
 
 export const churches: IChurch[] = [
   {

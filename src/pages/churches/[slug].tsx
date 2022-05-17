@@ -6,7 +6,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { IChurch } from '../../interfaces/IChurch';
-import { churches } from './churchs';
+import { churches } from '../../data/churchs';
 import { getWeekDayNameFromNumber } from '../../helpers/weekDay';
 
 type ChurchProps = {
