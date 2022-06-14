@@ -1,11 +1,9 @@
-export interface IChurch {
+export interface IMinistry {
   identifier: string;
   name: string;
   description: string;
-  localization: string,
-  complement: string;
+  videoUrl: string;
   image: string;
-  collageImage: string;
   imageDescription: string;
   leadership: Array<{
     id: number;
@@ -13,8 +11,10 @@ export interface IChurch {
     position: string;
     image: string;
   }>;
-  worshipServices: Array<{
-    weekDay: number;
-    time: string;
-  }>;
+  bibleVerse: {
+    text: string;
+    book: string;
+    capitule: number;
+    verses: string
+  }
 }

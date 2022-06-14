@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
-import { churches } from '../../data/churchs';
+import { churches } from '../../data/churches';
 
 export default function Churches() {
   return (

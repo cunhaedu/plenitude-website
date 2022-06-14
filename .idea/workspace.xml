@@ -2,7 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5a43e49-dbf4-4602-954c-3e10b188a887" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Thumbnail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Thumbnail/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/about/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/home/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/leadership/main/bispa_patricia/01.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/leadership/main/bispa_patricia/01.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/places/background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/places/indaiatuba.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/places/itupeva.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/places/jundiai.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/places/salto.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/places/tanabi.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LeaderShipRow/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LeaderShipRow/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Testimonials/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Testimonials/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/churchs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/churchs.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ministries/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ministries/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,14 +35,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/eduardo/www/web/ToDoList",
+    "nodejs_package_manager_path": "yarn",
+    "ts.external.directory.path": "/home/eduardo/www/projects/plenitude_website/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -37,6 +53,8 @@
       <option name="presentableId" value="Default" />
       <updated>1651065830690</updated>
       <workItem from="1651065832286" duration="828000" />
+      <workItem from="1655036192731" duration="1499000" />
+      <workItem from="1655038996608" duration="1945000" />
     </task>
     <servers />
   </component>

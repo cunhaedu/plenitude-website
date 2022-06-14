@@ -15,7 +15,7 @@ const leaderShips: ILeaderShip[] = [
     id: 2,
     name: 'Bispa. Patricia Melo',
     description: 'Descrição',
-    image: "bg-[url('/assets/leadership/main/bispa_patricia/02.jpg')]"
+    image: "bg-[url('/assets/leadership/main/bispa_patricia/01.jpg')]"
   },
   {
     id: 3,

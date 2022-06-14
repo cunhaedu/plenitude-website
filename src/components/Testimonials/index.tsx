@@ -33,25 +33,15 @@ export function Testimonials() {
 
   return (
     <section className='py-20 px-10 flex flex-col lg:flex-row justify-center lg:justify-evenly bg-[#F0EDFF]'>
-      <div className='flex flex-col justify-center align-middle'>
+      <div className='flex flex-col justify-center align-middle gap-5'>
         <h2 className='font-bold text-3xl text-indigo-600 pb-3 flex self-center lg:self-start'>
           <FaQuoteLeft className='pr-2 fill-indigo-600' />Testemunhos
         </h2>
 
-        <p className='pb-10 text-indigo-600 font-medium self-center text-center lg:self-start lg:text-left'>
-          Não vai faltar motivação!
-        </p>
-
-        <p className='pb-10 text-gray-500 font-medium max-w-sm self-center text-center lg:self-start lg:text-left'>
+        <p className='pb-10 text-gray-500 text-lg font-medium max-w-sm lg:max-w-xs self-center text-center lg:self-start lg:text-left'>
           Seja edificado(a) por testemunhos de pessoas que viveram algo incrível
           da parte do Senhor.
         </p>
-
-        <Link href='#'>
-          <a className='w-32 bg-indigo-700 text-white text-center hover:bg-indigo-800 py-3 px-5 rounded-lg self-center lg:self-start'>
-            Testemunhar
-          </a>
-        </Link>
       </div>
 
       {testimonialsMockData.length ? (
