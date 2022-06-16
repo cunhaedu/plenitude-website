@@ -15,6 +15,6 @@ export interface IChurch {
   }>;
   worshipServices: Array<{
     weekDay: number;
-    time: string;
+    times: string[];
   }>;
 }

@@ -56,7 +56,7 @@ export default function Church({ church }: ChurchProps) {
 
           <h4 className='text-1xl font-bold text-gray-700 text-center self-center'>Cultos</h4>
           <p className='font-semibold text-1xl text-gray-700 text-center self-center'>{church.worshipServices.map(worshipService => {
-            return `${getWeekDayNameFromNumber(worshipService.weekDay)} ${worshipService.time}`
+            return `${getWeekDayNameFromNumber(worshipService.weekDay)} ${worshipService.times.join(' e ')}`
           }).join(' | ')}</p>
         </section>
 
