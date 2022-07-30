@@ -11,7 +11,7 @@ import { Testimonials } from '../components/Testimonials';
 import { Contribution } from '../components/Contribution';
 import { Contact } from '../components/Contact';
 
-export default function Home () {
+export default function Home() {
   return (
     <div>
       <Head>
@@ -44,13 +44,6 @@ export default function Home () {
             Your browser does not support the video tag.
           </video>
         </section>
-
-        {/* <section className="bg-home bg-center bg-cover bg-no-repeat md:bg-fixed">
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
-            <h1 className='font-bold text-5xl p-5 tracking-wide'>Comunidade Plenitude</h1>
-            <h2 className='font-semibold text-xl'>Lugar de novos começos</h2>
-          </div>
-        </section> */}
 
         <section className='h-96 flex flex-col align-middle justify-center px-5 md:px-2' >
           <h3 className='text-center font-bold text-gray-500 text-xl lg:px-80 lg:text-2xl'>
@@ -86,7 +79,7 @@ export default function Home () {
               Confira nossa igreja mais próxima de você
             </p>
 
-            <Link href='churches'>
+            <Link href='/churches'>
               <a className='w-32 bg-gray-500 text-white text-center hover:bg-gray-600 py-3 px-5 rounded-md self-center md:self-start'>Conferir</a>
             </Link>
           </div>

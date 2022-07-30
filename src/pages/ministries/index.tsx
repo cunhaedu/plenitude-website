@@ -6,21 +6,21 @@ import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { churches } from '../../data/churches';
 
-export default function Churches() {
+export default function Ministries() {
   return (
     <div>
       <Head>
-        <title>Igrejas | Comunidade Plenitude</title>
+        <title>Redes | Comunidade Plenitude</title>
       </Head>
 
-      <Header currentPage='churches' />
+      <Header currentPage='ministries' />
 
       <main className='bg-blue-100/30'>
 
       <section className="relative flex items-center justify-center h-[calc(100vh-64px)] overflow-hidden">
           <div className="relative z-20 bg-[rgba(0,0,0,0.4)] w-screen h-[calc(100vh-64px)] flex flex-col justify-center items-center">
             <h1 className='font-bold text-3xl md:text-5xl p-5 tracking-wide text-white text-center'>
-              Conheça a localização das nossas igrejas
+              Conheça as nossas redes
             </h1>
           </div>
 
@@ -31,7 +31,7 @@ export default function Churches() {
             className="absolute z-10 min-w-full min-h-full max-w-none"
           >
             <source
-              src="https://drive.google.com/uc?export=download&id=15VMatYWgk8qwD-EKkog-HVI7H_MHz0jq"
+              src="https://drive.google.com/uc?export=download&id=1HpCjdX5moq-K3ECwjw4b2Rag-YJ-Gh6w"
               type="video/mp4"
             />
             Your browser does not support the video tag.

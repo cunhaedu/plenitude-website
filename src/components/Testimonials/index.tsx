@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { FaQuoteLeft } from 'react-icons/fa';
 import { EyeIcon } from '@heroicons/react/outline';
@@ -11,18 +10,36 @@ import {
 } from 'react-icons/bs';
 
 import { Dialog } from '../Dialog';
-import { testimonialsMockData } from '../../mocks/testimonials.mock';
+import { gql, useQuery } from '@apollo/client';
+
+type GetTestimonialsResponse = {
+  testimonials: {
+    name: string;
+    description: string;
+  }[]
+}
+
+const GET_TESTIMONIALS_QUERY = gql`
+  query Testimonials {
+    testimonials {
+      name
+      description
+    }
+  }
+`
 
 export function Testimonials() {
+  const { data } = useQuery<GetTestimonialsResponse>(GET_TESTIMONIALS_QUERY)
+
   const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0);
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpen, setIsOpen] = useState(false);
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
 
   function closeModal() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   function handleSelectedTestimonial(action: string) {
@@ -44,7 +61,7 @@ export function Testimonials() {
         </p>
       </div>
 
-      {testimonialsMockData.length ? (
+      {data?.testimonials.length ? (
         <div className='flex justify-center align-middle gap-10 pt-10'>
           <div className='hidden h-64 lg:flex flex-col align-middle justify-center gap-7'>
             <button
@@ -60,7 +77,7 @@ export function Testimonials() {
             <button
               className='disabled:opacity-75 cursor-pointer'
               onClick={() => handleSelectedTestimonial('add')}
-              disabled={selectedTestimonialIndex >= testimonialsMockData.length - 1}
+              disabled={selectedTestimonialIndex >= data.testimonials.length - 1}
             >
               <BsArrowDownCircleFill
                 className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
@@ -80,12 +97,12 @@ export function Testimonials() {
 
           <div className='flex flex-col gap-3 justify-evenly p-5 w-[calc(100vw-10rem)] lg:w-96 h-64 bg-white rounded-lg'>
             <p className='text-sm max-h-48 line-clamp-6'>
-              {testimonialsMockData[selectedTestimonialIndex].content}
+              {data.testimonials[selectedTestimonialIndex].description}
             </p>
 
             <div className='flex flex-col align-middle justify-center gap-5 md:flex-row md:justify-between'>
               <span className='font-medium text-center'>
-                {testimonialsMockData[selectedTestimonialIndex].name}
+                {data.testimonials[selectedTestimonialIndex].name}
               </span>
 
               <button
@@ -95,8 +112,8 @@ export function Testimonials() {
                 <EyeIcon className='text-white cursor-pointer w-6 h-6 self-center'/>
               </button>
               <Dialog
-                title={testimonialsMockData[selectedTestimonialIndex].name}
-                text={testimonialsMockData[selectedTestimonialIndex].content}
+                title={data.testimonials[selectedTestimonialIndex].name}
+                text={data.testimonials[selectedTestimonialIndex].description}
                 isOpen={isOpen}
                 closeModal={closeModal}
               />
@@ -107,7 +124,7 @@ export function Testimonials() {
           <button
             className='lg:hidden disabled:opacity-75 cursor-pointer h-7 mt-32'
             onClick={() => handleSelectedTestimonial('add')}
-            disabled={selectedTestimonialIndex >= testimonialsMockData.length - 1}
+            disabled={selectedTestimonialIndex >= data.testimonials.length - 1}
           >
             <BsArrowRightCircleFill
               className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'

@@ -37,10 +37,10 @@ export function Header({ currentPage }: IHeaderProps) {
           </a>
         </Link>
 
-        <Link href='/churches'>
-          <a className="text-base font-medium text-gray-500 hover:text-black self-center">
-            <span className={currentPage === 'churches' ? 'text-black' : ''}>
-              Igrejas
+        <Link href='/about'>
+          <a className="font-medium text-gray-500 hover:text-black self-center">
+            <span className={currentPage === 'about' ? 'text-black' : ''}>
+              Sobre
             </span>
           </a>
         </Link>
@@ -53,16 +53,16 @@ export function Header({ currentPage }: IHeaderProps) {
           </a>
         </Link>
 
-        <Link href='/about'>
-          <a className="font-medium text-gray-500 hover:text-black self-center">
-            <span className={currentPage === 'about' ? 'text-black' : ''}>
-              Sobre
+        <Link href='/churches'>
+          <a className="text-base font-medium text-gray-500 hover:text-black self-center">
+            <span className={currentPage === 'churches' ? 'text-black' : ''}>
+              Igrejas
             </span>
           </a>
         </Link>
 
         <Link href="/login">
-          <a className="self-center border border-gray-500 py-1 px-2 rounded-lg text-gray-500 hover:text-white hover:bg-gray-500">
+          <a className="self-center border border-gray-500 py-1 px-2 rounded-lg text-gray-500 hover:text-white hover:bg-gray-500 transition duration-300 ease-in-out">
             Login
           </a>
         </Link>
