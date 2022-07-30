@@ -74,7 +74,7 @@ export function Header({ currentPage }: IHeaderProps) {
         <a href="#">
           <span className="sr-only">Comunidade Plenitude</span>
           <img
-            className="h-8 w-auto sm:h-10 rounded-full"
+            className="h-14 w-auto md:h-14 rounded-full"
             src="/assets/logo/full.jpg"
             alt="Comunidade Plenitude"
           />
@@ -186,7 +186,7 @@ export function Header({ currentPage }: IHeaderProps) {
               <div className="flex items-center justify-between">
                 <div>
                   <img
-                    className="h-8 w-auto sm:h-10 rounded-full"
+                    className="h-14 w-auto md:h-10 rounded-full"
                     src="/assets/logo/full.jpg"
                     alt="Comunidade Plenitude"
                   />

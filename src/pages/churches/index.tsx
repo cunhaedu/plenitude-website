@@ -17,13 +17,34 @@ export default function Churches() {
 
       <main className='bg-blue-100/30'>
 
-        <section className="bg-place bg-center bg-cover bg-no-repeat md:bg-fixed">
+      <section className="relative flex items-center justify-center h-[calc(100vh-64px)] overflow-hidden">
+          <div className="relative z-20 bg-[rgba(0,0,0,0.4)] w-screen h-[calc(100vh-64px)] flex flex-col justify-center items-center">
+            <h1 className='font-bold text-3xl md:text-5xl p-5 tracking-wide text-white text-center'>
+              Conheça a localização das nossas igrejas
+            </h1>
+          </div>
+
+          <video
+            autoPlay
+            loop
+            muted
+            className="absolute z-10 min-w-full min-h-full max-w-none"
+          >
+            <source
+              src="https://drive.google.com/uc?export=download&id=15VMatYWgk8qwD-EKkog-HVI7H_MHz0jq"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </section>
+
+        {/* <section className="bg-place bg-center bg-cover bg-no-repeat md:bg-fixed">
           <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
             <h1 className='font-bold text-3xl md:text-5xl p-5 tracking-wide lg:w-6/12 text-center self-center'>
               Conheça a localização das nossas igrejas
             </h1>
           </div>
-        </section>
+        </section> */}
 
         <section className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-extrabold text-center tracking-tight text-gray-900">
