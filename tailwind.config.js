@@ -23,5 +23,6 @@ module.exports = {
     require('@tailwindcss/line-clamp'),
     require("tailwindcss-hyphens"),
     require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
   ],
 }
