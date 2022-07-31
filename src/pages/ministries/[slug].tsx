@@ -1,28 +1,50 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import Head from 'next/head';
+import { gql } from '@apollo/client';
 import { ParsedUrlQuery } from 'querystring';
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
-import { ministries } from '../../data/ministries';
-import { IMinistry } from '../../interfaces/IMinistry';
 import { VideoPlayer } from '../../components/VideoPlayer';
-
-type ChurchProps = {
-  ministry: IMinistry;
-};
+import { client } from '../../lib/apollo';
 
 type Params = ParsedUrlQuery & {
   slug: string;
 }
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: [],
-  fallback: 'blocking',
-});
+type GetMinistryResponse = {
+  ministry: {
+    name: string;
+    description: string;
+    slug: string;
+    coverID: string;
+    videoID: string;
+    book: string;
+    phrase: string;
+    chapter: string;
+    verseNumber: string;
+  }
+}
 
-export default function Church({ ministry }: ChurchProps) {
+const GET_MINISTRY_QUERY = gql`
+  query Ministry ($slug: String)  {
+    ministry(where: {slug: $slug}) {
+      id
+      name
+      description
+      slug
+      coverID
+      videoID
+      book
+      phrase
+      chapter
+      verseNumber
+    }
+  }
+`
+
+export default function Church({ ministry }: GetMinistryResponse) {
   return (
     <div>
       <Head>
@@ -35,8 +57,8 @@ export default function Church({ ministry }: ChurchProps) {
         <section>
           <div className="w-full h-[calc(100vh-64px)] relative px-10">
             <Image
-              src={ministry.image}
-              alt={ministry.imageDescription}
+              src={`https://drive.google.com/uc?export=view&id=${ministry.coverID}`}
+              alt={ministry.name}
               layout='fill'
               objectFit='cover'
               className='brightness-50'
@@ -52,16 +74,16 @@ export default function Church({ ministry }: ChurchProps) {
         <section className='bg-gray-50 px-5 py-24 flex flex-col gap-9 align-middle justify-center'>
           <h3 className='text-center md:w-9/12 self-center pb-3 text-gray-700 font-medium text-lg md:text-2xl'>{ministry.description}</h3>
 
-          <VideoPlayer src={ministry.videoUrl} />
+          <VideoPlayer src={`https://drive.google.com/file/d/${ministry.videoID}/preview`}/>
         </section>
 
         <section className='bg-violet-400/90 px-5 py-24 flex flex-col gap-5 align-middle justify-center'>
-          <h2 className='text-center text-white font-medium text-xl md:text-2xl max-w-lg self-center'>{ministry.bibleVerse.text}</h2>
-          <p className='text-center text-lg text-gray-100'>{ministry.bibleVerse.book} {ministry.bibleVerse.capitule}:{ministry.bibleVerse.verses}</p>
+          <h2 className='text-center text-white font-medium text-xl md:text-2xl max-w-lg self-center'>{ministry.phrase}</h2>
+          <p className='text-center text-lg text-gray-100'>{ministry.book} {ministry.chapter}:{ministry.verseNumber}</p>
         </section>
 
         {/* Church leadership */}
-        <section className='p-10'>
+        {/* <section className='p-10'>
           <h3 className='text-2xl font-bold text-center text-gray-900'>
             Liderança
           </h3>
@@ -80,7 +102,7 @@ export default function Church({ ministry }: ChurchProps) {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
       </main>
 
@@ -89,12 +111,15 @@ export default function Church({ ministry }: ChurchProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { slug } = ctx.params as Params;
 
-  const ministry = ministries.find(e => e.identifier === slug);
+  const { data } = await client.query<GetMinistryResponse>({
+    query: GET_MINISTRY_QUERY,
+    variables: { slug }
+  });
 
-  if (!ministry) {
+  if (!data) {
     return {
       redirect: {
         permanent: false,
@@ -105,8 +130,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   return {
     props: {
-      ministry,
-    },
-    // revalidate: 60 * 60 * 24, // 24 hours
+      ministry: data.ministry,
+    }
   };
 };

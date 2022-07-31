@@ -1,6 +1,3 @@
-import { useRef, useState } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
-
 import { ILeaderShip } from '../../interfaces/ILeaderShip';
 import Thumbnail from '../Thumbnail';
 
@@ -38,46 +35,16 @@ const leaderShips: ILeaderShip[] = [
 ]
 
 export function LeaderShipRow() {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const [isMoved, setIsMoved] = useState(false);
-
-  function handleClick(direction: string) {
-    setIsMoved(true)
-    if (!rowRef.current) {
-      return;
-    }
-
-    const { scrollLeft, clientWidth } = rowRef.current;
-
-    const scrollTo =
-      direction === 'left'
-        ? scrollLeft - clientWidth
-        : scrollLeft + clientWidth
-
-    rowRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
-  }
-
   return (
-    <div className="py-10">
+    <div className="py-10 flex overflow-scroll scrollbar-hide align-middle justify-center">
       <div className="group relative md:-ml-2">
-        <ChevronLeftIcon
-          className={`absolute top-0 bottom-0 left-4 z-40 m-auto h-8 w-8 cursor-pointer opacity-0 group-hover:opacity-100 bg-black rounded-full text-gray-500 ${
-            !isMoved && 'hidden'
-          }`}
-          onClick={() => handleClick('left')}
-        />
         <div
           className="flex items-center overflow-x-scroll scrollbar-hide md:p-1"
-          ref={rowRef}
         >
           {leaderShips.map(leader => (
             <Thumbnail key={leader.id} leader={leader} />
           ))}
         </div>
-        <ChevronRightIcon
-          className="absolute top-0 bottom-0 right-4 z-40 m-auto h-8 w-8 cursor-pointer opacity-0 transition group-hover:opacity-100 bg-black rounded-full text-gray-500"
-          onClick={() => handleClick('right')}
-        />
       </div>
     </div>
   )
