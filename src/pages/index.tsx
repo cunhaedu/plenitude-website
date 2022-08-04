@@ -6,10 +6,11 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { LeaderShipRow } from '../components/LeaderShipRow';
 import { Testimonials } from '../components/Testimonials';
 import { Contribution } from '../components/Contribution';
 import { Contact } from '../components/Contact';
+import { ImageSlider } from '../components/ImageSlider';
+import { leaderShips } from '../data/leadership';
 
 export default function Home() {
   return (
@@ -53,20 +54,28 @@ export default function Home() {
           </h3>
         </section>
 
-        {/* Leadership */}
-        <section className='bg-blue-100/30 flex flex-col align-middle justify-center py-10' >
-          <LibraryIcon className='h-12 w-full text-blue-600' />
-          <h3 className='font-bold text-3xl p-5 text-gray-800 text-center'>
-            Conheça nossa <span className='text-blue-600'>liderança</span>
-          </h3>
+        <section className='bg-blue-100/30 md:flex flex-col align-middle justify-center'>
+          <div className="max-w-2xl mx-auto py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+            <LibraryIcon className='h-12 w-full text-blue-600' />
+            <h3 className='font-bold text-3xl p-5 text-gray-800 text-center'>
+              Conheça nossa <span className='text-blue-600'>liderança</span>
+            </h3>
 
-          <LeaderShipRow />
+            <ImageSlider
+              data={leaderShips.map(leader => ({
+                identifier: leader.slug,
+                title: leader.name,
+                imageURL:leader.image,
+                shortDescription: leader.description,
+              }))}
+            />
 
-          <Link href='/ministries'>
-            <a className='underline self-center font-semibold text-blue-600 text-center hover:text-blue-900'>
+            <Link href='/ministries'>
+            <a className='underline w-full block font-semibold text-blue-600 text-center hover:text-blue-900'>
               Ver tudo
             </a>
           </Link>
+          </div>
         </section>
 
         {/* Localization */}

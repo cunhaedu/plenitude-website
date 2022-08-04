@@ -31,3 +31,7 @@ html:root::-webkit-scrollbar-thumb {
 html:root::-webkit-scrollbar-track {
   background: #000;
 }
+
+.swiper {
+  padding-bottom: 40px !important;
+}
