@@ -63,37 +63,41 @@ export function Testimonials() {
 
       {data?.testimonials.length ? (
         <div className='flex justify-center align-middle gap-10 pt-10'>
-          <div className='hidden h-64 lg:flex flex-col align-middle justify-center gap-7'>
+          {data.testimonials.length > 1 && (
+            <div className='hidden h-64 lg:flex flex-col align-middle justify-center gap-7'>
+              <button
+                className='disabled:opacity-75 cursor-pointer'
+                onClick={() => handleSelectedTestimonial('minus')}
+                disabled={selectedTestimonialIndex <= 0}
+              >
+                <BsArrowUpCircleFill
+                  className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
+                />
+              </button>
+
+              <button
+                className='disabled:opacity-75 cursor-pointer'
+                onClick={() => handleSelectedTestimonial('add')}
+                disabled={selectedTestimonialIndex >= data.testimonials.length - 1}
+              >
+                <BsArrowDownCircleFill
+                  className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
+                />
+              </button>
+            </div>
+          )}
+
+          {data.testimonials.length > 1 && (
             <button
-              className='disabled:opacity-75 cursor-pointer'
+              className='lg:hidden disabled:opacity-75 cursor-pointer h-7 mt-32'
               onClick={() => handleSelectedTestimonial('minus')}
               disabled={selectedTestimonialIndex <= 0}
             >
-              <BsArrowUpCircleFill
+              <BsArrowLeftCircleFill
                 className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
               />
             </button>
-
-            <button
-              className='disabled:opacity-75 cursor-pointer'
-              onClick={() => handleSelectedTestimonial('add')}
-              disabled={selectedTestimonialIndex >= data.testimonials.length - 1}
-            >
-              <BsArrowDownCircleFill
-                className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
-              />
-            </button>
-          </div>
-
-          <button
-            className='lg:hidden disabled:opacity-75 cursor-pointer h-7 mt-32'
-            onClick={() => handleSelectedTestimonial('minus')}
-            disabled={selectedTestimonialIndex <= 0}
-          >
-            <BsArrowLeftCircleFill
-              className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
-            />
-          </button>
+          )}
 
           <div className='flex flex-col gap-3 justify-evenly p-5 w-[calc(100vw-10rem)] lg:w-96 h-64 bg-white rounded-lg'>
             <p className='text-sm max-h-48 line-clamp-6'>
@@ -101,7 +105,7 @@ export function Testimonials() {
             </p>
 
             <div className='flex flex-col align-middle justify-center gap-5 md:flex-row md:justify-between'>
-              <span className='font-medium text-center'>
+              <span className='font-medium'>
                 {data.testimonials[selectedTestimonialIndex].name}
               </span>
 
@@ -121,15 +125,17 @@ export function Testimonials() {
 
           </div>
 
-          <button
-            className='lg:hidden disabled:opacity-75 cursor-pointer h-7 mt-32'
-            onClick={() => handleSelectedTestimonial('add')}
-            disabled={selectedTestimonialIndex >= data.testimonials.length - 1}
-          >
-            <BsArrowRightCircleFill
-              className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
-            />
-          </button>
+          {data.testimonials.length > 1 && (
+            <button
+              className='lg:hidden disabled:opacity-75 cursor-pointer h-7 mt-32'
+              onClick={() => handleSelectedTestimonial('add')}
+              disabled={selectedTestimonialIndex >= data.testimonials.length - 1}
+            >
+              <BsArrowRightCircleFill
+                className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
+              />
+            </button>
+          )}
         </div>
       ) : (
         <div className='hidden lg:flex justify-center align-middle'>

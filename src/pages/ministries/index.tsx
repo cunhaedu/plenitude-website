@@ -28,8 +28,6 @@ const GET_MINISTRIES_QUERY = gql`
 `
 
 export default function Ministries({ministries}: GetMinistriesResponse) {
-  console.log(ministries);
-
   return (
     <div>
       <Head>

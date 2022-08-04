@@ -55,7 +55,7 @@ export default function Home() {
         </section>
 
         <section className='bg-blue-100/30 md:flex flex-col align-middle justify-center'>
-          <div className="max-w-2xl mx-auto py-8 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="max-w-2xl mx-auto py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <LibraryIcon className='h-12 w-full text-blue-600' />
             <h3 className='font-bold text-3xl p-5 text-gray-800 text-center'>
               Conheça nossa <span className='text-blue-600'>liderança</span>

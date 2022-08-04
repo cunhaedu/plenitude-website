@@ -119,7 +119,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     variables: { slug }
   });
 
-  if (!data) {
+  if (!data || !data.ministry) {
     return {
       redirect: {
         permanent: false,
