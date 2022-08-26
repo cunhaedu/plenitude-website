@@ -52,6 +52,7 @@ export default function Churches() {
               <Link
                 href={`/churches/${church.identifier}`}
                 key={church.identifier}
+                passHref
               >
                 <a className="bg-white h-56 rounded-md hover:shadow-md shadow-gray-300 duration-300">
                   <div className="w-full h-28 aspect-none relative">

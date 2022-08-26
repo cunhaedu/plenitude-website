@@ -16,7 +16,7 @@ export default function InProgress() {
         mas não se preocupe, logo logo ela será disponibilizada por aqui
       </h2>
 
-      <Link href="/">
+      <Link href="/" passHref>
         <a className='no-underline py-5 bg-indigo-500 transition duration-200 ease-in-out text-white hover:bg-indigo-700 text-center w-32 self-center rounded-md'>
           Voltar ao início
         </a>

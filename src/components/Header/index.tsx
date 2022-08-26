@@ -1,8 +1,8 @@
-import { Fragment } from 'react';
-import Link from 'next/link';
-import { Popover, Transition } from '@headlessui/react';
 import { MenuAlt4Icon, XIcon } from '@heroicons/react/outline';
+import { Popover, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface IHeaderProps {
   currentPage?: 'home' | 'about' | 'churches' | 'events' | 'ministries';
@@ -15,7 +15,7 @@ export function Header({ currentPage }: IHeaderProps) {
         <Link href="/">
           <a>
             <span className="sr-only">Comunidade Plenitude</span>
-            <img
+            <Image
               className="rounded-full h-"
               src="/assets/logo/full.webp"
               alt="Comunidade Plenitude"
@@ -32,7 +32,7 @@ export function Header({ currentPage }: IHeaderProps) {
         </Popover.Button>
       </div>
       <Popover.Group as="nav" className="hidden md:flex space-x-10 text-center self-center">
-        <Link href='/' >
+        <Link href='/' passHref>
           <a className="text-base font-medium text-gray-500 hover:text-black self-center">
             <span className={currentPage === 'home' ? 'text-black' : ''}>
               Inicio
@@ -40,7 +40,7 @@ export function Header({ currentPage }: IHeaderProps) {
           </a>
         </Link>
 
-        <Link href='/about'>
+        <Link href='/about' passHref>
           <a className="font-medium text-gray-500 hover:text-black self-center">
             <span className={currentPage === 'about' ? 'text-black' : ''}>
               Sobre
@@ -48,7 +48,7 @@ export function Header({ currentPage }: IHeaderProps) {
           </a>
         </Link>
 
-        <Link href='/ministries'>
+        <Link href='/ministries' passHref>
           <a className="text-base font-medium text-gray-500 hover:text-black self-center">
             <span className={currentPage === 'ministries' ? 'text-black' : ''}>
               Redes
@@ -56,7 +56,7 @@ export function Header({ currentPage }: IHeaderProps) {
           </a>
         </Link>
 
-        <Link href='/churches'>
+        <Link href='/churches' passHref>
           <a className="text-base font-medium text-gray-500 hover:text-black self-center">
             <span className={currentPage === 'churches' ? 'text-black' : ''}>
               Igrejas
@@ -64,7 +64,7 @@ export function Header({ currentPage }: IHeaderProps) {
           </a>
         </Link>
 
-        <Link href="/login">
+        <Link href="/login" passHref>
           <a className="self-center border border-gray-500 py-1 px-2 rounded-lg text-gray-500 hover:text-white hover:bg-gray-500 transition duration-300 ease-in-out">
             Login
           </a>
@@ -104,7 +104,7 @@ export function Header({ currentPage }: IHeaderProps) {
 
             <div className="py-6 px-5 space-y-6">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                <Link href='/' >
+                <Link href='/' passHref>
                   <a className="text-base font-medium text-gray-500">
                     <span className={currentPage === 'home' ? 'text-black' : ''}>
                       Inicio
@@ -112,15 +112,15 @@ export function Header({ currentPage }: IHeaderProps) {
                   </a>
                 </Link>
 
-                <Link href='/about'>
-                  <a href="#" className="text-base font-medium text-gray-500">
+                <Link href='/about' passHref>
+                  <a className="text-base font-medium text-gray-500">
                     <span className={currentPage === 'about' ? 'text-black' : ''}>
                       Sobre
                     </span>
                   </a>
                 </Link>
 
-                <Link href='/churches'>
+                <Link href='/churches' passHref>
                   <a className="text-base font-medium text-gray-500">
                     <span className={currentPage === 'churches' ? 'text-black' : ''}>
                       Igrejas
@@ -128,7 +128,7 @@ export function Header({ currentPage }: IHeaderProps) {
                   </a>
                 </Link>
 
-                <Link href='/ministries'>
+                <Link href='/ministries' passHref>
                   <a className="text-base font-medium text-gray-500">
                     <span className={currentPage === 'ministries' ? 'text-black' : ''}>
                       Redes

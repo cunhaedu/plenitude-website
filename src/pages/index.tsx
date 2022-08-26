@@ -116,7 +116,7 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
               }))}
             />
 
-            <Link href='/ministries'>
+            <Link href='/ministries' passHref>
             <a className='underline w-full block font-semibold text-blue-600 text-center hover:text-blue-900'>
               Ver tudo
             </a>
@@ -134,7 +134,7 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
               Confira nossa igreja mais próxima de você
             </p>
 
-            <Link href='/churches'>
+            <Link href='/churches' passHref>
               <a className='w-32 bg-gray-500 text-white text-center hover:bg-gray-600 py-3 px-5 rounded-md self-center md:self-start'>Conferir</a>
             </Link>
           </div>
