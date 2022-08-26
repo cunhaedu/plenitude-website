@@ -58,7 +58,7 @@ export default function Church({ church }: ChurchProps) {
               className='brightness-50'
             />
             <div className="w-full h-full relative flex align-middle justify-center">
-              <h2 className="text-center self-center text-4xl font-extrabold tracking-tight pb-8 pt-14 text-white">
+              <h2 className="text-center self-center text-4xl font-extrabold tracking-tight text-white">
                 {church.name}
               </h2>
             </div>
@@ -85,11 +85,15 @@ export default function Church({ church }: ChurchProps) {
           <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
             {church.leadership.map(leadership => (
               <div key={leadership.id} className='flex flex-col justify-center align-middle gap-1'>
-                <img
-                  className="h-36 w-36 rounded-full self-center"
-                  src={leadership.image}
-                  alt={leadership.name}
-                />
+                <div className='self-center'>
+                  <Image
+                    className="rounded-full self-center"
+                    src={leadership.image}
+                    alt={leadership.name}
+                    width={144}
+                    height={144}
+                  />
+                </div>
 
                 <p className='text-center font-semibold'>{leadership.name}</p>
                 <span className='text-center text-gray-600'>{leadership.position}</span>

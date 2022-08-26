@@ -1,4 +1,5 @@
 import { LockClosedIcon } from '@heroicons/react/solid'
+import Image from 'next/image'
 import { Header } from '../../components/Header'
 
 export default function Login() {
@@ -9,12 +10,15 @@ export default function Login() {
 
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
-          <div>
-            <img
-              className="mx-auto h-24 w-auto"
-              src="/assets/logo/full.webp"
-              alt="Comunidade Plenitude"
-            />
+          <div className='flex flex-col align-middle justify-center'>
+            <div className='self-center'>
+              <Image
+                src="/assets/logo/full.webp"
+                alt="Comunidade Plenitude"
+                width={176}
+                height={96}
+              />
+            </div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Login no sistema
             </h2>
