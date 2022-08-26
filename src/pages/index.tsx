@@ -57,7 +57,18 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
       <Header currentPage='home' />
 
       <main>
-        <section className="relative flex items-center justify-center h-[calc(100vh-64px)] overflow-hidden">
+        <section className="bg-home bg-center bg-cover bg-no-repeat md:bg-fixed">
+          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
+            <h1 className='font-bold text-5xl p-5 tracking-wide text-white text-center'>
+              Comunidade Plenitude
+            </h1>
+            <h2 className='font-semibold text-xl text-white text-center'>
+              Lugar de novos começos
+            </h2>
+          </div>
+        </section>
+
+        {/* <section className="relative flex items-center justify-center h-[calc(100vh-64px)] overflow-hidden">
           <div className="relative z-20 bg-[rgba(0,0,0,0.6)] w-screen h-[calc(100vh-64px)] flex flex-col justify-center items-center">
             <h1 className='font-bold text-5xl p-5 tracking-wide text-white text-center'>
               Comunidade Plenitude
@@ -79,7 +90,7 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
             />
             Your browser does not support the video tag.
           </video>
-        </section>
+        </section> */}
 
         <section className='h-96 flex flex-col align-middle justify-center px-5 md:px-2' >
           <h3 className='text-center font-bold text-gray-500 text-xl lg:px-80 lg:text-2xl'>
