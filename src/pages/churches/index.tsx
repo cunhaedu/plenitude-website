@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import Image from 'next/image';
+import Head from 'next/head';
 import Link from 'next/link';
 
 import { Footer } from '../../components/Footer';
@@ -11,6 +11,22 @@ export default function Churches() {
     <div>
       <Head>
         <title>Igrejas | Comunidade Plenitude</title>
+
+        <meta
+          name="description"
+          content="Venha conhecer todas as nossas filiais e seja mais que bem vindo ao visitar a Plenitude mais próxima de você."
+          key="desc"
+        />
+
+        <meta property="og:title" content="Igrejas | Comunidade Plenitude" />
+        <meta
+          property="og:description"
+          content="Venha conhecer todas as nossas filiais e seja mais que bem vindo ao visitar a Plenitude mais próxima de você."
+        />
+        <meta
+          property="og:image"
+          content="/assets/pages/places/background.webp"
+        />
       </Head>
 
       <Header currentPage='churches' />

@@ -16,7 +16,7 @@ export function Header({ currentPage }: IHeaderProps) {
             <span className="sr-only">Comunidade Plenitude</span>
             <img
               className="h-14 w-auto md:h-14 rounded-full"
-              src="/assets/logo/full.jpg"
+              src="/assets/logo/full.webp"
               alt="Comunidade Plenitude"
             />
           </a>
@@ -84,7 +84,7 @@ export function Header({ currentPage }: IHeaderProps) {
                 <div>
                   <img
                     className="h-14 w-auto md:h-10 rounded-full"
-                    src="/assets/logo/full.jpg"
+                    src="/assets/logo/full.webp"
                     alt="Comunidade Plenitude"
                   />
                 </div>

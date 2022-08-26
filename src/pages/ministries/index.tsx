@@ -1,6 +1,7 @@
+import { GetStaticProps } from 'next';
 import { gql } from '@apollo/client';
-import Head from 'next/head';
 import Image from 'next/image';
+import Head from 'next/head';
 import Link from 'next/link';
 
 import { Footer } from '../../components/Footer';
@@ -12,7 +13,7 @@ type GetMinistriesResponse = {
     name: string;
     description: string;
     slug: string;
-    coverID: string;
+    cover: string;
   }>
 }
 
@@ -22,7 +23,7 @@ const GET_MINISTRIES_QUERY = gql`
       name
       description
       slug
-      coverID
+      cover
     }
   }
 `
@@ -32,6 +33,22 @@ export default function Ministries({ministries}: GetMinistriesResponse) {
     <div>
       <Head>
         <title>Redes | Comunidade Plenitude</title>
+
+        <meta
+          name="description"
+          content="Fique por dentro de todas as redes dentro da Comunidade Plenitude"
+          key="desc"
+        />
+
+        <meta property="og:title" content="Redes | Comunidade plenitude" />
+        <meta
+          property="og:description"
+          content="Fique por dentro de todas as redes dentro da Comunidade Plenitude"
+        />
+        <meta
+          property="og:image"
+          content="/assets/pages/ministries/background.webp"
+        />
       </Head>
 
       <Header currentPage='ministries' />
@@ -58,7 +75,7 @@ export default function Ministries({ministries}: GetMinistriesResponse) {
                 <a className="bg-white h-56 rounded-md hover:shadow-md shadow-gray-300 duration-300">
                   <div className="w-full h-36 aspect-none relative">
                     <Image
-                      src={`https://drive.google.com/uc?export=view&id=${ministry.coverID}`}
+                      src={ministry.cover}
                       alt={ministry.name}
                       layout='fill'
                       objectFit='cover'
@@ -83,14 +100,15 @@ export default function Ministries({ministries}: GetMinistriesResponse) {
   )
 }
 
-export async function getServerSideProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query<GetMinistriesResponse>({
     query: GET_MINISTRIES_QUERY,
   });
 
   return {
     props: {
-      ministries: data.ministries,
+      ministries: data?.ministries || [],
     },
+    revalidate: 60 * 60 * 12 // 12 hours
  };
 }

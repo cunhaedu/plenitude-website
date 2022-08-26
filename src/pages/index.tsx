@@ -1,22 +1,57 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import Image from 'next/image';
 import { LibraryIcon } from '@heroicons/react/solid';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import { GetStaticProps } from 'next';
+import { gql } from '@apollo/client';
+import Image from 'next/image';
+import Head from 'next/head';
+import Link from 'next/link';
 
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
 import { Testimonials } from '../components/Testimonials';
 import { Contribution } from '../components/Contribution';
-import { Contact } from '../components/Contact';
 import { ImageSlider } from '../components/ImageSlider';
 import { leaderShips } from '../data/leadership';
+import { Contact } from '../components/Contact';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+import { client } from '../lib/apollo';
 
-export default function Home() {
+type GetTestimonialsResponse = {
+  testimonials: {
+    name: string;
+    description: string;
+  }[]
+}
+
+const GET_TESTIMONIALS_QUERY = gql`
+  query Testimonials {
+    testimonials {
+      name
+      description
+    }
+  }
+`
+
+export default function Home({ testimonials }: GetTestimonialsResponse) {
   return (
     <div>
       <Head>
         <title>Início | Comunidade Plenitude</title>
+
+        <meta
+          name="description"
+          content="Bem Vindo a Comunidade Plenitude"
+          key="desc"
+        />
+
+        <meta property="og:title" content="Inicio | Comunidade plenitude" />
+        <meta
+          property="og:description"
+          content="Bem Vindo a Comunidade Plenitude"
+        />
+        <meta
+          property="og:image"
+          content="/assets/logo/full.webp"
+        />
       </Head>
 
       <Header currentPage='home' />
@@ -103,7 +138,7 @@ export default function Home() {
           </div>
         </section>
 
-        <Testimonials />
+        <Testimonials testimonials={testimonials} />
 
         <Contribution />
 
@@ -115,4 +150,24 @@ export default function Home() {
 
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await client.query<GetTestimonialsResponse>({
+    query: GET_TESTIMONIALS_QUERY,
+  });
+
+  if (!data || !data.testimonials) {
+    return {
+      props: { ministries: [] },
+      revalidate: 60 * 60 * 1 // 1 Hour,
+    }
+  }
+
+  return {
+    props: {
+      testimonials: data.testimonials,
+    },
+    revalidate: 60 * 60 * 12 // 12 hours
+ };
 }

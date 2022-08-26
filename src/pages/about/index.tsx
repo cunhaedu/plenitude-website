@@ -8,6 +8,22 @@ export default function About() {
     <div>
       <Head>
         <title>Sobre | Comunidade Plenitude</title>
+
+        <meta
+          name="description"
+          content="Saiba um pouco mais sobre a nossa história, quem somos e o que viemos fazer."
+          key="desc"
+        />
+
+        <meta property="og:title" content="Sobre | Comunidade Plenitude" />
+        <meta
+          property="og:description"
+          content="Saiba um pouco mais sobre a nossa história, quem somos e o que viemos fazer."
+        />
+        <meta
+          property="og:image"
+          content="/assets/pages/about/background.webp"
+        />
       </Head>
 
       <Header currentPage='about' />

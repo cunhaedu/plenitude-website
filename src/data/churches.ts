@@ -6,9 +6,9 @@ export const churches: IChurch[] = [
     name: 'Plenitude Sede - Salto',
     localization: 'Av dos Três Poderes, 305',
     complement: 'Central Parque',
-    image: '/assets/pages/places/salto.jpg',
+    image: '/assets/pages/places/salto.webp',
     imageDescription: "Plenitude Sede Salto",
-    collageImage: '/assets/pages/places/collages/salto.png',
+    collageImage: '/assets/pages/places/collages/salto.webp',
     description: 'A Plenitude Sede é a igreja principal em relação as outras plenitudes, e tem como propósito conduzir pessoas a um relacionamento intenso com Deus.',
     worshipServices: [
       { weekDay: 0, times: ['09h00', '19h00'] },
@@ -19,13 +19,13 @@ export const churches: IChurch[] = [
         id: 1,
         name: 'Apóstolo Diego Melo',
         position: 'Liderança Sênior',
-        image: '/assets/leadership/main/apostolo_diego/03.jpg'
+        image: '/assets/leadership/main/apostolo_diego/03.webp'
       },
       {
         id: 2,
         name: 'Bispa. Patricia Melo',
         position: 'Liderança Sênior',
-        image: '/assets/leadership/main/bispa_patricia/02.jpg'
+        image: '/assets/leadership/main/bispa_patricia/02.webp'
       }
     ],
   },
@@ -34,9 +34,9 @@ export const churches: IChurch[] = [
     name: 'Plenitude Indaiatuba',
     localization: 'Av. Estrada do Sapezal, 764',
     complement: 'Carlos Aldrovandi',
-    image: '/assets/pages/places/indaiatuba.jpg',
+    image: '/assets/pages/places/indaiatuba.webp',
     imageDescription: "Plenitude Indaiatuba",
-    collageImage: '/assets/pages/places/collages/salto.png',
+    collageImage: '/assets/pages/places/collages/salto.webp',
     description: 'Somos uma Igreja situada em Indaiatuba com o propósito de aproximar as pessoas de Deus',
     worshipServices: [
       { weekDay: 0, times: ['19h00'] },
@@ -48,13 +48,13 @@ export const churches: IChurch[] = [
         id: 1,
         name: 'Apóstolo Diego e Bispa Patricia Melo',
         position: 'Liderança Sênior',
-        image: '/assets/leadership/churches/main.png'
+        image: '/assets/leadership/churches/main.webp'
       },
       {
         id: 2,
         name: 'Pr. Emerson e Pra. Kátia',
         position: 'Liderança Sênior Local',
-        image: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
       }
     ],
   },
@@ -63,9 +63,9 @@ export const churches: IChurch[] = [
     name: 'Plenitude Itupeva',
     localization: 'Rua Geraldo Ferraz, 310',
     complement: 'Nova Monte Serrat',
-    image: '/assets/pages/places/itupeva.jpg',
+    image: '/assets/pages/places/itupeva.webp',
     imageDescription: "Plenitude Itupeva",
-    collageImage: '/assets/pages/places/collages/salto.png',
+    collageImage: '/assets/pages/places/collages/salto.webp',
     description: 'Somos uma Igreja situada em Itupeva com o propósito de aproximar as pessoas de Deus',
     worshipServices: [
       { weekDay: 0, times: ['19h00'] },
@@ -77,13 +77,13 @@ export const churches: IChurch[] = [
         id: 1,
         name: 'Apóstolo Diego e Bispa Patricia Melo',
         position: 'Liderança Sênior',
-        image: '/assets/leadership/churches/main.png'
+        image: '/assets/leadership/churches/main.webp'
       },
       {
         id: 2,
         name: 'Pr. Emerson e Pra. Kátia',
         position: 'Liderança Sênior Local',
-        image: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
       }
     ],
   },
@@ -92,9 +92,9 @@ export const churches: IChurch[] = [
     name: 'Plenitude Jundiaí',
     localization: 'Rua Roberto Gaspari, 06',
     complement: 'Fazenda Grande',
-    image: '/assets/pages/places/jundiai.jpg',
+    image: '/assets/pages/places/jundiai.webp',
     imageDescription: "Plenitude Jundiaí",
-    collageImage: '/assets/pages/places/collages/salto.png',
+    collageImage: '/assets/pages/places/collages/salto.webp',
     description: 'Somos uma Igreja situada em Jundiaí com o propósito de aproximar as pessoas de Deus',
     worshipServices: [
       { weekDay: 0, times: ['19h00'] },
@@ -106,13 +106,13 @@ export const churches: IChurch[] = [
         id: 1,
         name: 'Apóstolo Diego e Bispa Patricia Melo',
         position: 'Liderança Sênior',
-        image: '/assets/leadership/churches/main.png'
+        image: '/assets/leadership/churches/main.webp'
       },
       {
         id: 2,
         name: 'Pr. Emerson e Pra. Kátia',
         position: 'Liderança Sênior Local',
-        image: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
       }
     ],
   },
@@ -121,9 +121,9 @@ export const churches: IChurch[] = [
     name: 'Plenitude Tanabi',
     localization: 'Av. Ulisses Guimarães, 54',
     complement: 'Nova Tanabi',
-    image: '/assets/pages/places/tanabi.jpg',
+    image: '/assets/pages/places/tanabi.webp',
     imageDescription: "Plenitude Tanabi",
-    collageImage: '/assets/pages/places/collages/salto.png',
+    collageImage: '/assets/pages/places/collages/salto.webp',
     description: 'Somos uma Igreja situada em Tanabi com o propósito de aproximar as pessoas de Deus',
     worshipServices: [
       { weekDay: 0, times: ['19h00'] },
@@ -135,13 +135,13 @@ export const churches: IChurch[] = [
         id: 1,
         name: 'Apóstolo Diego e Bispa Patricia Melo',
         position: 'Liderança Sênior',
-        image: '/assets/leadership/churches/main.png'
+        image: '/assets/leadership/churches/main.webp'
       },
       {
         id: 2,
         name: 'Pr. Emerson e Pra. Kátia',
         position: 'Liderança Sênior Local',
-        image: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
       }
     ],
   },

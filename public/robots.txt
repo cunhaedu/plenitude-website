@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ceplenitude.com.br
+
+# Sitemaps
+Sitemap: https://ceplenitude.com.br/sitemap.xml

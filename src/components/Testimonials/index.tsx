@@ -1,7 +1,7 @@
+import { EyeIcon } from '@heroicons/react/outline';
+import { FaQuoteLeft } from 'react-icons/fa';
 import { useState } from 'react';
 import Image from 'next/image';
-import { FaQuoteLeft } from 'react-icons/fa';
-import { EyeIcon } from '@heroicons/react/outline';
 import {
   BsArrowDownCircleFill,
   BsArrowLeftCircleFill,
@@ -10,27 +10,15 @@ import {
 } from 'react-icons/bs';
 
 import { Dialog } from '../Dialog';
-import { gql, useQuery } from '@apollo/client';
 
-type GetTestimonialsResponse = {
-  testimonials: {
+type TestimonialsProps = {
+  testimonials: Array<{
     name: string;
     description: string;
-  }[]
+  }>
 }
 
-const GET_TESTIMONIALS_QUERY = gql`
-  query Testimonials {
-    testimonials {
-      name
-      description
-    }
-  }
-`
-
-export function Testimonials() {
-  const { data } = useQuery<GetTestimonialsResponse>(GET_TESTIMONIALS_QUERY)
-
+export function Testimonials({ testimonials }: TestimonialsProps) {
   const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0);
   let [isOpen, setIsOpen] = useState(false);
 
@@ -61,9 +49,9 @@ export function Testimonials() {
         </p>
       </div>
 
-      {data?.testimonials.length ? (
+      {testimonials.length ? (
         <div className='flex justify-center align-middle gap-10 pt-10'>
-          {data.testimonials.length > 1 && (
+          {testimonials.length > 1 && (
             <div className='hidden h-64 lg:flex flex-col align-middle justify-center gap-7'>
               <button
                 className='disabled:opacity-75 cursor-pointer'
@@ -78,7 +66,7 @@ export function Testimonials() {
               <button
                 className='disabled:opacity-75 cursor-pointer'
                 onClick={() => handleSelectedTestimonial('add')}
-                disabled={selectedTestimonialIndex >= data.testimonials.length - 1}
+                disabled={selectedTestimonialIndex >= testimonials.length - 1}
               >
                 <BsArrowDownCircleFill
                   className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'
@@ -87,7 +75,7 @@ export function Testimonials() {
             </div>
           )}
 
-          {data.testimonials.length > 1 && (
+          {testimonials.length > 1 && (
             <button
               className='lg:hidden disabled:opacity-75 cursor-pointer h-7 mt-32'
               onClick={() => handleSelectedTestimonial('minus')}
@@ -101,12 +89,12 @@ export function Testimonials() {
 
           <div className='flex flex-col gap-3 justify-evenly p-5 w-[calc(100vw-10rem)] lg:w-96 h-64 bg-white rounded-lg'>
             <p className='text-sm max-h-48 line-clamp-6'>
-              {data.testimonials[selectedTestimonialIndex].description}
+              {testimonials[selectedTestimonialIndex].description}
             </p>
 
             <div className='flex flex-col align-middle justify-center gap-5 md:flex-row md:justify-between'>
               <span className='font-medium'>
-                {data.testimonials[selectedTestimonialIndex].name}
+                {testimonials[selectedTestimonialIndex].name}
               </span>
 
               <button
@@ -116,8 +104,8 @@ export function Testimonials() {
                 <EyeIcon className='text-white cursor-pointer w-6 h-6 self-center'/>
               </button>
               <Dialog
-                title={data.testimonials[selectedTestimonialIndex].name}
-                text={data.testimonials[selectedTestimonialIndex].description}
+                title={testimonials[selectedTestimonialIndex].name}
+                text={testimonials[selectedTestimonialIndex].description}
                 isOpen={isOpen}
                 closeModal={closeModal}
               />
@@ -125,11 +113,11 @@ export function Testimonials() {
 
           </div>
 
-          {data.testimonials.length > 1 && (
+          {testimonials.length > 1 && (
             <button
               className='lg:hidden disabled:opacity-75 cursor-pointer h-7 mt-32'
               onClick={() => handleSelectedTestimonial('add')}
-              disabled={selectedTestimonialIndex >= data.testimonials.length - 1}
+              disabled={selectedTestimonialIndex >= testimonials.length - 1}
             >
               <BsArrowRightCircleFill
                 className='w-7 h-7 fill-indigo-700 hover:fill-indigo-800'

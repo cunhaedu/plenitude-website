@@ -1,13 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import Image from 'next/image';
 import Head from 'next/head';
-import { ParsedUrlQuery } from 'querystring';
 
+import { getWeekDayNameFromNumber } from '../../helpers/weekDay';
+import { IChurch } from '../../interfaces/IChurch';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
-import { IChurch } from '../../interfaces/IChurch';
 import { churches } from '../../data/churches';
-import { getWeekDayNameFromNumber } from '../../helpers/weekDay';
 
 type ChurchProps = {
   church: IChurch;
@@ -27,6 +27,22 @@ export default function Church({ church }: ChurchProps) {
     <div>
       <Head>
         <title>{church.name} | Comunidade Plenitude</title>
+
+        <meta
+          name="description"
+          content={`Conheça um pouco mais da comunidade Plenitude em ${church.localization}`}
+          key="desc"
+        />
+
+        <meta property="og:title" content={`${church.name} | Comunidade plenitude`} />
+        <meta
+          property="og:description"
+          content={`Conheça um pouco mais da comunidade Plenitude em ${church.localization}`}
+        />
+        <meta
+          property="og:image"
+          content={church.collageImage}
+        />
       </Head>
 
       <Header currentPage='churches' />
@@ -107,6 +123,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       church,
     },
-    // revalidate: 60 * 60 * 24, // 24 hours
+    revalidate: 60 * 60 * 24, // 24 hours
   };
 };

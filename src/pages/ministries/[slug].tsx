@@ -1,12 +1,11 @@
-import { GetServerSideProps } from 'next';
-import Image from 'next/image';
-import Head from 'next/head';
-import { gql } from '@apollo/client';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import { gql } from '@apollo/client';
+import Head from 'next/head';
 
+import { VideoPlayer } from '../../components/VideoPlayer';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
-import { VideoPlayer } from '../../components/VideoPlayer';
 import { client } from '../../lib/apollo';
 
 type Params = ParsedUrlQuery & {
@@ -18,8 +17,8 @@ type GetMinistryResponse = {
     name: string;
     description: string;
     slug: string;
-    coverID: string;
-    videoID: string;
+    cover: string;
+    video: string;
     book: string;
     phrase: string;
     chapter: string;
@@ -34,12 +33,20 @@ const GET_MINISTRY_QUERY = gql`
       name
       description
       slug
-      coverID
-      videoID
+      cover
+      video
       book
       phrase
       chapter
       verseNumber
+    }
+  }
+`
+
+const GET_MINISTRIES_QUERY = gql`
+  query Ministries {
+    ministries {
+      slug
     }
   }
 `
@@ -49,32 +56,42 @@ export default function Church({ ministry }: GetMinistryResponse) {
     <div>
       <Head>
         <title>{ministry.name} | Comunidade Plenitude</title>
+
+        <meta
+          name="description"
+          content={`Conheça um pouco mais sobre a ${ministry.name}, o que fazemos e qual o nosso propósito`}
+          key="desc"
+        />
+
+        <meta property="og:title" content={`${ministry.name} | Comunidade plenitude`} />
+        <meta
+          property="og:description"
+          content={`Conheça um pouco mais sobre a ${ministry.name}, o que fazemos e qual o nosso propósito`}
+        />
+        <meta
+          property="og:image"
+          content={ministry.cover}
+        />
       </Head>
 
       <Header currentPage='ministries' />
 
       <main>
-        <section>
-          <div className="w-full h-[calc(100vh-64px)] relative px-10">
-            <Image
-              src={`https://drive.google.com/uc?export=view&id=${ministry.coverID}`}
-              alt={ministry.name}
-              layout='fill'
-              objectFit='cover'
-              className='brightness-50'
-            />
-            <div className="w-full h-full relative flex align-middle justify-center">
-              <h2 className="text-center self-center text-4xl font-extrabold tracking-tight pb-8 pt-14 text-white">
-                {ministry.name}
-              </h2>
-            </div>
+        <section
+          style={{backgroundImage: `url('${ministry.cover}')`}}
+          className="bg-about bg-center bg-cover bg-no-repeat md:bg-fixed"
+        >
+          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
+            <h1 className='font-bold text-5xl p-5 tracking-wide'>
+              {ministry.name}
+            </h1>
           </div>
         </section>
 
         <section className='bg-gray-50 px-5 py-24 flex flex-col gap-9 align-middle justify-center'>
           <h3 className='text-center md:w-9/12 self-center pb-3 text-gray-700 font-medium text-lg md:text-2xl'>{ministry.description}</h3>
 
-          <VideoPlayer src={`https://drive.google.com/file/d/${ministry.videoID}/preview`}/>
+          <VideoPlayer src={ministry.video}/>
         </section>
 
         <section className='bg-violet-400/90 px-5 py-24 flex flex-col gap-5 align-middle justify-center'>
@@ -111,7 +128,20 @@ export default function Church({ ministry }: GetMinistryResponse) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await client.query<{ ministries: Array<{ slug: string }> }>({
+    query: GET_MINISTRIES_QUERY,
+  });
+
+  return {
+    paths: data?.ministries && data.ministries.length
+      ? data.ministries.map(ministry => ({ params: { slug: ministry.slug } }))
+      : [],
+    fallback: 'blocking'
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const { slug } = ctx.params as Params;
 
   const { data } = await client.query<GetMinistryResponse>({
@@ -131,6 +161,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       ministry: data.ministry,
-    }
+    },
+    revalidate: 60 * 60 * 12 // 12 hours
   };
 };
