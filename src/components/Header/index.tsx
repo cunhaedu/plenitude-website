@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuAlt4Icon, XIcon } from '@heroicons/react/outline';
+import Image from 'next/image';
 
 interface IHeaderProps {
   currentPage?: 'home' | 'about' | 'churches' | 'events' | 'ministries';
@@ -15,9 +16,11 @@ export function Header({ currentPage }: IHeaderProps) {
           <a>
             <span className="sr-only">Comunidade Plenitude</span>
             <img
-              className="h-14 w-auto md:h-14 rounded-full"
+              className="rounded-full h-"
               src="/assets/logo/full.webp"
               alt="Comunidade Plenitude"
+              height={64}
+              width={112}
             />
           </a>
         </Link>
@@ -82,10 +85,12 @@ export function Header({ currentPage }: IHeaderProps) {
             <div className="pt-5 pb-6 px-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <img
-                    className="h-14 w-auto md:h-10 rounded-full"
+                  <Image
+                    className="rounded-full"
                     src="/assets/logo/full.webp"
                     alt="Comunidade Plenitude"
+                    height={56}
+                    width={96}
                   />
                 </div>
                 <div className="-mr-2">
@@ -133,7 +138,7 @@ export function Header({ currentPage }: IHeaderProps) {
               </div>
 
               <div>
-                <Link href="/login">
+                <Link href="/login" passHref>
                   <a className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
                     Login
                   </a>

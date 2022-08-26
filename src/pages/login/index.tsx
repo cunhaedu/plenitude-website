@@ -12,7 +12,7 @@ export default function Login() {
           <div>
             <img
               className="mx-auto h-24 w-auto"
-              src="/assets/logo/full.jpg"
+              src="/assets/logo/full.webp"
               alt="Comunidade Plenitude"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

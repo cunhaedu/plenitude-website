@@ -24,8 +24,8 @@ export const leaderShips = [
     image: "/assets/leadership/worship/evangelista_juliana/01.webp"
   },
   {
-    slug: 'leandro-santos',
-    name: 'Leandro Santos',
+    slug: 'pastora-kassia',
+    name: 'Pastora Kassia',
     description: 'Liderança Dorcas',
     image: "/assets/leadership/dorcas/pastora_kassia/01.webp"
   },

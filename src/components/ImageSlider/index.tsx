@@ -12,7 +12,7 @@ type ImageSliderProps = {
 
 export function ImageSlider({ data }: ImageSliderProps) {
   return (
-    <div className='max-w-full 2xl::max-w-screen-2xl 2xl:self-center overflow-x-hidden my-10'>
+    <div className='max-w-full 2xl:max-w-screen-2xl 2xl:self-center overflow-x-hidden my-10'>
       <div className='md:hidden'>
         <Swiper
           modules={[Pagination, EffectCards]}

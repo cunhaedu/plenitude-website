@@ -58,8 +58,8 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
 
       <main>
         <section className="bg-home bg-center bg-cover bg-no-repeat md:bg-fixed">
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
-            <h1 className='font-bold text-5xl p-5 tracking-wide text-white text-center'>
+          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white gap-5' >
+            <h1 className='font-bold text-5xl tracking-wide text-white text-center'>
               Comunidade Plenitude
             </h1>
             <h2 className='font-semibold text-xl text-white text-center'>
@@ -101,7 +101,7 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
         </section>
 
         <section className='bg-blue-100/30 md:flex flex-col align-middle justify-center'>
-          <div className="max-w-2xl mx-auto py-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="max-w-full mx-auto py-16 px-4 sm:px-6  lg:px-8">
             <LibraryIcon className='h-12 w-full text-blue-600' />
             <h3 className='font-bold text-3xl p-5 text-gray-800 text-center'>
               Conheça nossa <span className='text-blue-600'>liderança</span>
