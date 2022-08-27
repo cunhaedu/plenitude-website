@@ -19,7 +19,7 @@ export const churches: IChurch[] = [
         id: 1,
         name: 'Apóstolo Diego Melo',
         position: 'Liderança Sênior',
-        image: '/assets/leadership/main/apostolo_diego/03.webp'
+        image: '/assets/leadership/main/apostolo_diego/01.webp'
       },
       {
         id: 2,
@@ -54,7 +54,7 @@ export const churches: IChurch[] = [
         id: 2,
         name: 'Pr. Emerson e Pra. Kátia',
         position: 'Liderança Sênior Local',
-        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
+        image: '/assets/leadership/unknown.webp'
       }
     ],
   },
@@ -83,7 +83,7 @@ export const churches: IChurch[] = [
         id: 2,
         name: 'Pr. Emerson e Pra. Kátia',
         position: 'Liderança Sênior Local',
-        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
+        image: '/assets/leadership/unknown.webp'
       }
     ],
   },
@@ -112,7 +112,7 @@ export const churches: IChurch[] = [
         id: 2,
         name: 'Pr. Emerson e Pra. Kátia',
         position: 'Liderança Sênior Local',
-        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
+        image: '/assets/leadership/unknown.webp'
       }
     ],
   },
@@ -141,7 +141,7 @@ export const churches: IChurch[] = [
         id: 2,
         name: 'Pr. Emerson e Pra. Kátia',
         position: 'Liderança Sênior Local',
-        image: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'
+        image: '/assets/leadership/unknown.webp'
       }
     ],
   },

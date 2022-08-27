@@ -73,7 +73,7 @@ export default function Ministries({ministries}: GetMinistriesResponse) {
                 key={ministry.slug}
                 passHref
               >
-                <a className="bg-white h-56 rounded-md hover:shadow-md shadow-gray-300 duration-300">
+                <a className="bg-white h-48 rounded-md hover:shadow-md shadow-gray-300 duration-300">
                   <div className="w-full h-36 aspect-none relative">
                     <Image
                       src={ministry.cover}

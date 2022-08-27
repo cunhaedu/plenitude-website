@@ -9,7 +9,7 @@ export const leaderShips = [
     slug: 'patricia-melo',
     name: 'Bispa. Patricia Melo',
     description: 'Liderança Sênior',
-    image: "/assets/leadership/main/bispa_patricia/01.webp"
+    image: "/assets/leadership/main/bispa_patricia/02.webp"
   },
   {
     slug: 'emerson',

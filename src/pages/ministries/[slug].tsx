@@ -23,6 +23,7 @@ type GetMinistryResponse = {
     phrase: string;
     chapter: string;
     verseNumber: string;
+    mainColor: string;
   }
 }
 
@@ -39,6 +40,7 @@ const GET_MINISTRY_QUERY = gql`
       phrase
       chapter
       verseNumber
+      mainColor
     }
   }
 `
@@ -94,7 +96,9 @@ export default function Church({ ministry }: GetMinistryResponse) {
           <VideoPlayer src={ministry.video}/>
         </section>
 
-        <section className='bg-violet-400/90 px-5 py-24 flex flex-col gap-5 align-middle justify-center'>
+        <section
+          style={{ background: ministry.mainColor }}
+          className='px-5 py-24 flex flex-col gap-5 align-middle justify-center'>
           <h2 className='text-center text-white font-medium text-xl md:text-2xl max-w-lg self-center'>{ministry.phrase}</h2>
           <p className='text-center text-lg text-gray-100'>{ministry.book} {ministry.chapter}:{ministry.verseNumber}</p>
         </section>

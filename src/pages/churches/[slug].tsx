@@ -17,11 +17,6 @@ type Params = ParsedUrlQuery & {
   slug: string;
 }
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: [],
-  fallback: 'blocking',
-});
-
 export default function Church({ church }: ChurchProps) {
   return (
     <div>
@@ -87,7 +82,7 @@ export default function Church({ church }: ChurchProps) {
               <div key={leadership.id} className='flex flex-col justify-center align-middle gap-1'>
                 <div className='self-center'>
                   <Image
-                    className="rounded-full self-center"
+                    className="rounded-full self-center object-cover object-center"
                     src={leadership.image}
                     alt={leadership.name}
                     width={144}
@@ -107,6 +102,13 @@ export default function Church({ church }: ChurchProps) {
       <Footer />
     </div>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: churches.map(ministry => ({ params: { slug: ministry.identifier } })),
+    fallback: 'blocking'
+  }
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
