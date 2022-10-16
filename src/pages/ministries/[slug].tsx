@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import Image from 'next/future/image';
 import { gql } from '@apollo/client';
 import Head from 'next/head';
 
@@ -30,7 +31,6 @@ type GetMinistryResponse = {
 const GET_MINISTRY_QUERY = gql`
   query Ministry ($slug: String)  {
     ministry(where: {slug: $slug}) {
-      id
       name
       description
       slug
@@ -57,7 +57,7 @@ export default function Church({ ministry }: GetMinistryResponse) {
   return (
     <div>
       <Head>
-        <title>{ministry.name} | Comunidade Plenitude</title>
+        <title>{`${ministry.name} | Comunidade Plenitude`}</title>
 
         <meta
           name="description"
@@ -79,14 +79,19 @@ export default function Church({ ministry }: GetMinistryResponse) {
       <Header currentPage='ministries' />
 
       <main>
-        <section
-          style={{backgroundImage: `url('${ministry.cover}')`}}
-          className="bg-about bg-center bg-cover bg-no-repeat"
-        >
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
-            <h1 className='font-bold text-5xl p-5 tracking-wide'>
-              {ministry.name}
-            </h1>
+        <section>
+          <div className="w-full h-[calc(100vh-64px)] relative px-10">
+            <Image
+              src={ministry.cover}
+              alt={ministry.name}
+              fill
+              className='brightness-50 object-cover'
+            />
+            <div className="w-full h-full relative flex align-middle justify-center">
+              <h2 className="text-center self-center text-4xl font-extrabold tracking-tight text-white">
+                {ministry.name}
+              </h2>
+            </div>
           </div>
         </section>
 

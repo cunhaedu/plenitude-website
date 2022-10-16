@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { client } from '../../lib/apollo';
+import Image from 'next/future/image';
 
 type Params = ParsedUrlQuery & {
   slug: string;
@@ -46,7 +47,7 @@ export default function Leadership({ leadership }: GetLeaderShipResponse) {
   return (
     <div>
       <Head>
-        <title>{leadership.name} | Comunidade Plenitude</title>
+        <title>{`${leadership.name} | Comunidade Plenitude`}</title>
 
         <meta
           name="description"
@@ -68,40 +69,43 @@ export default function Leadership({ leadership }: GetLeaderShipResponse) {
       <Header />
 
       <main>
-        <div
-          style={{backgroundImage: `url('${leadership.cover}')`}}
-          className='bg-center bg-cover bg-no-repeat min-w-full h-[30vh] md:h-[40vh] lg:h-[70vh]'
-        ></div>
+        <div className='min-w-full relative'>
+          <Image
+            src={leadership.cover}
+            alt={leadership.name}
+            width={1148}
+            height={450}
+            className='object-cover w-full'
+          />
+        </div>
 
-        <section className='flex align-middle justify-center py-10 px-10'>
-          <div className='flex flex-col self-center md:w-screen-md lg:w-9/12 max-w-4xl gap-8'>
-            <section>
-              <h1 className='text-2xl md:text-4xl text-gray-700'>
-                {leadership.name}
-              </h1>
+        <section className="max-w-2xl mx-auto py-8 px-6 md:py-16 lg:max-w-7xl lg:px-8">
+          <section>
+            <h1 className='text-2xl md:text-4xl text-gray-700'>
+              {leadership.name}
+            </h1>
 
-              <h2 className='text-sm md:text-lg text-gray-500 pt-1'>
-                {leadership.role}
-              </h2>
-            </section>
+            <h2 className='text-sm md:text-lg text-gray-500 pt-1'>
+              {leadership.role}
+            </h2>
+          </section>
 
-            {leadership.instagram && (
-              <section className='flex gap-4 align-middle justify-start'>
-                {leadership.instagram && (
-                  <a
-                    href={leadership.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className='no-underline h-8 w-8'
-                  >
-                    <InstagramIcon className='h-8 w-8 text-gray-500' />
-                  </a>
-                )}
-              </section>
+          {leadership.instagram && (
+              <div className='flex gap-4 align-middle justify-start my-8'>
+              <a
+                href={leadership.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className='no-underline h-8 w-8'
+              >
+                <InstagramIcon className='h-8 w-8 text-gray-500' />
+              </a>
+              </div>
             )}
 
-            <p className='font-medium text-lg text-gray-500'>{leadership.bio}</p>
-          </div>
+          <p className='font-medium text-lg text-gray-500 mt-10 min-h-[20vh] lg:min-h-full'>
+            {leadership.bio}
+          </p>
         </section>
       </main>
 

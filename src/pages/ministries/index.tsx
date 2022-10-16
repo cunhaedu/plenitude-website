@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { gql } from '@apollo/client';
-import Image from 'next/image';
+import Image from 'next/future/image';
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -78,9 +78,8 @@ export default function Ministries({ministries}: GetMinistriesResponse) {
                     <Image
                       src={ministry.cover}
                       alt={ministry.name}
-                      layout='fill'
-                      objectFit='cover'
-                      className='rounded-t-md'
+                      fill
+                      className='rounded-t-md object-cover'
                     />
                   </div>
                   <div className='p-3'>

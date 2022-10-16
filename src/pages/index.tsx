@@ -9,18 +9,28 @@ import Link from 'next/link';
 import { Testimonials } from '../components/Testimonials';
 import { Contribution } from '../components/Contribution';
 import { ImageSlider } from '../components/ImageSlider';
-import { leaderShips } from '../data/leadership';
 import { Contact } from '../components/Contact';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { client } from '../lib/apollo';
 
 type GetTestimonialsResponse = {
-  testimonials: {
+  testimonials: Array<{
     name: string;
     description: string;
-  }[]
+  }>;
 }
+
+type GetLeadershipsResponse = {
+  leaderships: Array<{
+    slug: string;
+    name: string;
+    avatar: string;
+    role: string;
+  }>;
+}
+
+interface HomeProps extends GetTestimonialsResponse, GetLeadershipsResponse {}
 
 const GET_TESTIMONIALS_QUERY = gql`
   query Testimonials {
@@ -31,7 +41,18 @@ const GET_TESTIMONIALS_QUERY = gql`
   }
 `
 
-export default function Home({ testimonials }: GetTestimonialsResponse) {
+const GET_LEADERSHIPS_QUERY = gql`
+  query Leadership  {
+    leaderships (first: 5) {
+      slug
+      name
+      avatar
+      role
+    }
+  }
+`
+
+export default function Home({ testimonials, leaderships }: HomeProps) {
   return (
     <div>
       <Head>
@@ -104,15 +125,15 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
           <div className="max-w-full mx-auto py-16 px-4 sm:px-6  lg:px-8">
             <LibraryIcon className='h-12 w-full text-blue-600' />
             <h3 className='font-bold text-3xl p-5 text-gray-800 text-center'>
-              Conheça nossa <span className='text-blue-600'>liderança</span>
+              Conheça nossas <span className='text-blue-600'>lideranças</span>
             </h3>
 
             <ImageSlider
-              data={leaderShips.map(leader => ({
-                identifier: leader.slug,
+              data={leaderships.map(leader => ({
+                slug: leader.slug,
                 title: leader.name,
-                imageURL:leader.image,
-                shortDescription: leader.description,
+                imageURL:leader.avatar,
+                shortDescription: leader.role,
               }))}
             />
 
@@ -135,7 +156,9 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
             </p>
 
             <Link href='/churches' passHref>
-              <a className='w-32 bg-gray-500 text-white text-center hover:bg-gray-600 py-3 px-5 rounded-md self-center md:self-start'>Conferir</a>
+              <a className='w-32 bg-gray-500 text-white text-center hover:bg-gray-600 py-3 px-5 rounded-md self-center md:self-start'>
+                Conferir
+              </a>
             </Link>
           </div>
 
@@ -164,21 +187,28 @@ export default function Home({ testimonials }: GetTestimonialsResponse) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await client.query<GetTestimonialsResponse>({
+  const { data: testimonialData } = await client.query<GetTestimonialsResponse>({
     query: GET_TESTIMONIALS_QUERY,
   });
 
-  if (!data || !data.testimonials) {
-    return {
-      props: { ministries: [] },
-      revalidate: 60 * 60 * 1 // 1 Hour,
-    }
-  }
+  const { data: leaderShipData } = await client.query<GetLeadershipsResponse>({
+    query: GET_LEADERSHIPS_QUERY,
+    variables: { first: 5 }
+  });
+
+  const leaderships = leaderShipData && leaderShipData.leaderships
+    ? leaderShipData.leaderships
+    : [];
+
+  const testimonials = testimonialData && testimonialData.testimonials
+      ? testimonialData.testimonials
+      : [];
 
   return {
     props: {
-      testimonials: data.testimonials,
+      testimonials,
+      leaderships,
     },
     revalidate: 60 * 60 * 12 // 12 hours
- };
+  };
 }

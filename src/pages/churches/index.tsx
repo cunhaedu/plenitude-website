@@ -1,12 +1,38 @@
-import Image from 'next/image';
+import { GetStaticProps } from 'next';
+import Image from 'next/future/image';
+import { gql } from '@apollo/client';
 import Head from 'next/head';
 import Link from 'next/link';
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
-import { churches } from '../../data/churches';
+import { client } from '../../lib/apollo';
 
-export default function Churches() {
+type GetChurchesResponse = {
+  churches: Array<{
+    slug: string;
+    name: string;
+    street: string;
+    number: string;
+    district: string;
+    cityImageURL: string;
+  }>
+}
+
+const GET_CHURCHES_QUERY = gql`
+  query Churches {
+    churches {
+      slug
+      name
+      street
+      number
+      district
+      cityImageURL
+    }
+  }
+`
+
+export default function Churches({ churches }: GetChurchesResponse) {
   return (
     <div>
       <Head>
@@ -50,18 +76,17 @@ export default function Churches() {
           <div className="mt-24 md:mt-16 md grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {churches.map(church => (
               <Link
-                href={`/churches/${church.identifier}`}
-                key={church.identifier}
+                href={`/churches/${church.slug}`}
+                key={church.slug}
                 passHref
               >
                 <a className="bg-white h-56 rounded-md hover:shadow-md shadow-gray-300 duration-300">
                   <div className="w-full h-28 aspect-none relative">
                     <Image
-                      src={church.image}
-                      alt={church.imageDescription}
-                      layout='fill'
-                      objectFit='cover'
-                      className='rounded-t-md'
+                      src={church.cityImageURL}
+                      alt={church.name}
+                      fill
+                      className='rounded-t-md object-cover w-full h-full'
                     />
                   </div>
                   <div className='p-3'>
@@ -69,8 +94,10 @@ export default function Churches() {
                         <span aria-hidden="true" className="inset-0" />
                         {church.name}
                     </h3>
-                    <p className="mt-1 text-sm text-gray-500">{church.localization}</p>
-                    <p className="text-sm text-gray-500">{church.complement}</p>
+                    <p className="mt-1 text-sm text-gray-500">
+                      {church.street}, {church.number}
+                    </p>
+                    <p className="text-sm text-gray-500">{church.district}</p>
                   </div>
                 </a>
               </Link>
@@ -82,4 +109,17 @@ export default function Churches() {
       <Footer />
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await client.query<GetChurchesResponse>({
+    query: GET_CHURCHES_QUERY,
+  });
+
+  return {
+    props: {
+      churches: data?.churches || [],
+    },
+    revalidate: 60 * 60 * 12 // 12 hours
+ };
 }

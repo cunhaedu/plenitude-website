@@ -1,15 +1,15 @@
 import { LogoutIcon } from '@heroicons/react/outline';
 import { Tab, TabList } from '@tremor/react';
-import { parseCookies } from 'nookies';
 import { useContext, useState } from 'react';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
 import Head from 'next/head';
 
 import { LeadershipManagement } from '../../components/Dashboard/Management/LeadershipManagement';
+import { AuthContext } from '../../contexts/AuthContext';
 import { Banner } from '../../components/Banner';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
-import { GetServerSideProps } from 'next';
-import { AuthContext } from '../../contexts/AuthContext';
 
 type TabViews = 'leadership' | 'churches' | 'ministries' | 'testimonies';
 
