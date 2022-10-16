@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import * as jwt from 'jsonwebtoken';
-import { compare } from 'bcrypt';
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,10 +10,7 @@ export default async function handler(
 
     const isEmailValid = email === String(process.env.AUTHENTICATION_EMAIL);
 
-    const isPasswordValid = await compare(
-      password,
-      String(process.env.AUTHENTICATION_HASHED_PASSWORD)
-    );
+    const isPasswordValid = password === String(process.env.AUTHENTICATION_PASSWORD);
 
     if (isPasswordValid && isEmailValid) {
       const jwtSecret = String(process.env.JWT_SECRET)

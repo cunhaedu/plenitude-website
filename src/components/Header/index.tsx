@@ -1,14 +1,18 @@
 import { MenuAlt4Icon, XIcon } from '@heroicons/react/outline';
 import { Popover, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { AuthContext } from '../../contexts/AuthContext';
 
 interface IHeaderProps {
   currentPage?: 'home' | 'about' | 'churches' | 'events' | 'ministries' | 'adm';
 }
 
 export function Header({ currentPage }: IHeaderProps) {
+  const { verifyIfIsAuthenticated } = useContext(AuthContext);
+  let isAuthenticated = verifyIfIsAuthenticated();
+
   return (
     <Popover className="sticky top-0 z-50 w-full h-16 bg-white border-b border-gray-400/30 flex justify-between items-center py-2 px-5 md:px-24 lg:px-36">
       <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -64,9 +68,9 @@ export function Header({ currentPage }: IHeaderProps) {
           </a>
         </Link>
 
-        <Link href="/login" passHref>
+        <Link href={isAuthenticated ? '/dashboard' : '/login'} passHref>
           <a className={`self-center border ${currentPage === 'adm' ? 'bg-gray-500 text-white' : 'bg-none text-gray-500'} border-gray-500 py-1 px-2 rounded-lg hover:text-white hover:bg-gray-500 transition duration-300 ease-in-out`}>
-            Login
+            Admin
           </a>
         </Link>
       </Popover.Group>
@@ -138,9 +142,9 @@ export function Header({ currentPage }: IHeaderProps) {
               </div>
 
               <div>
-                <Link href="/login" passHref>
+                <Link href={isAuthenticated ? '/dashboard' : '/login'} passHref>
                   <a className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                    Login
+                    Admin
                   </a>
                 </Link>
               </div>

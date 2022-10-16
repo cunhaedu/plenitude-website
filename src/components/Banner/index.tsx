@@ -1,7 +1,14 @@
 import { XIcon, InformationCircleIcon } from '@heroicons/react/outline'
 import { useState } from 'react'
 
-export function NotImplementedBanner() {
+type BannerProps = {
+  text: {
+    sm: string;
+    lg: string;
+  }
+}
+
+export function Banner({ text }: BannerProps) {
   const [isClosed, setIsClosed] = useState(false);
 
   return (
@@ -13,9 +20,9 @@ export function NotImplementedBanner() {
               <InformationCircleIcon className="h-6 w-6 text-white" aria-hidden="true" />
             </span>
             <p className="ml-3 truncate font-medium text-white">
-              <span className="md:hidden">Esta area está em desenvolvimento</span>
+              <span className="md:hidden">{text.sm}</span>
               <span className="hidden md:inline">
-                Esta area ainda está sendo desenvolvida, por isso ainda não é possível realizar cadastros
+                {text.lg}
               </span>
             </p>
           </div>
@@ -25,7 +32,7 @@ export function NotImplementedBanner() {
               onClick={() => setIsClosed(true)}
               className="-mr-1 flex rounded-md p-2 hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2"
             >
-              <span className="sr-only">Dismiss</span>
+              <span className="sr-only">Fechar</span>
               <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
             </button>
           </div>

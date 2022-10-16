@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import Head from 'next/head';
 
 import { LeadershipManagement } from '../../components/Dashboard/Management/LeadershipManagement';
-import { NotImplementedBanner } from '../../components/Banners/NotImplementedBanner';
+import { Banner } from '../../components/Banner';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { GetServerSideProps } from 'next';
@@ -25,7 +25,12 @@ export default function Admin() {
 
       <Header currentPage='adm' />
 
-      <NotImplementedBanner />
+      <Banner
+        text={{
+          sm: 'Esta área está em desenvolvimento',
+          lg: 'Esta area ainda está sendo desenvolvida, por isso ainda não é possível realizar cadastros',
+        }}
+      />
 
       <main className="max-w-2xl mx-auto px-4 py-8 sm:px-6 lg:max-w-7xl lg:px-8">
         <section className='flex items-center justify-between pb-10'>

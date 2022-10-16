@@ -1,4 +1,4 @@
-import { setCookie, destroyCookie } from 'nookies';
+import { setCookie, destroyCookie, parseCookies } from 'nookies';
 import { createContext } from 'react';
 import Router from 'next/router';
 import axios from 'axios';
@@ -9,7 +9,7 @@ type SignInData = {
 }
 
 type AuthContextType = {
-  isAuthenticated: boolean;
+  verifyIfIsAuthenticated: () => boolean;
   signIn: (data: SignInData) => Promise<void>;
   logout(): Promise<void>;
 }
@@ -21,7 +21,11 @@ type AuthProviderProps = {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  let isAuthenticated = false;
+  function verifyIfIsAuthenticated(): boolean {
+    const { ['@plenitude-token']: token } = parseCookies();
+
+    return !!token;
+  }
 
   async function signIn({ email, password }: SignInData): Promise<void> {
     const { data } = await axios.post<{ token: string }>('/api/signIn', {
@@ -33,20 +37,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
       maxAge: 60 * 60 * 1, // 1 Hour
     });
 
-    isAuthenticated = true;
-
     Router.push('/dashboard');
   }
 
   async function logout(): Promise<void> {
     destroyCookie(undefined, '@plenitude-token');
-    isAuthenticated = false;
     Router.push('/');
   }
 
   return (
     <AuthContext.Provider value={{
-      isAuthenticated,
+      verifyIfIsAuthenticated,
       signIn,
       logout,
     }}>
