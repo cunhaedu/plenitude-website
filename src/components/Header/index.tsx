@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface IHeaderProps {
-  currentPage?: 'home' | 'about' | 'churches' | 'events' | 'ministries';
+  currentPage?: 'home' | 'about' | 'churches' | 'events' | 'ministries' | 'adm';
 }
 
 export function Header({ currentPage }: IHeaderProps) {
@@ -65,7 +65,7 @@ export function Header({ currentPage }: IHeaderProps) {
         </Link>
 
         <Link href="/login" passHref>
-          <a className="self-center border border-gray-500 py-1 px-2 rounded-lg text-gray-500 hover:text-white hover:bg-gray-500 transition duration-300 ease-in-out">
+          <a className={`self-center border ${currentPage === 'adm' ? 'bg-gray-500 text-white' : 'bg-none text-gray-500'} border-gray-500 py-1 px-2 rounded-lg hover:text-white hover:bg-gray-500 transition duration-300 ease-in-out`}>
             Login
           </a>
         </Link>

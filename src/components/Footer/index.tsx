@@ -3,12 +3,12 @@ import { FaFacebook, FaYoutube, FaTiktok } from 'react-icons/fa';
 
 export function Footer() {
   return (
-    <footer className='p-2 lg:flex items-center justify-between lg:p-8'>
-      <section className='flex justify-center align-middle items-center pt-10 lg:pt-0'>
+    <footer className='p-2'>
+      <section className='flex justify-center align-middle items-center pt-10'>
         <span className='block font-semibold text-center text-gray-500'>© {new Date().getFullYear()} Comunidade Plenitude. Todos os direitos reservados.</span>
       </section>
 
-      <section className='flex flex-nowrap justify-center align-middle gap-8 mt-4 lg:mt-0'>
+      <section className='flex flex-nowrap justify-center align-middle gap-8 my-4'>
         <div className='flex justify-center align-middle'>
           <a
             href="https://www.instagram.com/ce.plenitude/"
