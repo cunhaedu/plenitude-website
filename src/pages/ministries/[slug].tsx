@@ -25,6 +25,11 @@ type GetMinistryResponse = {
     chapter: string;
     verseNumber: string;
     mainColor: string;
+    leaderships: Array<{
+      slug: string;
+      name: string;
+      avatar: string;
+    }>
   }
 }
 
@@ -41,6 +46,11 @@ const GET_MINISTRY_QUERY = gql`
       chapter
       verseNumber
       mainColor
+      leaderships {
+        slug
+        name
+        avatar
+      }
     }
   }
 `
@@ -109,26 +119,34 @@ export default function Church({ ministry }: GetMinistryResponse) {
         </section>
 
         {/* Church leadership */}
-        {/* <section className='p-10'>
-          <h3 className='text-2xl font-bold text-center text-gray-900'>
-            Liderança
-          </h3>
 
-          <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
-            {ministry.leadership.map(leadership => (
-              <div key={leadership.id} className='flex flex-col justify-center align-middle gap-1'>
-                <img
-                  className="h-36 w-36 rounded-full self-center"
-                  src={leadership.image}
-                  alt={leadership.name}
-                />
+        {!!ministry.leaderships.length && (
+          <section className='p-10' style={{ background: `${ministry.mainColor}10` }}>
+            <h3
+              className='text-2xl font-bold text-center'
+              style={{ color: ministry.mainColor }}
+            >
+              Liderança
+            </h3>
 
-                <p className='text-center font-semibold'>{leadership.name}</p>
-                <span className='text-center text-gray-600'>{leadership.position}</span>
-              </div>
-            ))}
-          </div>
-        </section> */}
+            <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
+              {ministry.leaderships.map(leadership => (
+                <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
+                  <Image
+                    src={leadership.avatar}
+                    alt={leadership.name}
+                    width={144}
+                    height={144}
+                    className="w-36 h-36 rounded-full self-center object-cover"
+                  />
+
+                  <p className='text-center font-semibold text-gray-800'>{leadership.name}</p>
+                  {/* <span className='text-center text-gray-600'>{leadership.position}</span> */}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
       </main>
 
