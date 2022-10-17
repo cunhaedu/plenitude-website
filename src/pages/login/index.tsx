@@ -7,8 +7,6 @@ import Image from 'next/image';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Header } from '../../components/Header';
 
-import 'react-toastify/dist/ReactToastify.css';
-
 export default function Login() {
   const { register, handleSubmit } = useForm();
   const { signIn } = useContext(AuthContext);
