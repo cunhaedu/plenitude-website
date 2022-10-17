@@ -1,3 +1,6 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
   content: [
@@ -6,6 +9,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        instagram: '#BC2A8D',
+        youtube: '#BB0000',
+        facebook: '#3B5998',
+        tiktok: '#010101',
+      },
       backgroundImage: {
         'home': "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/assets/pages/home/background.webp')",
         'place': "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/assets/pages/places/background.webp')",

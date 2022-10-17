@@ -7,26 +7,26 @@ export const leaderShips = [
   },
   {
     slug: 'patricia-melo',
-    name: 'Bispa. Patricia Melo',
+    name: 'Bp. Patricia Melo',
     description: 'Liderança Sênior',
     image: "/assets/leadership/main/bispa_patricia/02.webp"
   },
   {
-    slug: 'emerson',
-    name: 'Pr. Emerson',
+    slug: 'emerson-cabrera',
+    name: 'Pr. Emerson Cabrera',
     description: 'Liderança Local',
     image: "/assets/leadership/main/pastor_emerson/02.webp"
   },
   {
-    slug: 'juliana',
-    name: 'Ev. Juliana',
+    slug: 'juliana-carvalho',
+    name: 'Ev. Juliana Carvalho',
     description: 'Liderança de Adoração',
     image: "/assets/leadership/worship/evangelista_juliana/01.webp"
   },
   {
-    slug: 'pastora-kassia',
-    name: 'Pastora Kassia',
+    slug: 'cassia-nakazawa',
+    name: 'Pra. Cassia Nakazawa',
     description: 'Liderança Dorcas',
-    image: "/assets/leadership/dorcas/pastora_kassia/01.webp"
+    image: "/assets/leadership/dorcas/pastora_cassia/01.webp"
   },
 ]

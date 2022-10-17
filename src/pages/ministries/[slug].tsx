@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import Image from 'next/future/image';
 import { gql } from '@apollo/client';
 import Head from 'next/head';
 
@@ -24,13 +25,17 @@ type GetMinistryResponse = {
     chapter: string;
     verseNumber: string;
     mainColor: string;
+    leaderships: Array<{
+      slug: string;
+      name: string;
+      avatar: string;
+    }>
   }
 }
 
 const GET_MINISTRY_QUERY = gql`
   query Ministry ($slug: String)  {
     ministry(where: {slug: $slug}) {
-      id
       name
       description
       slug
@@ -41,6 +46,11 @@ const GET_MINISTRY_QUERY = gql`
       chapter
       verseNumber
       mainColor
+      leaderships {
+        slug
+        name
+        avatar
+      }
     }
   }
 `
@@ -57,7 +67,7 @@ export default function Church({ ministry }: GetMinistryResponse) {
   return (
     <div>
       <Head>
-        <title>{ministry.name} | Comunidade Plenitude</title>
+        <title>{`${ministry.name} | Comunidade Plenitude`}</title>
 
         <meta
           name="description"
@@ -79,14 +89,19 @@ export default function Church({ ministry }: GetMinistryResponse) {
       <Header currentPage='ministries' />
 
       <main>
-        <section
-          style={{backgroundImage: `url('${ministry.cover}')`}}
-          className="bg-about bg-center bg-cover bg-no-repeat"
-        >
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
-            <h1 className='font-bold text-5xl p-5 tracking-wide'>
-              {ministry.name}
-            </h1>
+        <section>
+          <div className="w-full h-[calc(100vh-64px)] relative px-10">
+            <Image
+              src={ministry.cover}
+              alt={ministry.name}
+              fill
+              className='brightness-50 object-cover'
+            />
+            <div className="w-full h-full relative flex align-middle justify-center">
+              <h2 className="text-center self-center text-4xl font-extrabold tracking-tight text-white">
+                {ministry.name}
+              </h2>
+            </div>
           </div>
         </section>
 
@@ -104,26 +119,34 @@ export default function Church({ ministry }: GetMinistryResponse) {
         </section>
 
         {/* Church leadership */}
-        {/* <section className='p-10'>
-          <h3 className='text-2xl font-bold text-center text-gray-900'>
-            Liderança
-          </h3>
 
-          <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
-            {ministry.leadership.map(leadership => (
-              <div key={leadership.id} className='flex flex-col justify-center align-middle gap-1'>
-                <img
-                  className="h-36 w-36 rounded-full self-center"
-                  src={leadership.image}
-                  alt={leadership.name}
-                />
+        {!!ministry.leaderships.length && (
+          <section className='p-10' style={{ background: `${ministry.mainColor}10` }}>
+            <h3
+              className='text-2xl font-bold text-center'
+              style={{ color: ministry.mainColor }}
+            >
+              Liderança
+            </h3>
 
-                <p className='text-center font-semibold'>{leadership.name}</p>
-                <span className='text-center text-gray-600'>{leadership.position}</span>
-              </div>
-            ))}
-          </div>
-        </section> */}
+            <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
+              {ministry.leaderships.map(leadership => (
+                <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
+                  <Image
+                    src={leadership.avatar}
+                    alt={leadership.name}
+                    width={144}
+                    height={144}
+                    className="w-36 h-36 rounded-full self-center object-cover"
+                  />
+
+                  <p className='text-center font-semibold text-gray-800'>{leadership.name}</p>
+                  {/* <span className='text-center text-gray-600'>{leadership.position}</span> */}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
       </main>
 
