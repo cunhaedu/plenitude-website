@@ -19,36 +19,56 @@ import {
 import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
 import { client } from '../../../../lib/apollo';
 
-type LeadershipData = {
-  name: string;
-  bio: string;
-  avatar: string;
-  role: string;
+type MinistryData = {
   slug: string;
+  name: string;
+  description: string;
+  cover: string;
+  video: string;
+  book: string;
+  phrase: string;
+  chapter: string;
+  verseNumber: string;
+  mainColor: string;
+  leaderships: Array<{
+    slug: string;
+    name: string;
+    avatar: string;
+  }>;
 }
 
-type GetLeadershipsResponse = {
-  leaderships: LeadershipData[];
+type GetMinistriesResponse = {
+  ministries: MinistryData[];
 }
 
-const GET_LEADERSHIPS_QUERY = gql`
-  query Leaderships {
-    leaderships {
+const GET_MINISTRIES_QUERY = gql`
+  query Ministries {
+    ministries {
       name
-      bio
-      avatar
-      role
-      instagram
+      description
+      slug
+      cover
+      video
+      book
+      phrase
+      chapter
+      verseNumber
+      mainColor
+      leaderships {
+        slug
+        name
+        avatar
+      }
     }
   }
 `
 
-export function LeadershipManagement() {
-  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-  let leaderships: LeadershipData[] = [];
+export function MinistryManagement() {
+  const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  let ministries: MinistryData[] = [];
 
-  const { data, error } = useSWR(GET_LEADERSHIPS_QUERY, (query) =>
-    client.query<GetLeadershipsResponse>({
+  const { data, error } = useSWR(GET_MINISTRIES_QUERY, (query) =>
+    client.query<GetMinistriesResponse>({
       query,
     })
   );
@@ -59,12 +79,12 @@ export function LeadershipManagement() {
     )
   }
 
-  if(data && data.data.leaderships) {
-    leaderships = data.data.leaderships
+  if(data && data.data.ministries) {
+    ministries = data.data.ministries
   }
 
-  function isLeaderSelected(leader: LeadershipData) {
-    return selectedRoles.includes(leader.role) || selectedRoles.length === 0
+  function isLeaderSelected(ministry: MinistryData) {
+    return selectedNames.includes(ministry.name) || selectedNames.length === 0
   }
 
   return (
@@ -75,17 +95,17 @@ export function LeadershipManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={(value) => setSelectedRoles(value)}
-          placeholder="Filtrar por cargos"
+          handleSelect={(value) => setSelectedNames(value)}
+          placeholder="Filtrar pelo nome da rede"
           maxWidth="max-w-xs"
         >
           {
-            removeDuplicateKeyInObjectArrayHelper(leaderships, 'role')
+            removeDuplicateKeyInObjectArrayHelper(ministries, 'name')
               .map((leader) => (
                 <MultiSelectBoxItem
                   key={ leader.slug }
-                  value={ leader.role }
-                  text={ leader.role }
+                  value={ leader.name }
+                  text={ leader.name }
                 />
               ))
           }
@@ -95,15 +115,15 @@ export function LeadershipManagement() {
         <TableHead>
           <TableRow>
             <TableHeaderCell>Ações</TableHeaderCell>
-            <TableHeaderCell>Avatar</TableHeaderCell>
+            <TableHeaderCell textAlignment='text-center'>Imagem</TableHeaderCell>
             <TableHeaderCell>Nome</TableHeaderCell>
-            <TableHeaderCell>Cargo</TableHeaderCell>
+            <TableHeaderCell>Liderança</TableHeaderCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {leaderships.filter((leader) => isLeaderSelected(leader)).map((leader) => (
-            <TableRow key={leader.slug}>
+          {ministries.filter((ministry) => isLeaderSelected(ministry)).map((ministry) => (
+            <TableRow key={ministry.slug}>
               <TableCell>
                 <div className='flex items-center gap-8'>
                   <FaPen className='hover:text-emerald-500 cursor-pointer' />
@@ -111,20 +131,33 @@ export function LeadershipManagement() {
                 </div>
               </TableCell>
               <TableCell>
+                <div className='w-full flex justify-center'>
                   <div className='w-16 h-16 relative'>
                     <Image
-                      src={leader.avatar}
-                      alt='unknown'
+                      src={ministry.cover}
+                      alt={ministry.name}
                       fill
                       className='rounded-full object-cover'
                     />
                   </div>
+                </div>
               </TableCell>
               <TableCell>
-                {leader.name}
+                {ministry.name}
               </TableCell>
               <TableCell>
-                {leader.role}
+              <div className="flex -space-x-4 overflow-hidden">
+                {ministry.leaderships.map(leader => (
+                  <Image
+                    className="inline-block h-16 w-16 rounded-full ring-2 ring-white object-cover"
+                    src={leader.avatar}
+                    alt={leader.name}
+                    width={144}
+                    height={144}
+                    key={leader.slug}
+                  />
+                ))}
+              </div>
               </TableCell>
             </TableRow>
           ))}

@@ -1,6 +1,5 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
-import Image from 'next/future/image';
 import { gql } from '@apollo/client';
 import { useState } from 'react';
 import useSWR from 'swr';
@@ -19,36 +18,32 @@ import {
 import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
 import { client } from '../../../../lib/apollo';
 
-type LeadershipData = {
+type TestimonialData = {
+  id: string;
   name: string;
-  bio: string;
-  avatar: string;
-  role: string;
-  slug: string;
+  description: string;
 }
 
-type GetLeadershipsResponse = {
-  leaderships: LeadershipData[];
+type GetTestimonialsResponse = {
+  testimonials: TestimonialData[];
 }
 
-const GET_LEADERSHIPS_QUERY = gql`
-  query Leaderships {
-    leaderships {
+const GET_TESTIMONIALS_QUERY = gql`
+  query Testimonials {
+    testimonials {
+      id
       name
-      bio
-      avatar
-      role
-      instagram
+      description
     }
   }
 `
 
-export function LeadershipManagement() {
-  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-  let leaderships: LeadershipData[] = [];
+export function TestimonialManagement() {
+  const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  let testimonials: TestimonialData[] = [];
 
-  const { data, error } = useSWR(GET_LEADERSHIPS_QUERY, (query) =>
-    client.query<GetLeadershipsResponse>({
+  const { data, error } = useSWR(GET_TESTIMONIALS_QUERY, (query) =>
+    client.query<GetTestimonialsResponse>({
       query,
     })
   );
@@ -59,12 +54,12 @@ export function LeadershipManagement() {
     )
   }
 
-  if(data && data.data.leaderships) {
-    leaderships = data.data.leaderships
+  if(data && data.data.testimonials) {
+    testimonials = data.data.testimonials
   }
 
-  function isLeaderSelected(leader: LeadershipData) {
-    return selectedRoles.includes(leader.role) || selectedRoles.length === 0
+  function isLeaderSelected(testimonial: TestimonialData) {
+    return selectedNames.includes(testimonial.name) || selectedNames.length === 0
   }
 
   return (
@@ -75,17 +70,17 @@ export function LeadershipManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={(value) => setSelectedRoles(value)}
-          placeholder="Filtrar por cargos"
+          handleSelect={(value) => setSelectedNames(value)}
+          placeholder="Filtrar pelo nome da rede"
           maxWidth="max-w-xs"
         >
           {
-            removeDuplicateKeyInObjectArrayHelper(leaderships, 'role')
-              .map((leader) => (
+            removeDuplicateKeyInObjectArrayHelper(testimonials, 'name')
+              .map((testimonial) => (
                 <MultiSelectBoxItem
-                  key={ leader.slug }
-                  value={ leader.role }
-                  text={ leader.role }
+                  key={ testimonial.id }
+                  value={ testimonial.name }
+                  text={ testimonial.name }
                 />
               ))
           }
@@ -95,15 +90,14 @@ export function LeadershipManagement() {
         <TableHead>
           <TableRow>
             <TableHeaderCell>Ações</TableHeaderCell>
-            <TableHeaderCell>Avatar</TableHeaderCell>
             <TableHeaderCell>Nome</TableHeaderCell>
-            <TableHeaderCell>Cargo</TableHeaderCell>
+            <TableHeaderCell>Mensagem</TableHeaderCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {leaderships.filter((leader) => isLeaderSelected(leader)).map((leader) => (
-            <TableRow key={leader.slug}>
+          {testimonials.filter((testimonial) => isLeaderSelected(testimonial)).map((testimonial) => (
+            <TableRow key={testimonial.id}>
               <TableCell>
                 <div className='flex items-center gap-8'>
                   <FaPen className='hover:text-emerald-500 cursor-pointer' />
@@ -111,20 +105,10 @@ export function LeadershipManagement() {
                 </div>
               </TableCell>
               <TableCell>
-                  <div className='w-16 h-16 relative'>
-                    <Image
-                      src={leader.avatar}
-                      alt='unknown'
-                      fill
-                      className='rounded-full object-cover'
-                    />
-                  </div>
+                {testimonial.name}
               </TableCell>
               <TableCell>
-                {leader.name}
-              </TableCell>
-              <TableCell>
-                {leader.role}
+                <p className='truncate max-w-[400px]'>{testimonial.description}</p>
               </TableCell>
             </TableRow>
           ))}

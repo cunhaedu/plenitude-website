@@ -29,7 +29,7 @@ type GetMinistryResponse = {
       slug: string;
       name: string;
       avatar: string;
-    }>
+    }>;
   }
 }
 

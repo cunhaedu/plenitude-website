@@ -19,36 +19,48 @@ import {
 import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
 import { client } from '../../../../lib/apollo';
 
-type LeadershipData = {
-  name: string;
-  bio: string;
-  avatar: string;
-  role: string;
+type ChurchData = {
   slug: string;
+  name: string;
+  city: string;
+  state: string;
+  street: string;
+  number: string;
+  district: string;
+  serviceTimes: string;
+  cover: string;
+  cityImageURL: string;
+  description: string;
 }
 
-type GetLeadershipsResponse = {
-  leaderships: LeadershipData[];
+type GetChurchesResponse = {
+  churches: ChurchData[];
 }
 
-const GET_LEADERSHIPS_QUERY = gql`
-  query Leaderships {
-    leaderships {
+const GET_CHURCHES_QUERY = gql`
+  query Churches {
+    churches {
+      slug
       name
-      bio
-      avatar
-      role
-      instagram
+      city
+      state
+      street
+      number
+      district
+      serviceTimes
+      cover
+      cityImageURL
+      description
     }
   }
 `
 
-export function LeadershipManagement() {
-  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-  let leaderships: LeadershipData[] = [];
+export function ChurchManagement() {
+  const [selectedCities, setSelectedCities] = useState<string[]>([]);
+  let churches: ChurchData[] = [];
 
-  const { data, error } = useSWR(GET_LEADERSHIPS_QUERY, (query) =>
-    client.query<GetLeadershipsResponse>({
+  const { data, error } = useSWR(GET_CHURCHES_QUERY, (query) =>
+    client.query<GetChurchesResponse>({
       query,
     })
   );
@@ -59,12 +71,12 @@ export function LeadershipManagement() {
     )
   }
 
-  if(data && data.data.leaderships) {
-    leaderships = data.data.leaderships
+  if(data && data.data.churches) {
+    churches = data.data.churches
   }
 
-  function isLeaderSelected(leader: LeadershipData) {
-    return selectedRoles.includes(leader.role) || selectedRoles.length === 0
+  function isLeaderSelected(leader: ChurchData) {
+    return selectedCities.includes(leader.city) || selectedCities.length === 0
   }
 
   return (
@@ -75,17 +87,17 @@ export function LeadershipManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={(value) => setSelectedRoles(value)}
-          placeholder="Filtrar por cargos"
+          handleSelect={(value) => setSelectedCities(value)}
+          placeholder="Filtrar por cidades"
           maxWidth="max-w-xs"
         >
           {
-            removeDuplicateKeyInObjectArrayHelper(leaderships, 'role')
+            removeDuplicateKeyInObjectArrayHelper(churches, 'city')
               .map((leader) => (
                 <MultiSelectBoxItem
                   key={ leader.slug }
-                  value={ leader.role }
-                  text={ leader.role }
+                  value={ leader.city }
+                  text={ leader.city }
                 />
               ))
           }
@@ -95,15 +107,18 @@ export function LeadershipManagement() {
         <TableHead>
           <TableRow>
             <TableHeaderCell>Ações</TableHeaderCell>
-            <TableHeaderCell>Avatar</TableHeaderCell>
-            <TableHeaderCell>Nome</TableHeaderCell>
-            <TableHeaderCell>Cargo</TableHeaderCell>
+            <TableHeaderCell>Imagem da Cidade</TableHeaderCell>
+            <TableHeaderCell>Nome da Igreja</TableHeaderCell>
+            <TableHeaderCell>Cidade</TableHeaderCell>
+            <TableHeaderCell>Estado</TableHeaderCell>
+            <TableHeaderCell>Endereço</TableHeaderCell>
+            <TableHeaderCell>Bairro</TableHeaderCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {leaderships.filter((leader) => isLeaderSelected(leader)).map((leader) => (
-            <TableRow key={leader.slug}>
+          {churches.filter((church) => isLeaderSelected(church)).map((church) => (
+            <TableRow key={church.slug}>
               <TableCell>
                 <div className='flex items-center gap-8'>
                   <FaPen className='hover:text-emerald-500 cursor-pointer' />
@@ -111,20 +126,31 @@ export function LeadershipManagement() {
                 </div>
               </TableCell>
               <TableCell>
+                <div className='w-full flex justify-center'>
                   <div className='w-16 h-16 relative'>
                     <Image
-                      src={leader.avatar}
-                      alt='unknown'
+                      src={church.cityImageURL}
+                      alt={church.name}
                       fill
                       className='rounded-full object-cover'
                     />
                   </div>
+                </div>
               </TableCell>
               <TableCell>
-                {leader.name}
+                {church.name}
               </TableCell>
               <TableCell>
-                {leader.role}
+                {church.city}
+              </TableCell>
+              <TableCell>
+                {church.state}
+              </TableCell>
+              <TableCell>
+                {`${church.street}, ${church.number}`}
+              </TableCell>
+              <TableCell>
+                {church.district}
               </TableCell>
             </TableRow>
           ))}

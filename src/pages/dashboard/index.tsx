@@ -6,10 +6,13 @@ import { parseCookies } from 'nookies';
 import Head from 'next/head';
 
 import { LeadershipManagement } from '../../components/Dashboard/Management/LeadershipManagement';
+import { ChurchManagement } from '../../components/Dashboard/Management/ChurchManagement';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Banner } from '../../components/Banner';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
+import { MinistryManagement } from '../../components/Dashboard/Management/MinistryManagement';
+import { TestimonialManagement } from '../../components/Dashboard/Management/TestimonialManagement';
 
 type TabViews = 'leadership' | 'churches' | 'ministries' | 'testimonies';
 
@@ -32,7 +35,7 @@ export default function Admin() {
         }}
       />
 
-      <main className="max-w-2xl mx-auto px-4 py-8 sm:px-6 lg:max-w-7xl lg:px-8">
+      <main className="max-w-2xl mx-auto px-4 py-8 sm:px-6 lg:max-w-7xl lg:px-8 min-h-[calc(100vh-8rem)]">
         <section className='flex items-center justify-between pb-10'>
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">
@@ -66,6 +69,9 @@ export default function Admin() {
         </div>
 
         {selectedView === 'leadership' &&  <LeadershipManagement />}
+        {selectedView === 'churches' &&  <ChurchManagement />}
+        {selectedView === 'ministries' &&  <MinistryManagement />}
+        {selectedView === 'testimonies' &&  <TestimonialManagement />}
       </main>
 
       <Footer />
