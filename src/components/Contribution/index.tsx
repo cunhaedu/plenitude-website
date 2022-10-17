@@ -16,6 +16,7 @@ export function Contribution() {
             alt='Bradesco'
             width={200}
             height={200}
+            className="self-center"
           />
 
           <p className='text-center font-medium text-gray-700'>Agência: 1614</p>
@@ -28,6 +29,7 @@ export function Contribution() {
             alt='Pix'
             width={200}
             height={200}
+            className="self-center"
           />
 
           <p className='text-center font-medium text-gray-700'>14.073.517/0001-15</p>

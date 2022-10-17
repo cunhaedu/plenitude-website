@@ -1,6 +1,7 @@
 import { FaTrash, FaPen } from 'react-icons/fa';
 import { useState } from 'react';
-import Image from 'next/image';
+import Image from 'next/future/image';
+import useSWR from 'swr';
 import {
   Card,
   MultiSelectBox,
@@ -13,30 +14,74 @@ import {
   TableRow,
 } from '@tremor/react';
 
-import { ILeaderShip } from '../../../../interfaces/ILeaderShip';
-import { leaderShips } from '../../../../data/leadership';
+import { gql } from '@apollo/client';
+import { client } from '../../../../lib/apollo';
+import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
+
+type LeadershipData = {
+  name: string;
+  bio: string;
+  avatar: string;
+  role: string;
+  slug: string;
+}
+
+type GetLeadershipsResponse = {
+  leaderships: LeadershipData[];
+}
+
+const GET_LEADERSHIPS_QUERY = gql`
+  query Leaderships {
+    leaderships {
+      name
+      bio
+      avatar
+      role
+      instagram
+    }
+  }
+`
 
 export function LeadershipManagement() {
-  const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  let leaderships: LeadershipData[] = [];
 
-  function isLeaderSelected(leader: ILeaderShip) {
-    return selectedNames.includes(leader.description) || selectedNames.length === 0
+  const { data, error } = useSWR(GET_LEADERSHIPS_QUERY, (query) =>
+    client.query<GetLeadershipsResponse>({
+      query,
+    })
+  );
+
+  if (error) {
+    return (
+      <p className='text-gray-500 text-center py-20'>Falha ao carregar os dados</p>
+    )
+  }
+
+  if(data && data.data.leaderships) {
+    leaderships = data.data.leaderships
+  }
+
+  function isLeaderSelected(leader: LeadershipData) {
+    return selectedRoles.includes(leader.role) || selectedRoles.length === 0
   }
 
   return (
     <Card>
       <MultiSelectBox
-        handleSelect={ (value) => setSelectedNames(value) }
+        handleSelect={(value) => setSelectedRoles(value)}
         placeholder="Filtrar por cargos"
         maxWidth="max-w-xs"
       >
-        {leaderShips.map((leader) => (
-            <MultiSelectBoxItem
-              key={ leader.slug }
-              value={ leader.description }
-              text={ leader.description }
-            />
-          ))
+        {
+          removeDuplicateKeyInObjectArrayHelper(leaderships, 'role')
+            .map((leader) => (
+              <MultiSelectBoxItem
+                key={ leader.slug }
+                value={ leader.role }
+                text={ leader.role }
+              />
+            ))
         }
       </MultiSelectBox>
       <Table marginTop="mt-6">
@@ -50,8 +95,8 @@ export function LeadershipManagement() {
         </TableHead>
 
         <TableBody>
-          {leaderShips.filter((leader) => isLeaderSelected(leader)).map((leader) => (
-            <TableRow key={ leader.slug }>
+          {leaderships.filter((leader) => isLeaderSelected(leader)).map((leader) => (
+            <TableRow key={leader.slug}>
               <TableCell>
                 <div className='flex items-center gap-8'>
                   <FaPen className='hover:text-emerald-500 cursor-pointer' />
@@ -59,19 +104,20 @@ export function LeadershipManagement() {
                 </div>
               </TableCell>
               <TableCell>
-                <Image
-                  src='/assets/leadership/unknown.webp'
-                  alt='unknown'
-                  width={32}
-                  height={32}
-                  className='rounded-full'
-                />
+                <div className='w-16 h-16 relative'>
+                  <Image
+                    src={leader.avatar}
+                    alt='unknown'
+                    fill
+                    className='rounded-full object-cover'
+                  />
+                </div>
               </TableCell>
               <TableCell>
                 {leader.name}
               </TableCell>
               <TableCell>
-                {leader.description}
+                {leader.role}
               </TableCell>
             </TableRow>
           ))}
