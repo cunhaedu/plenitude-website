@@ -78,7 +78,7 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
       <Header currentPage='home' />
 
       <main>
-        <section className="bg-home bg-center bg-cover bg-no-repeat md:bg-fixed">
+        {/* <section className="bg-home bg-center bg-cover bg-no-repeat md:bg-fixed">
           <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white gap-5' >
             <h1 className='font-bold text-5xl tracking-wide text-white text-center'>
               Comunidade Plenitude
@@ -87,9 +87,9 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
               Lugar de novos começos
             </h2>
           </div>
-        </section>
+        </section> */}
 
-        {/* <section className="relative flex items-center justify-center h-[calc(100vh-64px)] overflow-hidden">
+        <section className="relative flex items-center justify-center h-[calc(100vh-64px)] overflow-hidden">
           <div className="relative z-20 bg-[rgba(0,0,0,0.6)] w-screen h-[calc(100vh-64px)] flex flex-col justify-center items-center">
             <h1 className='font-bold text-5xl p-5 tracking-wide text-white text-center'>
               Comunidade Plenitude
@@ -106,12 +106,12 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
             className="absolute z-10 min-w-full min-h-full max-w-none"
           >
             <source
-              src="https://drive.google.com/uc?export=download&id=1wMrOP5FuUrZ_FJ29boFg4j4PnU2Yx5d6"
+              src="https://drive.google.com/uc?export=download&id=1ic2ise8n0bjOEsXkcq8Li9q40F1CM2wD"
               type="video/mp4"
             />
             Your browser does not support the video tag.
           </video>
-        </section> */}
+        </section>
 
         <section className='h-96 flex flex-col align-middle justify-center px-5 md:px-2' >
           <h3 className='text-center font-bold text-gray-500 text-xl lg:px-80 lg:text-2xl'>
