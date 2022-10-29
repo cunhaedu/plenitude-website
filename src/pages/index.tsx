@@ -106,7 +106,7 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
             className="absolute z-10 min-w-full min-h-full max-w-none"
           >
             <source
-              src="https://drive.google.com/uc?export=download&id=1ic2ise8n0bjOEsXkcq8Li9q40F1CM2wD"
+              src="/assets/videos/main_720p.mp4"
               type="video/mp4"
             />
             Your browser does not support the video tag.
