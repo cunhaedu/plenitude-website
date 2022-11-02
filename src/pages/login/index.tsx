@@ -31,10 +31,11 @@ export default function Login() {
           <div className='flex flex-col align-middle justify-center'>
             <div className='self-center'>
               <Image
-                src="/assets/logo/full.webp"
+                src="/assets/logo/logo-black.png"
                 alt="Comunidade Plenitude"
-                width={176}
-                height={96}
+                width={192}
+                height={86}
+                className="w-auto h-auto"
               />
             </div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

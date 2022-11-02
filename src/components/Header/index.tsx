@@ -1,7 +1,7 @@
 import { MenuAlt4Icon, XIcon } from '@heroicons/react/outline';
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment, useContext } from 'react';
-import Image from 'next/image';
+import Image from 'next/future/image';
 import Link from 'next/link';
 import { AuthContext } from '../../contexts/AuthContext';
 
@@ -19,13 +19,15 @@ export function Header({ currentPage }: IHeaderProps) {
         <Link href="/">
           <a>
             <span className="sr-only">Comunidade Plenitude</span>
-            <Image
-              className="rounded-full h-"
-              src="/assets/logo/full.webp"
-              alt="Comunidade Plenitude"
-              height={64}
-              width={112}
-            />
+            <div>
+              <Image
+                src="/assets/logo/logo-black.png"
+                alt="Comunidade Plenitude"
+                height={24}
+                width={120}
+                className="w-auto h-auto"
+              />
+            </div>
           </a>
         </Link>
       </div>
@@ -90,11 +92,11 @@ export function Header({ currentPage }: IHeaderProps) {
               <div className="flex items-center justify-between">
                 <div>
                   <Image
-                    className="rounded-full"
-                    src="/assets/logo/full.webp"
+                    src="/assets/logo/logo-black.png"
                     alt="Comunidade Plenitude"
-                    height={56}
-                    width={96}
+                    height={24}
+                    width={104}
+                    className="w-auto h-auto"
                   />
                 </div>
                 <div className="-mr-2">

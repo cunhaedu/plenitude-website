@@ -8,6 +8,7 @@ import { VideoPlayer } from '../../components/VideoPlayer';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { client } from '../../lib/apollo';
+import Link from 'next/link';
 
 type Params = ParsedUrlQuery & {
   slug: string;
@@ -118,10 +119,8 @@ export default function Church({ ministry }: GetMinistryResponse) {
           <p className='text-center text-lg text-gray-100'>{ministry.book} {ministry.chapter}:{ministry.verseNumber}</p>
         </section>
 
-        {/* Church leadership */}
-
         {!!ministry.leaderships.length && (
-          <section className='p-10' style={{ background: `${ministry.mainColor}10` }}>
+          <section className='p-10' style={{ background: `${ministry.mainColor}20` }}>
             <h3
               className='text-2xl font-bold text-center'
               style={{ color: ministry.mainColor }}
@@ -131,18 +130,20 @@ export default function Church({ ministry }: GetMinistryResponse) {
 
             <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
               {ministry.leaderships.map(leadership => (
-                <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
-                  <Image
-                    src={leadership.avatar}
-                    alt={leadership.name}
-                    width={144}
-                    height={144}
-                    className="w-36 h-36 rounded-full self-center object-cover"
-                  />
+                <Link key={leadership.slug} href={`/leadership/${leadership.slug}`}>
+                  <a className='flex flex-col justify-center align-middle gap-1'>
+                    <Image
+                      src={leadership.avatar}
+                      alt={leadership.name}
+                      width={144}
+                      height={144}
+                      className="w-36 h-36 rounded-full self-center object-cover"
+                    />
 
-                  <p className='text-center font-semibold text-gray-800'>{leadership.name}</p>
-                  {/* <span className='text-center text-gray-600'>{leadership.position}</span> */}
-                </div>
+                    <p className='text-center font-semibold text-gray-800'>{leadership.name}</p>
+                    {/* <span className='text-center text-gray-600'>{leadership.position}</span> */}
+                  </a>
+                </Link>
               ))}
             </div>
           </section>
