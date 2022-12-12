@@ -1,7 +1,23 @@
+import { useEffect, useState } from 'react';
 import { FaPhoneAlt } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 
 export function Contact() {
+  const [mounted, setMounted] = useState(false);
+  let whatsappUrl = 'https://api.whatsapp.com/send?phone=+5511911296637';
+
+  useEffect(() => {
+    setMounted(true)
+  }, []);
+
+  if (mounted) {
+    const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+
+    if (!isMobile) {
+      whatsappUrl = 'https://web.whatsapp.com/send?phone=+5511911296637';
+    }
+  }
+
   return (
     <section className='py-20 px-10 gap-10 md:gap-0 bg-gray-100 flex flex-col md:justify-evenly md:flex-row align-middle justify-center'>
       <div className='flex flex-col gap-10'>
@@ -14,7 +30,7 @@ export function Contact() {
 
         <a
           className='md:w-1/3 text-center bg-gray-800 text-white font-medium rounded-md px-3 py-2'
-          href={`https://api.whatsapp.com/send?phone=+5511911296637`}
+          href={whatsappUrl}
         >
           Enviar mensagem
         </a>
@@ -29,7 +45,7 @@ export function Contact() {
         <div className='flex align-middle gap-2 self-center md:self-end'>
           <MdEmail className='self-center text-gray-500'/>
           <span className='text-gray-500 font-medium'>
-            igrejacomunidadeplenitude
+            igrejacomunidadeplenitude@gmail.com
           </span>
         </div>
       </div>

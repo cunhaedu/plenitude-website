@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
 import Image from 'next/future/image';
 import { gql } from '@apollo/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import {
   Card,
@@ -18,6 +18,7 @@ import {
 
 import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
 import { client } from '../../../../lib/apollo';
+import { Paginator } from '../../../Paginator';
 
 type LeadershipData = {
   name: string;
@@ -45,6 +46,15 @@ const GET_LEADERSHIPS_QUERY = gql`
 
 export function LeadershipManagement() {
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  const [filteredLeadership, setFilteredLeadership] = useState<LeadershipData[]>([]);
+  const [currentLeadership, setCurrentLeadership] = useState<LeadershipData[]>([]);
+
+  const [leadershipOffset, setLeadershipOffset] = useState(0);
+
+  useEffect(() => {
+    setFilteredLeadership(currentLeadership);
+  }, [currentLeadership]);
+
   let leaderships: LeadershipData[] = [];
 
   const { data, error } = useSWR(GET_LEADERSHIPS_QUERY, (query) =>
@@ -67,6 +77,16 @@ export function LeadershipManagement() {
     return selectedRoles.includes(leader.role) || selectedRoles.length === 0
   }
 
+  function filterLeaderships(values: string[]) {
+    setSelectedRoles(values)
+
+    if (!values.length) {
+      setFilteredLeadership(currentLeadership)
+    } else {
+      setFilteredLeadership(leaderships.filter(e => values.includes(e.role)));
+    }
+  }
+
   return (
     <Card>
       <div className='flex items-center justify-between gap-4'>
@@ -75,7 +95,7 @@ export function LeadershipManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={(value) => setSelectedRoles(value)}
+          handleSelect={(value) => filterLeaderships(value)}
           placeholder="Filtrar por cargos"
           maxWidth="max-w-xs"
         >
@@ -102,7 +122,7 @@ export function LeadershipManagement() {
         </TableHead>
 
         <TableBody>
-          {leaderships.filter((leader) => isLeaderSelected(leader)).map((leader) => (
+          {filteredLeadership.filter((leader) => isLeaderSelected(leader)).map((leader) => (
             <TableRow key={leader.slug}>
               <TableCell>
                 <div className='flex items-center gap-8'>
@@ -111,14 +131,13 @@ export function LeadershipManagement() {
                 </div>
               </TableCell>
               <TableCell>
-                  <div className='w-16 h-16 relative'>
-                    <Image
-                      src={leader.avatar}
-                      alt='unknown'
-                      fill
-                      className='rounded-full object-cover'
-                    />
-                  </div>
+                <Image
+                  src={leader.avatar}
+                  alt={leader.name}
+                  width={64}
+                  height={64}
+                  className='rounded-full object-cover h-16 w-16 min-h-[64px] min-w-[64px]'
+                />
               </TableCell>
               <TableCell>
                 {leader.name}
@@ -130,6 +149,14 @@ export function LeadershipManagement() {
           ))}
         </TableBody>
       </Table>
+
+      <Paginator
+        currentItems={currentLeadership}
+        items={leaderships}
+        itemsOffset={leadershipOffset}
+        setItemsOffset={setLeadershipOffset}
+        setCurrentItems={setCurrentLeadership}
+      />
     </Card>
   )
 }

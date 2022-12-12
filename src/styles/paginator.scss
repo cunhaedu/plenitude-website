@@ -1,0 +1,78 @@
+.react-paginate {
+  @apply inline-flex;
+  @apply -space-x-px;
+  @apply rounded-md;
+  @apply shadow-sm;
+  @apply font-medium;
+  @apply text-sm;
+
+  .page-item {
+    @apply relative;
+    @apply inline-flex;
+    @apply items-center;
+    @apply justify-center;
+    @apply border;
+    @apply border-gray-300;
+    @apply bg-white;
+    @apply text-gray-500;
+    @apply hover:bg-gray-50;
+    @apply w-10;
+    @apply h-10;
+    @apply cursor-pointer;
+
+    > a {
+      @apply w-full h-full flex self-center items-center justify-center;
+    }
+  }
+
+  .previous-item {
+    @apply inline-flex;
+    @apply items-center;
+    @apply justify-center;
+    @apply rounded-l-md border;
+    @apply border-gray-300;
+    @apply bg-white;
+    @apply text-gray-500;
+    @apply hover:bg-gray-50;
+    @apply w-10;
+    @apply h-10;
+    @apply cursor-pointer;
+
+    > a {
+      @apply w-full h-full flex self-center items-center justify-center;
+    }
+  }
+
+  .next-item {
+    @apply inline-flex;
+    @apply items-center;
+    @apply justify-center;
+    @apply rounded-r-md;
+    @apply border;
+    @apply border-gray-300;
+    @apply bg-white;
+    @apply text-gray-500;
+    @apply hover:bg-gray-50;
+    @apply w-10;
+    @apply cursor-pointer;
+
+    > a {
+      @apply w-full h-full flex self-center items-center justify-center;
+    }
+  }
+
+  .disabled-item {
+    // @apply text-gray-700;
+  }
+
+  .active-item {
+    @apply inner-border;
+    @apply inner-border-indigo-500;
+    @apply bg-indigo-50;
+    @apply text-indigo-600;
+
+    a {
+      @apply w-full h-full flex self-center items-center justify-center;
+    }
+  }
+}

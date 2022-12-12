@@ -24,6 +24,12 @@ type GetChurchResponse = {
     cover: string;
     cityImageURL: string;
     description: string;
+    leaderships: Array<{
+      slug: string;
+      name: string;
+      avatar: string;
+      role: string;
+    }>
   };
 }
 
@@ -40,10 +46,15 @@ const GET_CHURCH_QUERY = gql`
       cover
       cityImageURL
       description
+      leaderships {
+        slug
+        name
+        avatar
+        role
+      }
     }
   }
 `
-
 
 const GET_CHURCHES_QUERY = gql`
   query Churches {
@@ -109,30 +120,32 @@ export default function Church({ church }: GetChurchResponse) {
         </section>
 
         {/* Church leadership */}
-        {/* <section className='p-10'>
-          <h3 className='text-2xl font-bold text-center text-gray-900'>
-            Liderança da Igreja
-          </h3>
+        {!!church.leaderships.length && (
+          <section className='p-10'>
+            <h3 className='text-2xl font-bold text-center text-gray-900'>
+              Liderança da Igreja
+            </h3>
 
-          <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
-            {church.leadership.map(leadership => (
-              <div key={leadership.id} className='flex flex-col justify-center align-middle gap-1'>
-                <div className='self-center'>
-                  <Image
-                    className="rounded-full self-center object-cover object-center"
-                    src={leadership.image}
-                    alt={leadership.name}
-                    width={144}
-                    height={144}
-                  />
+            <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
+              {church.leaderships.map(leadership => (
+                <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
+                  <div className='self-center'>
+                    <Image
+                      className="rounded-full self-center object-cover object-center max-w-[144px] max-h-[144px]"
+                      src={leadership.avatar}
+                      alt={leadership.name}
+                      width={144}
+                      height={144}
+                    />
+                  </div>
+
+                  <p className='text-center font-semibold'>{leadership.name}</p>
+                  <span className='text-center text-gray-600'>{leadership.role}</span>
                 </div>
-
-                <p className='text-center font-semibold'>{leadership.name}</p>
-                <span className='text-center text-gray-600'>{leadership.position}</span>
-              </div>
-            ))}
-          </div>
-        </section> */}
+              ))}
+            </div>
+          </section>
+        )}
 
       </main>
 

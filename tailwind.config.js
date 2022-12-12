@@ -31,5 +31,6 @@ module.exports = {
     require("tailwindcss-hyphens"),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
+    require("tailwindcss-inner-border"),
   ],
 }

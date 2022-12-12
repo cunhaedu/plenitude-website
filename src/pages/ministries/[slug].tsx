@@ -30,6 +30,7 @@ type GetMinistryResponse = {
       slug: string;
       name: string;
       avatar: string;
+      role: string;
     }>;
   }
 }
@@ -51,6 +52,7 @@ const GET_MINISTRY_QUERY = gql`
         slug
         name
         avatar
+        role
       }
     }
   }
@@ -107,9 +109,11 @@ export default function Church({ ministry }: GetMinistryResponse) {
         </section>
 
         <section className='bg-gray-50 px-5 py-24 flex flex-col gap-9 align-middle justify-center'>
-          <h3 className='text-center md:w-9/12 self-center pb-3 text-gray-700 font-medium text-lg md:text-2xl'>{ministry.description}</h3>
+          <h3 className='text-center md:w-9/12 self-center text-gray-700 font-medium text-lg md:text-2xl'>
+            {ministry.description}
+          </h3>
 
-          <VideoPlayer src={ministry.video}/>
+          {ministry.video && <VideoPlayer src={ministry.video}/>}
         </section>
 
         <section
@@ -130,8 +134,8 @@ export default function Church({ ministry }: GetMinistryResponse) {
 
             <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
               {ministry.leaderships.map(leadership => (
-                <Link key={leadership.slug} href={`/leadership/${leadership.slug}`}>
-                  <a className='flex flex-col justify-center align-middle gap-1'>
+                // <Link key={leadership.slug} href={`/leadership/${leadership.slug}`}>
+                  <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
                     <Image
                       src={leadership.avatar}
                       alt={leadership.name}
@@ -141,9 +145,9 @@ export default function Church({ ministry }: GetMinistryResponse) {
                     />
 
                     <p className='text-center font-semibold text-gray-800'>{leadership.name}</p>
-                    {/* <span className='text-center text-gray-600'>{leadership.position}</span> */}
-                  </a>
-                </Link>
+                    <span className='text-center text-gray-600'>{leadership.role}</span>
+                  </div>
+                // </Link>
               ))}
             </div>
           </section>

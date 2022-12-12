@@ -35,6 +35,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     setCookie(undefined, '@plenitude-token', data.token, {
       maxAge: 60 * 60 * 12, // 12 Hour
+      sameSite: 'none',
     });
 
     Router.push('/dashboard');

@@ -5,7 +5,7 @@ import { client } from '../lib/apollo';
 
 import '@tremor/react/dist/esm/tremor.css';
 import 'react-toastify/dist/ReactToastify.css';
-import '../styles/globals.css';
+import '../styles/globals.scss';
 
 import { AuthProvider } from '../contexts/AuthContext';
 

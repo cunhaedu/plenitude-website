@@ -85,7 +85,8 @@ export default function Churches({ churches }: GetChurchesResponse) {
                     <Image
                       src={church.cityImageURL}
                       alt={church.name}
-                      fill
+                      width={300}
+                      height={400}
                       className='rounded-t-md object-cover w-full h-full'
                     />
                   </div>

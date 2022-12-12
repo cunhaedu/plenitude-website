@@ -1,24 +1,31 @@
 import { Slide, toast, ToastContainer } from 'react-toastify';
 import { LockClosedIcon } from '@heroicons/react/solid';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useContext } from 'react';
+import { parseCookies } from 'nookies';
 import Image from 'next/image';
+import clx from 'classnames';
 
 import { AuthContext } from '../../contexts/AuthContext';
 import { Header } from '../../components/Header';
+import { GetServerSideProps } from 'next';
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
   const { signIn } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   async function handleSignIn(data: any) {
     try {
+      setLoading(true);
       await signIn(data);
     } catch (error) {
       toast.error('Email ou Senha inválidos', {
         position: 'bottom-right',
         transition: Slide,
       });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -79,7 +86,11 @@ export default function Login() {
 
             <div>
               <button
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className={clx(
+                  "group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4",
+                  "text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700",
+                  {"cursor-not-allowed brightness-150": loading}
+                )}
                 type="submit"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -95,4 +106,21 @@ export default function Login() {
       <ToastContainer />
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { ['@plenitude-token']: token } = parseCookies(ctx);
+
+  if(token) {
+    return {
+      redirect: {
+        destination: '/dashboard',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {},
+  }
 }
