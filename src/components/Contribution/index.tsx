@@ -1,18 +1,6 @@
-import { FaClipboard as ClipboardIcon } from 'react-icons/fa';
 import Image from 'next/future/image';
-import { Slide, toast, ToastContainer } from 'react-toastify';
 
 export function Contribution() {
-
-  function copyTextToClipboard(text: string): void {
-    navigator.clipboard.writeText(text);
-
-    toast.success('Texto copiado para a área de transferência', {
-      position: 'bottom-right',
-      transition: Slide,
-    });
-  }
-
   return (
     <section className='p-10'>
       <h3 className='text-center text-2xl font-bold'>
@@ -39,11 +27,6 @@ export function Contribution() {
             <p className='text-center font-medium text-gray-700'>
               Conta corrente: 95016-5
             </p>
-            <ClipboardIcon
-              size={18}
-              onClick={() => copyTextToClipboard('95016-5')}
-              className='cursor-pointer text-gray-600 hover:text-emerald-600'
-            />
           </div>
         </div>
 
@@ -60,16 +43,9 @@ export function Contribution() {
             <p className='text-center font-medium text-gray-700'>
               14.073.517/0001-15
             </p>
-            <ClipboardIcon
-              size={18}
-              onClick={() => copyTextToClipboard('14.073.517/0001-15')}
-              className='cursor-pointer text-gray-600 hover:text-emerald-600'
-            />
           </div>
         </div>
       </div>
-
-      <ToastContainer />
     </section>
   )
 }

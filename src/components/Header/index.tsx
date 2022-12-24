@@ -160,23 +160,23 @@ export function Header({ currentPage }: IHeaderProps) {
                     </span>
                   </a>
                 </Link>
+
+                <Link href='/peniel' passHref>
+                  <a className="font-medium text-gray-500 hover:text-black self-center">
+                    <span className={currentPage === 'peniel' ? 'text-black' : ''}>
+                      Peniel
+                    </span>
+                  </a>
+                </Link>
+
+                <Link href='/events' passHref>
+                  <a className="font-medium text-gray-500 hover:text-black self-center">
+                    <span className={currentPage === 'events' ? 'text-black' : ''}>
+                      Eventos
+                    </span>
+                  </a>
+                </Link>
               </div>
-
-              <Link href='/peniel' passHref>
-                <a className="font-medium text-gray-500 hover:text-black self-center">
-                  <span className={currentPage === 'peniel' ? 'text-black' : ''}>
-                    Peniel
-                  </span>
-                </a>
-              </Link>
-
-              <Link href='/events' passHref>
-                <a className="font-medium text-gray-500 hover:text-black self-center">
-                  <span className={currentPage === 'events' ? 'text-black' : ''}>
-                    Eventos
-                  </span>
-                </a>
-              </Link>
 
               <div>
                 <Link href='/login' passHref>

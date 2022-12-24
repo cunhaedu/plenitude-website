@@ -37,7 +37,7 @@ export default function About() {
 
         <div className='flex flex-col gap-10 px-5 md:px-10 lg:px-40 py-20'>
 
-          <section  className='font-medium text-gray-700 text-lg tracking-wide text-justify hyphens-auto'>
+          <section className='font-medium text-gray-700 text-lg tracking-wide text-justify hyphens-auto'>
             <h3 className='text-4xl text-center font-bold text-gray-500 mb-10'>
               Nossa História
             </h3>

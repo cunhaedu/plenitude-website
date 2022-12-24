@@ -49,7 +49,7 @@ export default function Peniel() {
             />
 
             <div className='font-medium text-gray-700 text-lg tracking-wide text-justify hyphens-auto'>
-              <h3 className='text-4xl text-center md:text-left font-bold text-gray-500 pb-4'>
+              <h3 className='text-4xl text-center md:text-left font-bold text-gray-500 pb-10 md:pb-4'>
                 O que é o Peniel ?
               </h3>
 

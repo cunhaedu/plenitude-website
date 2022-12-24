@@ -1,4 +1,4 @@
-import { AiFillInstagram as InstagramIcon } from 'react-icons/ai';
+import { AiOutlineInstagram as InstagramIcon } from 'react-icons/ai';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { gql } from '@apollo/client';
@@ -92,14 +92,14 @@ export default function Leadership({ leadership }: GetLeaderShipResponse) {
 
           {leadership.instagram && (
               <div className='flex gap-4 align-middle justify-start my-8'>
-              <a
-                href={leadership.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className='no-underline h-8 w-8'
-              >
-                <InstagramIcon className='h-8 w-8 text-gray-500' />
-              </a>
+                <a
+                  href={leadership.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className='no-underline h-8 w-8'
+                >
+                  <InstagramIcon className='h-8 w-8 text-gray-500 hover:text-gray-700' />
+                </a>
               </div>
             )}
 

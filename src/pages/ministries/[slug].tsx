@@ -8,7 +8,6 @@ import { VideoPlayer } from '../../components/VideoPlayer';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { client } from '../../lib/apollo';
-import Link from 'next/link';
 
 type Params = ParsedUrlQuery & {
   slug: string;
@@ -20,6 +19,7 @@ type GetMinistryResponse = {
     description: string;
     slug: string;
     cover: string;
+    collage: string;
     video: string;
     book: string;
     phrase: string;
@@ -42,6 +42,7 @@ const GET_MINISTRY_QUERY = gql`
       description
       slug
       cover
+      collage
       video
       book
       phrase
@@ -95,10 +96,10 @@ export default function Church({ ministry }: GetMinistryResponse) {
         <section>
           <div className="w-full h-[calc(100vh-64px)] relative px-10">
             <Image
-              src={ministry.cover}
+              src={ministry.collage}
               alt={ministry.name}
               fill
-              className='brightness-50 object-cover'
+              className='object-cover'
             />
             <div className="w-full h-full relative flex align-middle justify-center">
               <h2 className="text-center self-center text-4xl font-extrabold tracking-tight text-white">
@@ -134,20 +135,18 @@ export default function Church({ ministry }: GetMinistryResponse) {
 
             <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
               {ministry.leaderships.map(leadership => (
-                // <Link key={leadership.slug} href={`/leadership/${leadership.slug}`}>
-                  <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
-                    <Image
-                      src={leadership.avatar}
-                      alt={leadership.name}
-                      width={144}
-                      height={144}
-                      className="w-36 h-36 rounded-full self-center object-cover"
-                    />
+                <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
+                  <Image
+                    src={leadership.avatar}
+                    alt={leadership.name}
+                    width={144}
+                    height={144}
+                    className="w-36 h-36 rounded-full self-center object-cover"
+                  />
 
-                    <p className='text-center font-semibold text-gray-800'>{leadership.name}</p>
-                    <span className='text-center text-gray-600'>{leadership.role}</span>
-                  </div>
-                // </Link>
+                  <p className='text-center font-semibold text-gray-800'>{leadership.name}</p>
+                  <span className='text-center text-gray-600'>{leadership.role}</span>
+                </div>
               ))}
             </div>
           </section>
@@ -192,7 +191,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   return {
     props: {
-      ministry: data.ministry,
+      ministry: {
+        ...data.ministry,
+        collage: data.ministry.collage ?? data.ministry.cover,
+      },
     },
     revalidate: 60 * 60 * 12 // 12 hours
   };

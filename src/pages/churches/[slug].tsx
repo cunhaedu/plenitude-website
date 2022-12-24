@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { AiOutlineInstagram } from 'react-icons/ai';
 import { ParsedUrlQuery } from 'querystring';
 import Image from 'next/future/image';
 import { gql } from '@apollo/client';
@@ -24,8 +25,10 @@ type GetChurchResponse = {
     cover: string;
     cityImageURL: string;
     description: string;
-    leaderships: Array<{
-      slug: string;
+    instagram: string | null;
+    phone: string | null;
+    couples: Array<{
+      id: string;
       name: string;
       avatar: string;
       role: string;
@@ -46,9 +49,11 @@ const GET_CHURCH_QUERY = gql`
       cover
       cityImageURL
       description
-      leaderships {
-        slug
+      instagram
+    	phone
+      couples {
         name
+        id
         avatar
         role
       }
@@ -107,40 +112,54 @@ export default function Church({ church }: GetChurchResponse) {
         </section>
 
         <section className='bg-gray-50 px-5 py-24 flex flex-col gap-3 align-middle justify-center'>
-          <h3 className='text-xl md:text-2xl font-bold text-gray-500 text-center md:w-2/3 self-center'>{church.description}</h3>
+          <h3 className='text-xl md:text-2xl font-bold text-gray-500 text-center md:w-2/3 self-center'>
+            {church.description}
+          </h3>
 
-          <hr className='w-1/4 self-center my-3' />
+          <hr className='w-1/4 self-center my-5 md:my-10' />
 
-          <h4 className='text-1xl font-bold text-gray-700 text-center self-center'>
-            Cultos
-          </h4>
+          {church.instagram && (
+            <a href={church.instagram} target="_blank" rel="noopener noreferrer">
+              <AiOutlineInstagram className='h-8 w-8 text-gray-500 hover:text-black mx-auto'/>
+            </a>
+          )}
+
           <p className='font-semibold text-1xl text-gray-700 text-center self-center'>
-            {church.serviceTimes}
+            <strong>Cultos: </strong>{church.serviceTimes}
           </p>
+
+          <p className='font-semibold text-1xl text-gray-700 text-center self-center'>
+            <strong>Endereço: </strong>{church.street}, {church.number}, {church.district}
+          </p>
+
+          {church.phone &&
+            <p className='font-semibold text-1xl text-gray-700 text-center self-center'>
+              <strong>Contato: </strong>{church.phone}
+            </p>
+          }
         </section>
 
-        {/* Church leadership */}
-        {!!church.leaderships.length && (
+        {!!church.couples.length && (
           <section className='p-10'>
             <h3 className='text-2xl font-bold text-center text-gray-900'>
               Liderança da Igreja
             </h3>
 
             <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
-              {church.leaderships.map(leadership => (
-                <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
+              {church.couples.map(couple => (
+                <div key={couple.id} className='flex flex-col justify-center align-middle gap-1'>
                   <div className='self-center'>
                     <Image
-                      className="rounded-full self-center object-cover object-center max-w-[144px] max-h-[144px]"
-                      src={leadership.avatar}
-                      alt={leadership.name}
+                      className="rounded-full self-center object-cover object-center w-36 h-36"
+                      src={couple.avatar}
+                      alt={couple.name}
                       width={144}
                       height={144}
                     />
                   </div>
 
-                  <p className='text-center font-semibold'>{leadership.name}</p>
-                  <span className='text-center text-gray-600'>{leadership.role}</span>
+                  <p className='text-center font-semibold'>{couple.name}</p>
+                  <span className='text-center text-gray-600'>{couple.role}</span>
                 </div>
               ))}
             </div>
