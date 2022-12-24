@@ -43,7 +43,7 @@ const GET_TESTIMONIALS_QUERY = gql`
 
 const GET_LEADERSHIPS_QUERY = gql`
   query Leadership  {
-    leaderships (first: 5) {
+    leaderships (where: {role: "Liderança Sênior"}) {
       slug
       name
       avatar
@@ -78,17 +78,6 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
       <Header currentPage='home' />
 
       <main>
-        {/* <section className="bg-home bg-center bg-cover bg-no-repeat md:bg-fixed">
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white gap-5' >
-            <h1 className='font-bold text-5xl tracking-wide text-white text-center'>
-              Comunidade Plenitude
-            </h1>
-            <h2 className='font-semibold text-xl text-white text-center'>
-              Lugar de novos começos
-            </h2>
-          </div>
-        </section> */}
-
         <section className="relative flex items-center justify-center h-[calc(100vh-64px)] overflow-hidden">
           <div className="relative z-20 bg-[rgba(0,0,0,0.6)] w-screen h-[calc(100vh-64px)] flex flex-col justify-center items-center">
             <h1 className='font-bold text-5xl p-5 tracking-wide text-white text-center'>
@@ -125,7 +114,7 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
           <div className="max-w-full mx-auto py-16 px-4 sm:px-6  lg:px-8">
             <LibraryIcon className='h-12 w-full text-blue-600' />
             <h3 className='font-bold text-3xl p-5 text-gray-800 text-center'>
-              Conheça nossas <span className='text-blue-600'>lideranças</span>
+              Conheça nossa <span className='text-blue-600'>liderança</span>
             </h3>
 
             <ImageSlider

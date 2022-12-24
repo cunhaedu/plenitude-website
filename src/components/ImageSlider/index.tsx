@@ -31,15 +31,9 @@ export function ImageSlider({ data }: ImageSliderProps) {
           },
           768: {
             slidesPerView: 2,
-            spaceBetween: 30,
-          },
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 30,
-          },
-          1536: {
-            slidesPerView: 5,
-            spaceBetween: 30,
+            centeredSlides: true,
+            centeredSlidesBounds: true,
+            pagination: false,
           }
         }}
       >
@@ -47,12 +41,12 @@ export function ImageSlider({ data }: ImageSliderProps) {
           <SwiperSlide key={content.slug}>
             <Link href={`/leadership/${content.slug}`} passHref>
               <a>
-                <div className="h-80 w-full cursor-pointer relative">
+                <div className="h-80 w-full md:w-80 md:mx-5 cursor-pointer relative">
                   <Image
                     src={content.imageURL}
                     alt={content.title}
                     fill
-                    className='object-cover object-center rounded-md'
+                    className='object-cover object-center rounded-md w-[calc(20rem-2.5rem)]'
                   />
                   <div className='h-80 w-full flex flex-col bg-gradient-to-t from-[#0a0a0a] hover:from-black rounded-md relative'>
                     <span className='mt-60 text-white font-bold pl-5'>{content.title}</span>

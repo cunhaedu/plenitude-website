@@ -5,7 +5,14 @@ import { Fragment } from 'react';
 import Link from 'next/link';
 
 interface IHeaderProps {
-  currentPage?: 'home' | 'about' | 'churches' | 'events' | 'ministries' | 'adm';
+  currentPage?:
+    | 'home'
+    | 'about'
+    | 'churches'
+    | 'ministries'
+    | 'peniel'
+    | 'events'
+    | 'adm';
 }
 
 export function Header({ currentPage }: IHeaderProps) {
@@ -62,6 +69,22 @@ export function Header({ currentPage }: IHeaderProps) {
           <a className="text-base font-medium text-gray-500 hover:text-black self-center">
             <span className={currentPage === 'churches' ? 'text-black' : ''}>
               Igrejas
+            </span>
+          </a>
+        </Link>
+
+        <Link href='/peniel' passHref>
+          <a className="font-medium text-gray-500 hover:text-black self-center">
+            <span className={currentPage === 'peniel' ? 'text-black' : ''}>
+              Peniel
+            </span>
+          </a>
+        </Link>
+
+        <Link href='/events' passHref>
+          <a className="font-medium text-gray-500 hover:text-black self-center">
+            <span className={currentPage === 'events' ? 'text-black' : ''}>
+              Eventos
             </span>
           </a>
         </Link>
@@ -138,6 +161,22 @@ export function Header({ currentPage }: IHeaderProps) {
                   </a>
                 </Link>
               </div>
+
+              <Link href='/peniel' passHref>
+                <a className="font-medium text-gray-500 hover:text-black self-center">
+                  <span className={currentPage === 'peniel' ? 'text-black' : ''}>
+                    Peniel
+                  </span>
+                </a>
+              </Link>
+
+              <Link href='/events' passHref>
+                <a className="font-medium text-gray-500 hover:text-black self-center">
+                  <span className={currentPage === 'events' ? 'text-black' : ''}>
+                    Eventos
+                  </span>
+                </a>
+              </Link>
 
               <div>
                 <Link href='/login' passHref>
