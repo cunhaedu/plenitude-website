@@ -24,6 +24,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   function verifyIfIsAuthenticated(): boolean {
     const { ['@plenitude-token']: token } = parseCookies();
 
+    console.log('TOKEN In VALIDATION ==> ', token);
+
     return !!token;
   }
 
@@ -33,10 +35,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
       password,
     });
 
+    console.log('DATA RESPONSE ==>', data);
+
     setCookie(undefined, '@plenitude-token', data.token, {
       maxAge: 60 * 60 * 12, // 12 Hour
       sameSite: 'none',
     });
+
+    console.log('COOKIE SET WITH SUCCESS');
+
 
     Router.push('/dashboard');
   }
