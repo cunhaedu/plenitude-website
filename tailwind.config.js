@@ -20,6 +20,7 @@ module.exports = {
         'place': "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/assets/pages/places/background.webp')",
         'about': "url('/assets/pages/about/background.webp')",
         'peniel': "url('/assets/pages/peniel/background.webp')",
+        'events': "url('/assets/pages/events/background.webp')",
         'ministries': "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/assets/pages/ministries/background.webp')"
       },
     },

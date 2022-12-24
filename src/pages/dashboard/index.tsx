@@ -82,9 +82,6 @@ export default function Admin() {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { ['@plenitude-token']: token } = parseCookies(ctx);
 
-  console.log('RETRIEVED TOKEN ==> ', token);
-
-
   if(!token) {
     return {
       redirect: {
