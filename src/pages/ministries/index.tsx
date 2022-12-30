@@ -19,7 +19,7 @@ type GetMinistriesResponse = {
 
 const GET_MINISTRIES_QUERY = gql`
   query Ministries {
-    ministries {
+    ministries(orderBy: name_ASC) {
       name
       description
       slug

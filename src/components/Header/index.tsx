@@ -26,9 +26,9 @@ export function Header({ currentPage }: IHeaderProps) {
               <Image
                 src="/assets/logo/logo-black.png"
                 alt="Comunidade Plenitude"
-                height={24}
-                width={120}
-                className="w-auto h-auto"
+                height={48}
+                width={128}
+                className="w-32 h-12"
               />
             </div>
           </a>

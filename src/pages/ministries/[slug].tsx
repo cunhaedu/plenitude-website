@@ -27,7 +27,7 @@ type GetMinistryResponse = {
     verseNumber: string;
     mainColor: string;
     leaderships: Array<{
-      slug: string;
+      id: string;
       name: string;
       avatar: string;
       role: string;
@@ -50,7 +50,7 @@ const GET_MINISTRY_QUERY = gql`
       verseNumber
       mainColor
       leaderships {
-        slug
+        id
         name
         avatar
         role
@@ -135,7 +135,7 @@ export default function Church({ ministry }: GetMinistryResponse) {
 
             <div className='mt-20 flex flex-col gap-10 md:gap-0 md:flex-row md:justify-evenly align-middle justify-center'>
               {ministry.leaderships.map(leadership => (
-                <div key={leadership.slug} className='flex flex-col justify-center align-middle gap-1'>
+                <div key={leadership.id} className='flex flex-col justify-center align-middle gap-1'>
                   <Image
                     src={leadership.avatar}
                     alt={leadership.name}
