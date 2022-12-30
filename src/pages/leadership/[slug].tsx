@@ -37,7 +37,7 @@ const GET_LEADERSHIP_QUERY = gql`
 
 const GET_LEADERSHIPS_QUERY = gql`
   query Leaderships {
-    leaderships {
+    leaderships (where: {role: "Liderança Sênior"}) {
       slug
     }
   }
