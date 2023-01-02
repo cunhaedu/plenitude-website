@@ -18,6 +18,7 @@ import {
 import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
 import { client } from '../../../../lib/apollo';
 import { Paginator } from '../../../Paginator';
+import DeleteTestimonialModal from './delete';
 
 type TestimonialData = {
   id: string;
@@ -46,6 +47,9 @@ export function TestimonialManagement() {
 
   const [testimonialsOffset, setTestimonialsOffset] = useState(0);
 
+  const [selectedTestimonial, setSelectedTestimonial] = useState({} as TestimonialData);
+  const [isDeleteTestimonialModalOpen, setIsDeleteTestimonialModalOpen] = useState(false);
+
   useEffect(() => {
     setFilteredTestimonials(currentTestimonials);
   }, [currentTestimonials]);
@@ -66,6 +70,15 @@ export function TestimonialManagement() {
 
   if(data && data.data.testimonials) {
     testimonials = data.data.testimonials
+  }
+
+  function closeDeleteTestimonialModal() {
+    setIsDeleteTestimonialModalOpen(false);
+  }
+
+  function deleteTestimonial(testimonial: TestimonialData) {
+    setSelectedTestimonial(testimonial);
+    setIsDeleteTestimonialModalOpen(true);
   }
 
   function filterTestimonials(values: string[]) {
@@ -123,7 +136,10 @@ export function TestimonialManagement() {
               <TableCell>
                 <div className='flex items-center gap-8'>
                   <FaPen className='hover:text-emerald-500 cursor-pointer' />
-                  <FaTrash className='hover:text-red-500 cursor-pointer' />
+                  <FaTrash
+                    onClick={() => deleteTestimonial(testimonial)}
+                    className='hover:text-red-500 cursor-pointer'
+                  />
                 </div>
               </TableCell>
               <TableCell>
@@ -143,6 +159,13 @@ export function TestimonialManagement() {
         itemsOffset={testimonialsOffset}
         setItemsOffset={setTestimonialsOffset}
         setCurrentItems={setCurrentTestimonials}
+      />
+
+
+      <DeleteTestimonialModal
+        isOpen={isDeleteTestimonialModalOpen}
+        closeModal={closeDeleteTestimonialModal}
+        testimonial={selectedTestimonial}
       />
     </Card>
   )
