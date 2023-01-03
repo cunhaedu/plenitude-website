@@ -4,6 +4,8 @@ import Head from 'next/head';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 
+import styles from './styles.module.scss';
+
 export default function Peniel() {
   return (
     <div>
@@ -30,36 +32,31 @@ export default function Peniel() {
       <Header currentPage='peniel' />
 
       <main>
-        <section className="bg-peniel bg-center bg-cover bg-no-repeat md:bg-fixed">
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
-            <h1 className='font-bold text-5xl p-5 tracking-wide'>
-              Peniel Encontro Face a Face com Deus
-            </h1>
+        <section className={styles.peniel_header}>
+          <div>
+            <h1>Peniel Encontro Face a Face com Deus</h1>
           </div>
         </section>
 
-        <div className='px-5 md:px-10 lg:px-40 py-10'>
-          <section className='flex items-center md:justify-between gap-5'>
+        <div className={styles.peniel_body}>
+          <section>
             <Image
               src="/assets/pages/peniel/peniel.png"
               alt="Peniel Encontro Face a Face com Deus"
               width={400}
               height={400}
-              className="w-80 h-80 hidden md:block"
             />
 
-            <div className='font-medium text-gray-700 text-lg tracking-wide text-justify hyphens-auto'>
-              <h3 className='text-4xl text-center md:text-left font-bold text-gray-500 pb-10 md:pb-4'>
-                O que é o Peniel ?
-              </h3>
+            <div className={styles.peniel_body__about}>
+              <h3>O que é o Peniel ?</h3>
 
-              <p className='pb-2'>
+              <p>
                 O Peniel é um encontro face a face com Deus, ele foi inspirado no
                 livro de Gênesis (32: 23 - 24) e se refere ao encontro que Jacó
                 teve com o Senhor.
               </p>
 
-              <p className='pb-2'>
+              <p>
                 Em Peniel pessoas são confrontadas, curadas e transformadas de
                 dentro para fora, entendendo quem verdadeiramente são em Deus e o
                 seu propósito no mundo.
