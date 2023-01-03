@@ -1,3 +1,4 @@
+import { Slide, ToastContainer } from 'react-toastify';
 import { LogoutIcon } from '@heroicons/react/outline';
 import { Tab, TabList } from '@tremor/react';
 import { useContext, useState } from 'react';
@@ -5,14 +6,14 @@ import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
 import Head from 'next/head';
 
-import { LeadershipManagement } from '../../components/Dashboard/Management/LeadershipManagement';
-import { ChurchManagement } from '../../components/Dashboard/Management/ChurchManagement';
-import { AuthContext } from '../../contexts/AuthContext';
-import { Banner } from '../../components/Banner';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
-import { MinistryManagement } from '../../components/Dashboard/Management/MinistryManagement';
-import { TestimonialManagement } from '../../components/Dashboard/Management/TestimonialManagement';
+import { LeadershipManagement } from '@/components/Dashboard/Management/LeadershipManagement';
+import { MinistryManagement } from '@/components/Dashboard/Management/MinistryManagement';
+import { TestimonialManagement } from '@/components/Dashboard/Management/Testimonials';
+import { ChurchManagement } from '@/components/Dashboard/Management/ChurchManagement';
+import { AuthContext } from '@/contexts/AuthContext';
+import { Banner } from '@/components/Banner';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 
 type TabViews = 'leadership' | 'churches' | 'ministries' | 'testimonies';
 
@@ -75,6 +76,11 @@ export default function Admin() {
       </main>
 
       <Footer />
+
+      <ToastContainer
+        position='bottom-right'
+        transition={Slide}
+      />
     </>
   )
 }

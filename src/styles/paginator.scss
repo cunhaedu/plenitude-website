@@ -61,10 +61,6 @@
     }
   }
 
-  .disabled-item {
-    // @apply text-gray-700;
-  }
-
   .active-item {
     @apply inner-border;
     @apply inner-border-indigo-500;
