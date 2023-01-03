@@ -1,13 +1,13 @@
 import { AiOutlineInstagram as InstagramIcon } from 'react-icons/ai';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import Image from 'next/future/image';
 import { gql } from '@apollo/client';
 import Head from 'next/head';
 
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
-import { client } from '../../lib/apollo';
-import Image from 'next/future/image';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { client } from '@/lib/apollo';
 
 type Params = ParsedUrlQuery & {
   slug: string;

@@ -6,13 +6,13 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { Testimonials } from '../components/Testimonials';
-import { Contribution } from '../components/Contribution';
-import { ImageSlider } from '../components/ImageSlider';
-import { Contact } from '../components/Contact';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
-import { client } from '../lib/apollo';
+import { Testimonials } from '@/components/Testimonials';
+import { Contribution } from '@/components/Contribution';
+import { ImageSlider } from '@/components/ImageSlider';
+import { Contact } from '@/components/Contact';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { client } from '@/lib/apollo';
 
 type GetTestimonialsResponse = {
   testimonials: Array<{

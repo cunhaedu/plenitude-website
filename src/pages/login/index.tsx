@@ -1,14 +1,14 @@
 import { Slide, toast, ToastContainer } from 'react-toastify';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { useContext, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import { useForm } from 'react-hook-form';
 import { parseCookies } from 'nookies';
 import Image from 'next/image';
 import clx from 'classnames';
 
-import { AuthContext } from '../../contexts/AuthContext';
-import { Header } from '../../components/Header';
-import { GetServerSideProps } from 'next';
+import { AuthContext } from '@/contexts/AuthContext';
+import { Header } from '@/components/Header';
 
 export default function Login() {
   const { register, handleSubmit } = useForm();

@@ -6,10 +6,10 @@ import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
 import Head from 'next/head';
 
-import { LeadershipManagement } from '@/components/Dashboard/Management/LeadershipManagement';
-import { MinistryManagement } from '@/components/Dashboard/Management/MinistryManagement';
 import { TestimonialManagement } from '@/components/Dashboard/Management/Testimonials';
-import { ChurchManagement } from '@/components/Dashboard/Management/ChurchManagement';
+import { LeadershipManagement } from '@/components/Dashboard/Management/Leaderships';
+import { MinistryManagement } from '@/components/Dashboard/Management/Ministries';
+import { ChurchManagement } from '@/components/Dashboard/Management/Churches';
 import { AuthContext } from '@/contexts/AuthContext';
 import { Banner } from '@/components/Banner';
 import { Footer } from '@/components/Footer';

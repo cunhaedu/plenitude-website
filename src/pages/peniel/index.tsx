@@ -1,8 +1,8 @@
 import Image from 'next/future/image';
 import Head from 'next/head';
 
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 
 export default function Peniel() {
   return (

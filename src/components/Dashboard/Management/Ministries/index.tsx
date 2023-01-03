@@ -16,8 +16,8 @@ import {
   TableRow,
 } from '@tremor/react';
 
-import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
-import { client } from '../../../../lib/apollo';
+import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
+import { client } from '@/lib/apollo';
 
 type MinistryData = {
   slug: string;

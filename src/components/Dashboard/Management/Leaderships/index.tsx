@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
 import Image from 'next/future/image';
 import { gql } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useSWR from 'swr';
 import {
   Card,
@@ -16,9 +16,8 @@ import {
   TableRow,
 } from '@tremor/react';
 
-import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
-import { client } from '../../../../lib/apollo';
-import { Paginator } from '../../../Paginator';
+import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
+import { client } from '@/lib/apollo';
 
 type LeadershipData = {
   name: string;
@@ -46,14 +45,6 @@ const GET_LEADERSHIPS_QUERY = gql`
 
 export function LeadershipManagement() {
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-  const [filteredLeadership, setFilteredLeadership] = useState<LeadershipData[]>([]);
-  const [currentLeadership, setCurrentLeadership] = useState<LeadershipData[]>([]);
-
-  const [leadershipOffset, setLeadershipOffset] = useState(0);
-
-  useEffect(() => {
-    setFilteredLeadership(currentLeadership);
-  }, [currentLeadership]);
 
   let leaderships: LeadershipData[] = [];
 
@@ -73,20 +64,6 @@ export function LeadershipManagement() {
     leaderships = data.data.leaderships
   }
 
-  function isLeaderSelected(leader: LeadershipData) {
-    return selectedRoles.includes(leader.role) || selectedRoles.length === 0
-  }
-
-  function filterLeaderships(values: string[]) {
-    setSelectedRoles(values)
-
-    if (!values.length) {
-      setFilteredLeadership(currentLeadership)
-    } else {
-      setFilteredLeadership(leaderships.filter(e => values.includes(e.role)));
-    }
-  }
-
   return (
     <Card>
       <div className='flex items-center justify-between gap-4'>
@@ -95,7 +72,7 @@ export function LeadershipManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={(value) => filterLeaderships(value)}
+          handleSelect={(value) => setSelectedRoles(value)}
           placeholder="Filtrar por cargos"
           maxWidth="max-w-xs"
         >
@@ -103,9 +80,9 @@ export function LeadershipManagement() {
             removeDuplicateKeyInObjectArrayHelper(leaderships, 'role')
               .map((leader) => (
                 <MultiSelectBoxItem
-                  key={ leader.slug }
-                  value={ leader.role }
-                  text={ leader.role }
+                  key={leader.slug}
+                  value={leader.role}
+                  text={leader.role}
                 />
               ))
           }
@@ -122,7 +99,9 @@ export function LeadershipManagement() {
         </TableHead>
 
         <TableBody>
-          {filteredLeadership.filter((leader) => isLeaderSelected(leader)).map((leader) => (
+          {leaderships.filter((leader) =>
+            !selectedRoles.length || selectedRoles.includes(leader.role)
+          ).map((leader) => (
             <TableRow key={leader.slug}>
               <TableCell>
                 <div className='flex items-center gap-8'>
@@ -149,14 +128,6 @@ export function LeadershipManagement() {
           ))}
         </TableBody>
       </Table>
-
-      <Paginator
-        currentItems={currentLeadership}
-        items={leaderships}
-        itemsOffset={leadershipOffset}
-        setItemsOffset={setLeadershipOffset}
-        setCurrentItems={setCurrentLeadership}
-      />
     </Card>
   )
 }

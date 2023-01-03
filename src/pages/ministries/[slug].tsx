@@ -4,10 +4,10 @@ import Image from 'next/future/image';
 import { gql } from '@apollo/client';
 import Head from 'next/head';
 
-import { VideoPlayer } from '../../components/VideoPlayer';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
-import { client } from '../../lib/apollo';
+import { VideoPlayer } from '@/components/VideoPlayer';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { client } from '@/lib/apollo';
 
 type Params = ParsedUrlQuery & {
   slug: string;
