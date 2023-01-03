@@ -136,8 +136,9 @@ export function MinistryManagement() {
                     <Image
                       src={ministry.cover}
                       alt={ministry.name}
-                      fill
-                      className='rounded-full object-cover'
+                      width={120}
+                      height={120}
+                      className='rounded-full object-cover h-16 w-16'
                     />
                   </div>
                 </div>
@@ -149,12 +150,12 @@ export function MinistryManagement() {
               <div className="flex -space-x-4 overflow-hidden">
                 {ministry.leaderships.map(leader => (
                   <Image
-                    className="inline-block h-16 w-16 rounded-full ring-2 ring-white object-cover"
+                    key={leader.slug}
                     src={leader.avatar}
                     alt={leader.name}
                     width={144}
                     height={144}
-                    key={leader.slug}
+                    className="inline-block h-16 w-16 rounded-full ring-2 ring-white object-cover"
                   />
                 ))}
               </div>

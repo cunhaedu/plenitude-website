@@ -20,6 +20,7 @@ import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicate
 import { client } from '@/lib/apollo';
 
 type LeadershipData = {
+  id: string;
   name: string;
   bio: string;
   avatar: string;
@@ -34,6 +35,7 @@ type GetLeadershipsResponse = {
 const GET_LEADERSHIPS_QUERY = gql`
   query Leaderships {
     leaderships {
+      id
       name
       bio
       avatar
@@ -102,7 +104,7 @@ export function LeadershipManagement() {
           {leaderships.filter((leader) =>
             !selectedRoles.length || selectedRoles.includes(leader.role)
           ).map((leader) => (
-            <TableRow key={leader.slug}>
+            <TableRow key={leader.id}>
               <TableCell>
                 <div className='flex items-center gap-8'>
                   <FaPen className='hover:text-emerald-500 cursor-pointer' />

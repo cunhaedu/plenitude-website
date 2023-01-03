@@ -131,8 +131,9 @@ export function ChurchManagement() {
                     <Image
                       src={church.cityImageURL}
                       alt={church.name}
-                      fill
-                      className='rounded-full object-cover'
+                      width={120}
+                      height={120}
+                      className='rounded-full object-cover h-16 w-16'
                     />
                   </div>
                 </div>
