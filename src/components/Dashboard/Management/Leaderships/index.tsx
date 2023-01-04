@@ -1,7 +1,6 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
 import Image from 'next/future/image';
-import { gql } from '@apollo/client';
 import { useState } from 'react';
 import useSWR from 'swr';
 import {
@@ -17,7 +16,6 @@ import {
 } from '@tremor/react';
 
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
-import { client } from '@/lib/apollo';
 
 type LeadershipData = {
   id: string;
@@ -28,33 +26,21 @@ type LeadershipData = {
   slug: string;
 }
 
-type GetLeadershipsResponse = {
-  leaderships: LeadershipData[];
-}
-
-const GET_LEADERSHIPS_QUERY = gql`
-  query Leaderships {
-    leaderships {
-      id
-      name
-      bio
-      avatar
-      role
-      instagram
-    }
-  }
-`
+const fetcher = (args: RequestInfo) => fetch(args).then((res) => res.json());
 
 export function LeadershipManagement() {
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
 
   let leaderships: LeadershipData[] = [];
 
-  const { data, error } = useSWR(GET_LEADERSHIPS_QUERY, (query) =>
-    client.query<GetLeadershipsResponse>({
-      query,
-    })
+  const { data, error, mutate } = useSWR(
+    '/api/leaderships/list',
+    fetcher,
   );
+
+  async function revalidateData(): Promise<void> {
+    await mutate('/api/leaderships/list');
+  }
 
   if (error) {
     return (
@@ -62,15 +48,15 @@ export function LeadershipManagement() {
     )
   }
 
-  if(data && data.data.leaderships) {
-    leaderships = data.data.leaderships
+  if(data && data.leaderships) {
+    leaderships = data.leaderships
   }
 
   return (
     <Card>
-      <div className='flex items-center justify-between gap-4'>
-        <button className='h-9 py-2 px-4 bg-indigo-500 rounded-md w-24 flex items-center justify-center transition-colors ease-in-out hover:bg-indigo-600'>
-          <PlusIcon className='h-6 w-6 text-white text-center' />
+      <div className='dashboard__card_header'>
+        <button className=''>
+          <PlusIcon height={24} width={24} />
         </button>
 
         <MultiSelectBox
@@ -78,15 +64,14 @@ export function LeadershipManagement() {
           placeholder="Filtrar por cargos"
           maxWidth="max-w-xs"
         >
-          {
-            removeDuplicateKeyInObjectArrayHelper(leaderships, 'role')
-              .map((leader) => (
-                <MultiSelectBoxItem
-                  key={leader.slug}
-                  value={leader.role}
-                  text={leader.role}
-                />
-              ))
+          {removeDuplicateKeyInObjectArrayHelper(leaderships, 'role')
+            .map((leader) => (
+              <MultiSelectBoxItem
+                key={leader.slug}
+                value={leader.role}
+                text={leader.role}
+              />
+            ))
           }
         </MultiSelectBox>
       </div>
@@ -106,9 +91,9 @@ export function LeadershipManagement() {
           ).map((leader) => (
             <TableRow key={leader.id}>
               <TableCell>
-                <div className='flex items-center gap-8'>
-                  <FaPen className='hover:text-emerald-500 cursor-pointer' />
-                  <FaTrash className='hover:text-red-500 cursor-pointer' />
+                <div className='dashboard__action_container'>
+                  <FaPen />
+                  <FaTrash />
                 </div>
               </TableCell>
               <TableCell>
@@ -117,7 +102,7 @@ export function LeadershipManagement() {
                   alt={leader.name}
                   width={64}
                   height={64}
-                  className='rounded-full object-cover h-16 w-16 min-h-[64px] min-w-[64px]'
+                  className='dashboard__multi_image'
                 />
               </TableCell>
               <TableCell>

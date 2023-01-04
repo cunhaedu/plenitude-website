@@ -48,3 +48,47 @@
     @apply hover:text-red-500;
   }
 }
+
+.dashboard__image_container {
+  @apply w-full;
+  @apply flex;
+  @apply justify-center;
+
+  > div {
+    @apply w-16;
+    @apply h-16;
+    @apply relative;
+
+    img {
+      @apply rounded-full;
+      @apply object-cover;
+      @apply h-16;
+      @apply w-16;
+    }
+  }
+}
+
+.dashboard__multi_image_container {
+  @apply flex;
+  @apply -space-x-4;
+  @apply overflow-hidden;
+
+  img {
+    @apply inline-block;
+    @apply h-16;
+    @apply w-16;
+    @apply rounded-full;
+    @apply ring-2;
+    @apply ring-white;
+    @apply object-cover;
+  }
+}
+
+.dashboard__multi_image {
+  @apply rounded-full;
+  @apply object-cover;
+  @apply h-16;
+  @apply w-16;
+  @apply min-h-[64px];
+  @apply min-w-[64px];
+}
