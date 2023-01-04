@@ -35,7 +35,7 @@ export function TestimonialManagement() {
 
   const { data, error, mutate } = useSWR(
     '/api/testimonials/list',
-    fetcher
+    fetcher,
   );
 
   async function revalidateData(): Promise<void> {
