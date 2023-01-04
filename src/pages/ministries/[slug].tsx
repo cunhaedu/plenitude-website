@@ -4,7 +4,6 @@ import Image from 'next/future/image';
 import { gql } from '@apollo/client';
 import Head from 'next/head';
 
-import { VideoPlayer } from '@/components/VideoPlayer';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { client } from '@/lib/apollo';
@@ -113,8 +112,6 @@ export default function Church({ ministry }: GetMinistryResponse) {
           <h3 className='text-center md:w-9/12 self-center text-gray-700 font-medium text-lg md:text-2xl'>
             {ministry.description}
           </h3>
-
-          {ministry.video && <VideoPlayer src={ministry.video}/>}
         </section>
 
         <section

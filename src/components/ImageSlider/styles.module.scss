@@ -1,0 +1,47 @@
+.image_slider_container {
+  @apply max-w-full;
+  @apply 2xl:max-w-screen-2xl;
+  @apply 2xl:self-center;
+  @apply overflow-x-hidden;
+  @apply my-10;
+}
+
+.item_container {
+  @apply h-80;
+  @apply w-full;
+  @apply md:w-80;
+  @apply md:mx-5;
+  @apply cursor-pointer;
+  @apply relative;
+
+  img {
+    @apply object-cover;
+    @apply object-center;
+    @apply rounded-md;
+    @apply w-[calc(20rem-2.5rem)];
+  }
+
+  div {
+    @apply h-80;
+    @apply w-full;
+    @apply flex;
+    @apply flex-col;
+    @apply bg-gradient-to-t;
+    @apply from-[#0a0a0a];
+    @apply hover:from-black;
+    @apply rounded-md;
+    @apply relative;
+
+    p {
+      @apply text-white;
+      @apply font-bold;
+      @apply mt-60;
+      @apply pl-5;
+    }
+
+    span {
+      @apply text-white;
+      @apply pl-5;
+    }
+  }
+}

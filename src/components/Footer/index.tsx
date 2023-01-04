@@ -1,55 +1,55 @@
-import { AiFillInstagram } from 'react-icons/ai';
 import { FaFacebook, FaYoutube, FaTiktok } from 'react-icons/fa';
+import { AiFillInstagram } from 'react-icons/ai';
+
+import styles from './styles.module.scss';
 
 export function Footer() {
   return (
-    <footer className='p-2'>
-      <section className='flex justify-center align-middle items-center pt-10'>
-        <span className='block font-semibold text-center text-gray-500'>© {new Date().getFullYear()} Comunidade Plenitude. Todos os direitos reservados.</span>
+    <footer className={styles.footer}>
+      <section className={styles.footer__copyright}>
+        <span>
+          © {new Date().getFullYear()} Comunidade Plenitude. Todos os direitos reservados.
+        </span>
       </section>
 
-      <section className='flex flex-nowrap justify-center align-middle gap-8 my-4'>
-        <div className='flex justify-center align-middle'>
+      <section className={styles.footer__links}>
+        <div>
           <a
             href="https://www.instagram.com/ce.plenitude/"
             target="_blank"
             rel="noopener noreferrer"
-            className='no-underline h-6 w-6'
           >
-            <AiFillInstagram className='h-6 w-6 text-gray-500 hover:text-instagram' />
+            <AiFillInstagram className='hover:text-instagram' />
           </a>
         </div>
 
-        <div className='flex justify-center align-middle'>
+        <div>
           <a
             href="https://www.youtube.com/user/ComunidadePlenitude"
             target="_blank"
             rel="noopener noreferrer"
-            className='no-underline h-6 w-6'
           >
-            <FaYoutube className='h-6 w-6 text-gray-500 hover:text-youtube' />
+            <FaYoutube className='hover:text-youtube' />
           </a>
         </div>
 
-        <div className='flex justify-center align-middle'>
+        <div>
           <a
             href="https://pt-br.facebook.com/pg/comunidadeevangelicaplenitude"
             target="_blank"
             rel="noopener noreferrer"
-            className='no-underline h-6 w-6'
           >
-            <FaFacebook className='h-6 w-6 text-gray-500 hover:text-facebook' />
+            <FaFacebook className='hover:text-facebook' />
           </a>
         </div>
 
-        <div className='flex justify-center align-middle'>
+        <div>
           <a
             href="https://www.tiktok.com/@comunidadeplenitude"
             target="_blank"
             rel="noopener noreferrer"
-            className='no-underline h-6 w-6'
           >
-            <FaTiktok className='h-6 w-6 text-gray-500 hover:text-tiktok' />
+            <FaTiktok className='hover:text-tiktok' />
           </a>
         </div>
       </section>

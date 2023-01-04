@@ -23,7 +23,7 @@ type TestimonialData = {
   description: string;
 }
 
-const fetcher = (args: RequestInfo | URL) => fetch(args).then((res) => res.json());
+const fetcher = (args: RequestInfo) => fetch(args).then((res) => res.json());
 
 export function TestimonialManagement() {
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
