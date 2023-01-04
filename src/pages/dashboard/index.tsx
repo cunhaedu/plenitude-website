@@ -1,3 +1,4 @@
+import { Slide, ToastContainer } from 'react-toastify';
 import { LogoutIcon } from '@heroicons/react/outline';
 import { Tab, TabList } from '@tremor/react';
 import { useContext, useState } from 'react';
@@ -5,14 +6,16 @@ import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
 import Head from 'next/head';
 
-import { LeadershipManagement } from '../../components/Dashboard/Management/LeadershipManagement';
-import { ChurchManagement } from '../../components/Dashboard/Management/ChurchManagement';
-import { AuthContext } from '../../contexts/AuthContext';
-import { Banner } from '../../components/Banner';
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
-import { MinistryManagement } from '../../components/Dashboard/Management/MinistryManagement';
-import { TestimonialManagement } from '../../components/Dashboard/Management/TestimonialManagement';
+import { TestimonialManagement } from '@/components/Dashboard/Management/Testimonials';
+import { LeadershipManagement } from '@/components/Dashboard/Management/Leaderships';
+import { MinistryManagement } from '@/components/Dashboard/Management/Ministries';
+import { ChurchManagement } from '@/components/Dashboard/Management/Churches';
+import { AuthContext } from '@/contexts/AuthContext';
+import { Banner } from '@/components/Banner';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+
+import styles from './styles.module.scss';
 
 type TabViews = 'leadership' | 'churches' | 'ministries' | 'testimonies';
 
@@ -35,26 +38,21 @@ export default function Admin() {
         }}
       />
 
-      <main className="max-w-2xl mx-auto px-4 py-8 sm:px-6 lg:max-w-7xl lg:px-8 min-h-[calc(100vh-8rem)]">
-        <section className='flex items-center justify-between pb-10'>
+      <main className={styles.dashboard_container}>
+        <section className={styles.dashboard_header}>
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">
-              Bem vindo
-            </h1>
-
-            <p className='text-gray-500 font-medium'>
-              Administre por aqui as informações do site
-            </p>
+            <h1>Bem vindo</h1>
+            <p>Administre por aqui as informações do site</p>
           </div>
 
-          <div className='w-32 flex items-center justify-center'>
-            <button className='p-3 group' onClick={logout}>
-              <LogoutIcon className='w-8 h-8 text-rose-500 group-hover:text-rose-600' />
+          <div>
+            <button className='group' onClick={logout}>
+              <LogoutIcon className='group-hover:text-rose-600' />
             </button>
           </div>
         </section>
 
-        <div className='mb-3 overflow-x-auto'>
+        <div className={styles.dashboard_tab_container}>
           <TabList
             color='indigo'
             defaultValue="leadership"
@@ -75,6 +73,11 @@ export default function Admin() {
       </main>
 
       <Footer />
+
+      <ToastContainer
+        position='bottom-right'
+        transition={Slide}
+      />
     </>
   )
 }

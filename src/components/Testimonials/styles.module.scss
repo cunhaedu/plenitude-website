@@ -1,0 +1,145 @@
+.empty_testimonials {
+  @apply hidden;
+  @apply lg:flex;
+  @apply justify-center;
+  @apply align-middle;
+}
+
+.testimonials {
+  background-color: #F0EDFF;
+  @apply py-20;
+  @apply px-10;
+  @apply flex;
+  @apply flex-col;
+  @apply lg:flex-row;
+  @apply justify-center;
+  @apply lg:justify-evenly;
+
+  > div {
+    @apply flex;
+    @apply flex-col;
+    @apply justify-center;
+    @apply align-middle;
+    @apply gap-5;
+
+    h3 {
+      @apply font-bold;
+      @apply text-3xl;
+      @apply text-indigo-600;
+      @apply pb-3;
+      @apply flex;
+      @apply self-center;
+      @apply lg:self-start;
+    }
+
+    p {
+      @apply pb-10;
+      @apply text-gray-500;
+      @apply text-lg;
+      @apply font-medium;
+      @apply max-w-sm;
+      @apply lg:max-w-xs;
+      @apply self-center;
+      @apply text-center;
+      @apply lg:self-start;
+      @apply lg:text-left;
+    }
+  }
+}
+
+.testimonials_container {
+  @apply flex;
+  @apply justify-center;
+  @apply align-middle;
+  @apply gap-10;
+  @apply pt-10;
+}
+
+.testimonials_content_container {
+  @apply flex;
+  @apply flex-col;
+  @apply gap-3;
+  @apply justify-evenly;
+  @apply p-5;
+  @apply w-[calc(100vw-10rem)];
+  @apply lg:w-96;
+  @apply h-64;
+  @apply bg-white;
+  @apply rounded-lg;
+
+  p {
+    @apply text-sm;
+    @apply max-h-48;
+    @apply line-clamp-6;
+  }
+
+  div {
+    @apply flex;
+    @apply flex-col;
+    @apply align-middle;
+    @apply justify-center;
+    @apply gap-5;
+    @apply md:flex-row;
+    @apply md:justify-between;
+
+    span {
+      @apply font-medium;
+    }
+
+    > button {
+      @apply w-full;
+      @apply h-8;
+      @apply md:w-12;
+      @apply bg-indigo-700/70;
+      @apply hover:bg-indigo-700;
+      @apply rounded-md;
+      @apply flex;
+      @apply align-middle;
+      @apply justify-center;
+
+      svg {
+        @apply text-white;
+        @apply cursor-pointer;
+        @apply w-6;
+        @apply h-6;
+        @apply self-center;
+      }
+    }
+  }
+}
+
+.testimonial__desktop_navigation_container {
+  @apply hidden;
+  @apply h-64;
+  @apply lg:flex;
+  @apply flex-col;
+  @apply align-middle;
+  @apply justify-center;
+  @apply gap-7;
+
+  button {
+    @apply disabled:opacity-75;
+    @apply cursor-pointer;
+
+    svg {
+      @apply w-7;
+      @apply h-7;
+      @apply fill-indigo-700;
+      @apply hover:fill-indigo-800;
+    }
+  }
+}
+
+.testimonial_phone_navigation_button {
+  @apply lg:hidden;
+  @apply disabled:opacity-75;
+  @apply cursor-pointer;
+  @apply h-7 mt-32;
+
+  svg {
+    @apply w-7;
+    @apply h-7;
+    @apply fill-indigo-700;
+    @apply hover:fill-indigo-800;
+  }
+}

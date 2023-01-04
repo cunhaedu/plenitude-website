@@ -1,14 +1,16 @@
 import { Slide, toast, ToastContainer } from 'react-toastify';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { useContext, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import { useForm } from 'react-hook-form';
 import { parseCookies } from 'nookies';
 import Image from 'next/image';
 import clx from 'classnames';
 
-import { AuthContext } from '../../contexts/AuthContext';
-import { Header } from '../../components/Header';
-import { GetServerSideProps } from 'next';
+import { AuthContext } from '@/contexts/AuthContext';
+import { Header } from '@/components/Header';
+
+import styles from './styles.module.scss';
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
@@ -33,29 +35,27 @@ export default function Login() {
     <div>
       <Header currentPage='adm' />
 
-      <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
-          <div className='flex flex-col align-middle justify-center'>
-            <div className='self-center'>
+      <main className={styles.login}>
+        <div>
+          <div className={styles.login__header}>
+            <div>
               <Image
                 src="/assets/logo/logo-black.png"
                 alt="Comunidade Plenitude"
                 width={192}
                 height={86}
-                className="w-auto h-auto"
               />
             </div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Login no sistema
-            </h2>
+            <h2>Login no sistema</h2>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit(handleSignIn)}>
-            <input type="hidden" name="remember" defaultValue="true" />
-            <div className="rounded-md shadow-sm -space-y-px">
+
+          <form
+            className={styles.login__form}
+            onSubmit={handleSubmit(handleSignIn)}
+          >
+            <div className={styles.input_container}>
               <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
-                </label>
+                <label htmlFor="email-address">Email address</label>
                 <input
                   {...register('email')}
                   id="email-address"
@@ -63,14 +63,12 @@ export default function Login() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Endereço de email"
+                  className='rounded-t-md'
                 />
               </div>
               <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
+                <label htmlFor="password">Password</label>
                 <input
                   {...register('password')}
                   id="password"
@@ -78,30 +76,31 @@ export default function Login() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Senha"
+                  className='rounded-b-md'
                 />
               </div>
             </div>
 
-            <div>
+            <div className={styles.button_container}>
               <button
-                className={clx(
-                  "group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4",
-                  "text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700",
-                  {"cursor-not-allowed brightness-150": loading}
-                )}
                 type="submit"
+                className={clx('group', {'isLoading': loading})}
               >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+                <span>
+                  <LockClosedIcon
+                    aria-hidden
+                    height={20}
+                    width={20}
+                    className="group-hover:text-indigo-400"
+                  />
                 </span>
                 Login
               </button>
             </div>
           </form>
         </div>
-      </div>
+      </main>
 
       <ToastContainer />
     </div>

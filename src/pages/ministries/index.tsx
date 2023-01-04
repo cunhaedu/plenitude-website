@@ -4,9 +4,9 @@ import Image from 'next/future/image';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
-import { client } from '../../lib/apollo';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { client } from '@/lib/apollo';
 
 type GetMinistriesResponse = {
   ministries: Array<{

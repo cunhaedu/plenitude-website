@@ -1,0 +1,94 @@
+.dashboard__load_data_error {
+  @apply text-gray-500;
+  @apply text-center py-20;
+}
+
+.dashboard__card_header {
+  @apply flex;
+  @apply items-center;
+  @apply justify-between;
+  @apply gap-4;
+  @apply z-50;
+
+  > button {
+    @apply h-9;
+    @apply py-2;
+    @apply px-4;
+    @apply bg-indigo-500;
+    @apply rounded-md;
+    @apply w-20;
+    @apply flex;
+    @apply items-center;
+    @apply justify-center;
+    @apply transition-colors;
+    @apply ease-in-out;
+    @apply hover:bg-indigo-600;
+
+    svg {
+      @apply text-white;
+      @apply text-center;
+    }
+  }
+}
+
+.dashboard__action_container {
+  @apply flex;
+  @apply items-center;
+  @apply gap-8;
+
+  svg {
+    @apply cursor-pointer;
+  }
+
+  svg:first-child {
+    @apply hover:text-emerald-500;
+  }
+
+  svg:last-child {
+    @apply hover:text-red-500;
+  }
+}
+
+.dashboard__image_container {
+  @apply w-full;
+  @apply flex;
+  @apply justify-center;
+
+  > div {
+    @apply w-16;
+    @apply h-16;
+    @apply relative;
+
+    img {
+      @apply rounded-full;
+      @apply object-cover;
+      @apply h-16;
+      @apply w-16;
+    }
+  }
+}
+
+.dashboard__multi_image_container {
+  @apply flex;
+  @apply -space-x-4;
+  @apply overflow-hidden;
+
+  img {
+    @apply inline-block;
+    @apply h-16;
+    @apply w-16;
+    @apply rounded-full;
+    @apply ring-2;
+    @apply ring-white;
+    @apply object-cover;
+  }
+}
+
+.dashboard__multi_image {
+  @apply rounded-full;
+  @apply object-cover;
+  @apply h-16;
+  @apply w-16;
+  @apply min-h-[64px];
+  @apply min-w-[64px];
+}

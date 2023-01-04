@@ -1,0 +1,53 @@
+.dashboard_container {
+  @apply max-w-2xl;
+  @apply mx-auto;
+  @apply px-4;
+  @apply py-8;
+  @apply sm:px-6;
+  @apply lg:max-w-7xl;
+  @apply lg:px-8;
+  @apply min-h-[calc(100vh-8rem)];
+}
+
+.dashboard_header {
+  @apply flex;
+  @apply items-center;
+  @apply justify-between;
+  @apply pb-10;
+
+  > div {
+    h1 {
+      @apply text-2xl;
+      @apply font-extrabold;
+      @apply tracking-tight;
+      @apply text-gray-900;
+    }
+
+    p {
+      @apply text-gray-500;
+      @apply font-medium;
+    }
+  }
+
+  > div:last-child {
+    @apply w-32;
+    @apply flex;
+    @apply items-center;
+    @apply justify-center;
+
+    button {
+      @apply p-3;
+
+      svg {
+        @apply text-rose-500;
+        @apply w-8;
+        @apply h-8;
+      }
+    }
+  }
+}
+
+.dashboard_tab_container {
+  @apply mb-3;
+  @apply overflow-x-auto;
+}

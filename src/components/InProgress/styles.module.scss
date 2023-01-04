@@ -1,0 +1,29 @@
+.in_progress_container {
+  @apply flex;
+  @apply flex-col;
+  @apply justify-center;
+  @apply h-screen;
+  @apply align-middle;
+  @apply p-10;
+
+  h2 {
+    @apply text-center;
+    @apply font-semibold;
+    @apply py-10;
+  }
+
+  a {
+    @apply py-5;
+    @apply w-32;
+    @apply self-center;
+    @apply rounded-md;
+    @apply no-underline;
+    @apply text-center;
+    @apply text-white;
+    @apply bg-indigo-500;
+    @apply hover:bg-indigo-700;
+    @apply transition;
+    @apply duration-200;
+    @apply ease-in-out;
+  }
+}

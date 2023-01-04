@@ -34,6 +34,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
 
     setCookie(undefined, '@plenitude-token', data.token, {
+      sameSite: true,
       maxAge: 60 * 60 * 12, // 12 Hour
     });
 
@@ -41,7 +42,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function logout(): Promise<void> {
-    destroyCookie(undefined, '@plenitude-token');
+    destroyCookie(undefined, '@plenitude-token', { sameSite: true });
     Router.push('/');
   }
 

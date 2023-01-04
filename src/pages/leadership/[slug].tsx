@@ -1,13 +1,15 @@
 import { AiOutlineInstagram as InstagramIcon } from 'react-icons/ai';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import Image from 'next/future/image';
 import { gql } from '@apollo/client';
 import Head from 'next/head';
 
-import { Footer } from '../../components/Footer';
-import { Header } from '../../components/Header';
-import { client } from '../../lib/apollo';
-import Image from 'next/future/image';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { client } from '@/lib/apollo';
+
+import styles from './styles.module.scss';
 
 type Params = ParsedUrlQuery & {
   slug: string;
@@ -69,43 +71,34 @@ export default function Leadership({ leadership }: GetLeaderShipResponse) {
       <Header />
 
       <main>
-        <div className='min-w-full relative'>
+        <div className={styles.leadership_header}>
           <Image
             src={leadership.cover}
             alt={leadership.name}
             width={1148}
             height={450}
-            className='object-cover w-full'
           />
         </div>
 
-        <section className="max-w-2xl mx-auto py-8 px-6 md:py-16 lg:max-w-7xl lg:px-8">
-          <section>
-            <h1 className='text-2xl md:text-4xl text-gray-700'>
-              {leadership.name}
-            </h1>
-
-            <h2 className='text-sm md:text-lg text-gray-500 pt-1'>
-              {leadership.role}
-            </h2>
-          </section>
+        <section className={styles.leadership_body}>
+          <div>
+            <h1>{leadership.name}</h1>
+            <h2>{leadership.role}</h2>
+          </div>
 
           {leadership.instagram && (
-              <div className='flex gap-4 align-middle justify-start my-8'>
-                <a
-                  href={leadership.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className='no-underline h-8 w-8'
-                >
-                  <InstagramIcon className='h-8 w-8 text-gray-500 hover:text-gray-700' />
-                </a>
-              </div>
-            )}
+            <div className={styles.leadership_body__instagram_container}>
+              <a
+                href={leadership.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramIcon />
+              </a>
+            </div>
+          )}
 
-          <p className='font-medium text-lg text-gray-500 mt-10 min-h-[20vh] lg:min-h-full'>
-            {leadership.bio}
-          </p>
+          <p>{leadership.bio}</p>
         </section>
       </main>
 

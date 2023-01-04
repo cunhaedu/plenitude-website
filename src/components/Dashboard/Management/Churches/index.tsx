@@ -1,7 +1,6 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
 import Image from 'next/future/image';
-import { gql } from '@apollo/client';
 import { useState } from 'react';
 import useSWR from 'swr';
 import {
@@ -16,10 +15,10 @@ import {
   TableRow,
 } from '@tremor/react';
 
-import { removeDuplicateKeyInObjectArrayHelper } from '../../../../helpers/removeDuplicateKeyInObjectArray.helper';
-import { client } from '../../../../lib/apollo';
+import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
 
 type ChurchData = {
+  id: string;
   slug: string;
   name: string;
   city: string;
@@ -33,37 +32,20 @@ type ChurchData = {
   description: string;
 }
 
-type GetChurchesResponse = {
-  churches: ChurchData[];
-}
-
-const GET_CHURCHES_QUERY = gql`
-  query Churches {
-    churches {
-      slug
-      name
-      city
-      state
-      street
-      number
-      district
-      serviceTimes
-      cover
-      cityImageURL
-      description
-    }
-  }
-`
+const fetcher = (args: RequestInfo) => fetch(args).then((res) => res.json());
 
 export function ChurchManagement() {
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
   let churches: ChurchData[] = [];
 
-  const { data, error } = useSWR(GET_CHURCHES_QUERY, (query) =>
-    client.query<GetChurchesResponse>({
-      query,
-    })
+  const { data, error, mutate } = useSWR(
+    '/api/churches/list',
+    fetcher,
   );
+
+  async function revalidateData(): Promise<void> {
+    await mutate('/api/churches/list');
+  }
 
   if (error) {
     return (
@@ -71,8 +53,8 @@ export function ChurchManagement() {
     )
   }
 
-  if(data && data.data.churches) {
-    churches = data.data.churches
+  if(data && data.churches) {
+    churches = data.churches
   }
 
   function isLeaderSelected(leader: ChurchData) {
@@ -81,9 +63,9 @@ export function ChurchManagement() {
 
   return (
     <Card>
-      <div className='flex items-center justify-between gap-4'>
-        <button className='h-9 py-2 px-4 bg-indigo-500 rounded-md w-24 flex items-center justify-center transition-colors ease-in-out hover:bg-indigo-600'>
-          <PlusIcon className='h-6 w-6 text-white text-center' />
+      <div className="dashboard__card_header">
+        <button>
+          <PlusIcon height={24} width={24} />
         </button>
 
         <MultiSelectBox
@@ -91,15 +73,14 @@ export function ChurchManagement() {
           placeholder="Filtrar por cidades"
           maxWidth="max-w-xs"
         >
-          {
-            removeDuplicateKeyInObjectArrayHelper(churches, 'city')
-              .map((leader) => (
-                <MultiSelectBoxItem
-                  key={ leader.slug }
-                  value={ leader.city }
-                  text={ leader.city }
-                />
-              ))
+          {removeDuplicateKeyInObjectArrayHelper(churches, 'city')
+            .map((leader) => (
+              <MultiSelectBoxItem
+                key={ leader.slug }
+                value={ leader.city }
+                text={ leader.city }
+              />
+            ))
           }
         </MultiSelectBox>
       </div>
@@ -120,19 +101,19 @@ export function ChurchManagement() {
           {churches.filter((church) => isLeaderSelected(church)).map((church) => (
             <TableRow key={church.slug}>
               <TableCell>
-                <div className='flex items-center gap-8'>
-                  <FaPen className='hover:text-emerald-500 cursor-pointer' />
-                  <FaTrash className='hover:text-red-500 cursor-pointer' />
+                <div className="dashboard__action_container">
+                  <FaPen />
+                  <FaTrash />
                 </div>
               </TableCell>
               <TableCell>
-                <div className='w-full flex justify-center'>
-                  <div className='w-16 h-16 relative'>
+                <div className='dashboard__image_container'>
+                  <div>
                     <Image
                       src={church.cityImageURL}
                       alt={church.name}
-                      fill
-                      className='rounded-full object-cover'
+                      width={120}
+                      height={120}
                     />
                   </div>
                 </div>

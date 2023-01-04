@@ -1,0 +1,52 @@
+.contribution {
+  @apply p-10;
+
+  h3 {
+    @apply text-center;
+    @apply text-2xl;
+    @apply font-bold;
+
+    span {
+      @apply text-red-600;
+    }
+  }
+
+  h4 {
+    @apply text-center;
+    @apply font-medium;
+    @apply pt-4;
+  }
+}
+
+.contribution_info_container {
+  @apply flex;
+  @apply flex-col;
+  @apply md:flex-row;
+  @apply md:justify-evenly;
+  @apply align-middle;
+  @apply md:pt-5;
+
+  div {
+    @apply flex;
+    @apply flex-col;
+    @apply align-middle;
+    @apply justify-evenly;
+
+    img {
+      @apply self-center;
+    }
+
+    div {
+      @apply flex;
+      @apply items-center;
+      @apply justify-center;
+      @apply gap-3;
+    }
+
+    p, div > p {
+      @apply text-center;
+      @apply font-medium;
+      @apply text-gray-700;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+.contact {
+  @apply py-20;
+  @apply px-10;
+  @apply gap-10;
+  @apply md:gap-0;
+  @apply bg-gray-100;
+  @apply flex flex-col;
+  @apply md:justify-evenly;
+  @apply md:flex-row;
+  @apply align-middle;
+  @apply justify-center;
+
+  > div {
+    @apply flex;
+    @apply flex-col;
+    @apply gap-10;
+
+    h3 {
+      @apply text-center;
+      @apply md:text-left;
+      @apply font-bold;
+      @apply text-2xl;
+      @apply text-gray-800;
+    }
+
+    h4 {
+      @apply md:w-1/2;
+      @apply text-gray-600;
+      @apply text-center;
+      @apply md:text-left;
+    }
+
+    a {
+      @apply md:w-1/3;
+      @apply text-center;
+      @apply bg-gray-800;
+      @apply text-white;
+      @apply font-medium;
+      @apply rounded-md;
+      @apply px-3;
+      @apply py-2;
+      @apply hover:brightness-125;
+    }
+  }
+
+  aside {
+    @apply flex;
+    @apply flex-col;
+    @apply md:justify-end;
+
+    div {
+      @apply flex;
+      @apply align-middle;
+      @apply gap-2;
+      @apply self-center;
+      @apply md:self-end;
+
+      svg {
+        @apply self-center;
+        @apply text-gray-500;
+      }
+    }
+
+    span {
+      @apply text-gray-500;
+      @apply font-medium;
+    }
+  }
+}

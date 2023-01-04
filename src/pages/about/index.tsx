@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 
+import styles from './styles.module.scss';
+
 export default function About() {
   return (
     <div>
@@ -29,18 +31,15 @@ export default function About() {
       <Header currentPage='about' />
 
       <main>
-        <section className="bg-about bg-center bg-cover bg-no-repeat md:bg-fixed">
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
-            <h1 className='font-bold text-5xl p-5 tracking-wide'>Sobre nós</h1>
+        <section className={styles.about_header}>
+          <div>
+            <h1>Sobre nós</h1>
           </div>
         </section>
 
-        <div className='flex flex-col gap-10 px-5 md:px-10 lg:px-40 py-20'>
-
-          <section className='font-medium text-gray-700 text-lg tracking-wide text-justify hyphens-auto'>
-            <h3 className='text-4xl text-center font-bold text-gray-500 mb-10'>
-              Nossa História
-            </h3>
+        <div className={styles.about_body}>
+          <section>
+            <h3>Nossa História</h3>
 
             <p>
               Nos meados de 2009, a partir do coração de Deus para o coração de
@@ -82,10 +81,8 @@ export default function About() {
             </p>
           </section>
 
-          <section  className='font-medium text-gray-700 text-lg tracking-wide text-justify hyphens-auto'>
-            <h3 className='text-4xl text-center font-bold text-gray-500 mb-10'>
-              Nossa Missão
-            </h3>
+          <section>
+            <h3>Nossa Missão</h3>
 
             <p>
               Ser uma igreja que glorifique o nome de Deus e que cultive a
@@ -95,10 +92,8 @@ export default function About() {
             </p>
           </section>
 
-          <section  className='font-medium text-gray-700 text-lg tracking-wide text-justify hyphens-auto'>
-            <h3 className='text-4xl text-center font-bold text-gray-500 mb-10'>
-              Nossa visão
-            </h3>
+          <section>
+            <h3>Nossa visão</h3>
 
             <p>
               Levar as pessoas a buscar um relacionamento intenso com Deus, amar
@@ -107,13 +102,11 @@ export default function About() {
             </p>
           </section>
 
-          <section  className='font-medium text-gray-700 text-lg tracking-wide text-justify hyphens-auto'>
-            <h3 className='text-4xl text-center font-bold text-gray-500 mb-10'>
-              Nossas Crenças
-            </h3>
+          <section>
+            <h3>Nossas Crenças</h3>
 
             <p>
-              <strong className='text-gray-800'>Acreditamos </strong>
+              <strong>Acreditamos </strong>
               que há um só Deus, um único mediador entre Deus e a humanidade
               e na existência do Espírito Santo como nosso guia e consolador.
             </p>
@@ -121,7 +114,7 @@ export default function About() {
             <br />
 
             <p>
-              <strong className='text-gray-800'>Acreditamos </strong>
+              <strong>Acreditamos </strong>
               que a Bíblia é a palavra de Deus e que dela vem todos os
               princípios da nossa fé e conduta.
             </p>
@@ -129,7 +122,7 @@ export default function About() {
             <br />
 
             <p>
-              <strong className='text-gray-800'>Acreditamos </strong>
+              <strong>Acreditamos </strong>
               que fomos chamados por Deus para levarmos seu reino adiante.
             </p>
           </section>
