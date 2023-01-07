@@ -9,7 +9,6 @@ import styles from './styles.module.scss';
 type TestimonialData = {
   id: string;
   name: string;
-  description: string;
 }
 
 interface DeleteTestimonialModalProps {

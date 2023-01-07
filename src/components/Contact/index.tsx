@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FaPhoneAlt } from 'react-icons/fa';
+import { FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 
 import styles from './styles.module.scss';
@@ -30,7 +30,9 @@ export function Contact() {
           ajudar e tirar suas dúvidas.
         </h4>
 
-        <a href={whatsappUrl}>Enviar mensagem</a>
+        <a href={whatsappUrl}>
+          <FaWhatsapp size={18} /> Enviar mensagem
+        </a>
       </div>
 
       <aside>
