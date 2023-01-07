@@ -86,7 +86,7 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
             <h2>Lugar de novos começos</h2>
           </div>
 
-          <video autoPlay loop muted>
+          <video autoPlay loop muted playsInline>
             <source src="/assets/videos/main_720p.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>

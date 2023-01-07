@@ -40,6 +40,10 @@
       @apply px-3;
       @apply py-2;
       @apply hover:brightness-125;
+      @apply flex;
+      @apply items-center;
+      @apply justify-center;
+      @apply gap-2;
     }
   }
 
