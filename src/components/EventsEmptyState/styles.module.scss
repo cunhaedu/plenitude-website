@@ -1,0 +1,34 @@
+.container {
+  @apply max-w-2xl;
+  @apply mx-auto;
+  @apply py-16;
+  @apply px-4;
+  @apply sm:py-24;
+  @apply sm:px-6;
+  @apply lg:max-w-7xl;
+  @apply lg:px-8;
+
+  h2 {
+    @apply text-2xl;
+    @apply font-extrabold;
+    @apply text-center;
+    @apply tracking-tight;
+    @apply text-gray-900;
+
+    span {
+      @apply text-violet-500;
+    }
+  }
+
+  div {
+    @apply flex;
+    @apply items-center;
+    @apply justify-center;
+    @apply mt-20;
+
+    img {
+      @apply h-80;
+      @apply w-52;
+    }
+  }
+}

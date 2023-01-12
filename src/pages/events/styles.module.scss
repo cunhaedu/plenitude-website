@@ -1,0 +1,123 @@
+.events {
+  @apply bg-sky-200/20;
+}
+
+.events__header {
+  @apply bg-events;
+  @apply bg-center;
+  @apply bg-cover;
+  @apply bg-no-repeat;
+  @apply md:bg-fixed;
+
+  div {
+    @apply min-h-[calc(100vh-64px)];
+    @apply flex;
+    @apply flex-col;
+    @apply align-middle;
+    @apply justify-center;
+    @apply text-center;
+    @apply text-white;
+
+    h1 {
+      @apply font-bold;
+      @apply text-4xl;
+      @apply md:text-5xl;
+      @apply p-5;
+      @apply tracking-wide;
+    }
+  }
+}
+
+.events__list {
+  @apply max-w-2xl;
+  @apply mx-auto;
+  @apply py-16;
+  @apply px-4;
+  @apply sm:py-24;
+  @apply sm:px-6;
+  @apply lg:max-w-7xl;
+  @apply lg:px-8;
+
+  h2 {
+    @apply text-2xl;
+    @apply font-extrabold;
+    @apply text-center;
+    @apply tracking-tight;
+    @apply text-gray-900;
+
+    span {
+      @apply text-sky-500;
+    }
+  }
+
+  > div {
+    @apply mt-24;
+    @apply md:mt-16;
+    @apply grid;
+    @apply grid-cols-1;
+    @apply gap-y-10;
+    @apply gap-x-6;
+    @apply sm:grid-cols-2;
+    @apply lg:grid-cols-4;
+    @apply xl:gap-x-8;
+  }
+}
+
+.event_card {
+  @apply w-full;
+  @apply md:w-64;
+  @apply bg-white;
+  @apply shadow-gray-300;
+  @apply rounded-md;
+  @apply duration-300;
+
+  > div:first-child {
+    @apply w-full;
+    @apply h-64;
+    @apply md:w-64;
+    @apply md:h-64;
+    @apply aspect-none;
+    @apply relative;
+
+    img {
+      @apply rounded-t-md;
+      @apply object-cover;
+      @apply w-full;
+      @apply h-full;
+    }
+  }
+
+  > div:last-child {
+    @apply p-3;
+    @apply flex;
+    @apply flex-col;
+    @apply gap-3;
+
+    h3, span, a {
+      @apply text-sm;
+      @apply text-gray-800;
+    }
+
+    h3 {
+      @apply text-base;
+      @apply cursor-default;
+      @apply font-semibold;
+    }
+
+    span {
+      @apply cursor-default;
+      @apply font-semibold;
+    }
+
+    a {
+      @apply text-base;
+      @apply lg:text-sm;
+      @apply underline;
+      @apply transition-colors;
+      @apply duration-200;
+      @apply ease-in-out;
+      @apply text-sky-500;
+      @apply hover:text-sky-900;
+    }
+  }
+}

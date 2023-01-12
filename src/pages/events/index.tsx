@@ -1,10 +1,41 @@
-import Image from 'next/future/image';
+import { GetStaticProps } from 'next';
+import { gql } from '@apollo/client';
 import Head from 'next/head';
 
+import { EventsEmptyState } from '@/components/EventsEmptyState';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { client } from '@/lib/apollo';
 
-export default function Events() {
+import styles from './styles.module.scss';
+import Image from 'next/future/image';
+import { formatEventDate } from '@/helpers/formmatEventDate';
+
+type GetEventsResponse = {
+  events: Array<{
+    title: string;
+    link: string;
+    cover: string;
+    initialDate: string;
+    endDate: string;
+
+    date: string;
+  }>
+}
+
+const GET_EVENTS_QUERY = gql`
+  query Events {
+    events(orderBy: initialDate_ASC) {
+      title
+      cover
+      link
+      initialDate
+      endDate
+    }
+  }
+`
+
+export default function Events({ events }: GetEventsResponse) {
   return (
     <div>
       <Head>
@@ -19,34 +50,73 @@ export default function Events() {
 
       <Header currentPage='events' />
 
-      <main className='bg-violet-100/30'>
-        <section className="bg-events bg-center bg-cover bg-no-repeat md:bg-fixed">
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
-            <h1 className='font-bold text-4xl md:text-5xl p-5 tracking-wide'>
-              Eventos da Comunidade Plenitude
-            </h1>
+      <main className={styles.events}>
+        <section className={styles.events__header}>
+          <div>
+            <h1>Eventos da Comunidade Plenitude</h1>
           </div>
         </section>
 
-        <section className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="text-2xl font-extrabold text-center tracking-tight text-gray-900">
-            <span className='text-violet-500'>Brevemente </span>
-            teremos novidades esperando por você!
-          </h2>
+        {!events.length && (<EventsEmptyState />)}
 
-          <div className='flex items-center justify-center mt-20'>
-            <Image
-              src="/assets/illustrations/empty-events.svg"
-              alt='Nenhum evento encontrado'
-              width={400}
-              height={400}
-              className="h-80 w-52"
-            />
-          </div>
-        </section>
+        {!!events.length && (
+          <section className={styles.events__list}>
+            <h2><span>Confira</span> as novidades</h2>
+
+            <div>
+              {events.map(event => (
+                <div
+                  key={event.title}
+                  className={styles.event_card}
+                >
+                  <div className="">
+                    <Image
+                      src={event.cover}
+                      alt={event.title}
+                      width={500}
+                      height={500}
+                    />
+                  </div>
+
+                  <div>
+                    <h3>{event.title}</h3>
+
+                    <span>{event.date}</span>
+
+                    <a href={event.link} target="_blank" rel="noopener noreferrer">
+                      Link de inscrição
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await client.query<GetEventsResponse>({
+    query: GET_EVENTS_QUERY,
+  });
+
+  const events = data?.events || [];
+
+  const sanitizedEvents = events
+    .filter(event => new Date(event.initialDate) > new Date())
+    .map(event => ({
+      ...event,
+      date: formatEventDate(event.initialDate, event.endDate),
+    }));
+
+  return {
+    props: {
+      events: sanitizedEvents
+    },
+    revalidate: 60 * 60 * 24 // 24 hours
+  };
 }

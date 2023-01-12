@@ -8,6 +8,8 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { client } from '@/lib/apollo';
 
+import styles from './ministries-style.module.scss';
+
 type GetMinistriesResponse = {
   ministries: Array<{
     name: string;
@@ -53,40 +55,33 @@ export default function Ministries({ministries}: GetMinistriesResponse) {
 
       <Header currentPage='ministries' />
 
-      <main className='bg-rose-100/30'>
-        <section className="bg-ministries bg-center bg-cover bg-no-repeat md:bg-fixed">
-          <div className='min-h-[calc(100vh-64px)] flex flex-col align-middle justify-center text-center text-white' >
-            <h1 className='font-bold text-5xl p-5 tracking-wide'>Conheça as nossas redes</h1>
+      <main className={styles.ministries}>
+        <section className={styles.ministries__header}>
+          <div>
+            <h1>Conheça as nossas redes</h1>
           </div>
         </section>
 
-        <section className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="text-2xl font-extrabold text-center tracking-tight text-gray-900">
-            Fique por <span className='text-rose-600'>dentro</span> das nossas redes
-          </h2>
+        <section className={styles.ministries__list}>
+          <h2>Fique por <span>dentro</span> das nossas redes</h2>
 
-          <div className="mt-24 md:mt-16 md grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <div>
             {ministries.map(ministry => (
               <Link
                 href={`/ministries/${ministry.slug}`}
                 key={ministry.slug}
                 passHref
               >
-                <a className="bg-white h-48 rounded-md hover:shadow-md shadow-gray-300 duration-300">
-                  <div className="w-full h-36 aspect-none relative">
+                <a className={styles.ministry_card}>
+                  <div>
                     <Image
                       src={ministry.cover}
                       alt={ministry.name}
                       fill
-                      className='rounded-t-md object-cover'
                     />
                   </div>
-                  <div className='p-3'>
-                    <h3 className="font-medium text-gray-800">
-                        <span aria-hidden="true" className="inset-0" />
-                        {ministry.name}
-                    </h3>
-                  </div>
+
+                  <h3>{ministry.name}</h3>
                 </a>
               </Link>
             ))}
@@ -109,5 +104,5 @@ export const getStaticProps: GetStaticProps = async () => {
       ministries: data?.ministries || [],
     },
     revalidate: 60 * 60 * 12 // 12 hours
- };
+  };
 }

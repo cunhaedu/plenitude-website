@@ -141,6 +141,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       leadership: data.leadership,
     },
-    revalidate: 60 * 60 * 12 // 12 hours
+    revalidate: 60 * 60 * 32 // 32 hours
   };
 };

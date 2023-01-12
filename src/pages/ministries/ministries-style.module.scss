@@ -1,0 +1,90 @@
+.ministries {
+  @apply bg-rose-100/30;
+}
+
+.ministries__header {
+  @apply bg-ministries;
+  @apply bg-center;
+  @apply bg-cover;
+  @apply bg-no-repeat;
+  @apply md:bg-fixed;
+
+  div {
+    @apply min-h-[calc(100vh-64px)];
+    @apply flex;
+    @apply flex-col;
+    @apply align-middle;
+    @apply justify-center;
+    @apply text-center;
+    @apply text-white;
+
+    h1 {
+      @apply font-bold;
+      @apply text-5xl;
+      @apply p-5;
+      @apply tracking-wide;
+    }
+  }
+}
+
+.ministries__list {
+  @apply max-w-2xl;
+  @apply mx-auto;
+  @apply py-16;
+  @apply px-4;
+  @apply sm:py-24;
+  @apply sm:px-6;
+  @apply lg:max-w-7xl;
+  @apply lg:px-8;
+
+  h2 {
+    @apply text-2xl;
+    @apply font-extrabold;
+    @apply text-center;
+    @apply tracking-tight;
+    @apply text-gray-900;
+
+    span {
+      @apply text-rose-600;
+    }
+  }
+
+  > div {
+    @apply mt-24;
+    @apply md:mt-16;
+    @apply grid;
+    @apply grid-cols-1;
+    @apply gap-y-10;
+    @apply gap-x-6;
+    @apply sm:grid-cols-2;
+    @apply lg:grid-cols-4;
+    @apply xl:gap-x-8;
+  }
+}
+
+.ministry_card {
+  @apply bg-white;
+  @apply h-48;
+  @apply rounded-md;
+  @apply hover:shadow-md;
+  @apply shadow-gray-300;
+  @apply duration-300;
+
+  > div:first-child {
+    @apply w-full;
+    @apply h-36;
+    @apply aspect-none;
+    @apply relative;
+
+    img {
+      @apply rounded-t-md;
+      @apply object-cover;
+    }
+  }
+
+  h3 {
+    @apply p-3;
+    @apply font-medium;
+    @apply text-gray-800;
+  }
+}
