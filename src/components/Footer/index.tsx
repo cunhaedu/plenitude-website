@@ -25,7 +25,7 @@ export function Footer() {
 
         <div>
           <a
-            href="https://www.youtube.com/user/ComunidadePlenitude"
+            href="https://www.youtube.com/@ComunidadePlenitude"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -35,7 +35,7 @@ export function Footer() {
 
         <div>
           <a
-            href="https://pt-br.facebook.com/pg/comunidadeevangelicaplenitude"
+            href="https://www.facebook.com/comunidadeevangelicaplenitude/"
             target="_blank"
             rel="noopener noreferrer"
           >
