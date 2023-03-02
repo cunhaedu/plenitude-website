@@ -89,7 +89,7 @@ export function LeadershipManagement() {
           {leaderships.filter((leader) =>
             !selectedRoles.length || selectedRoles.includes(leader.role)
           ).map((leader) => (
-            <TableRow key={leader.id}>
+            <TableRow key={leader.slug}>
               <TableCell>
                 <div className='dashboard__action_container'>
                   <FaPen />

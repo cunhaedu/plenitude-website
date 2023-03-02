@@ -5,15 +5,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  if (req.method !== 'DELETE') {
-    res.setHeader('Allow', 'DELETE');
+  if (req.method !== 'PUT') {
+    res.setHeader('Allow', 'PUT');
     res.status(405).end('Method not allowed');
 
     return;
   }
 
   try {
-    const { id } = req.body;
+    const { id, description, name } = req.body;
     const url = String(process.env.NEXT_PUBLIC_HYGRAPH_API_URL);
     const mutationToken = String(process.env.NEXT_HYGRAPH_MUTATION_API_ACCESS_TOKEN)
 
@@ -22,8 +22,17 @@ export default async function handler(
     });
 
     await hygraph.request(
-      `mutation deleteTestimonial($id: ID!) {
-        deleteTestimonial(where: { id: $id}) {
+      `mutation updateTestimonial($id: ID!, $name: String!, $description: String!) {
+        updateTestimonial(where: { id: $id}, data: { name: $name, description: $description }) {
+          id
+        }
+      }`,
+      { id, name, description }
+    );
+
+    await hygraph.request(
+      `mutation publishTestimonial($id: ID!) {
+        publishTestimonial(where: { id: $id }) {
           id
         }
       }`,

@@ -5,6 +5,7 @@ import axios from 'axios';
 import BaseModal from '../../BaseModal';
 
 import styles from './styles.module.scss';
+import { useState } from 'react';
 
 type TestimonialData = {
   id: string;
@@ -24,7 +25,11 @@ export default function DeleteTestimonialModal({
   testimonial,
   revalidateData,
 }: DeleteTestimonialModalProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
   async function deleteTestimonial() {
+    setIsLoading(true);
+
     axios.delete('/api/testimonials/delete', {
       data: {
         id: testimonial.id,
@@ -39,6 +44,7 @@ export default function DeleteTestimonialModal({
       toast.error('Falha ao remover testemunho');
     })
     .finally(() => {
+      setIsLoading(false);
       closeModal();
     });
   }
@@ -64,7 +70,13 @@ export default function DeleteTestimonialModal({
       </div>
 
       <div className={styles.delete_modal_footer}>
-        <button type="button" onClick={deleteTestimonial}>Remover</button>
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={deleteTestimonial}
+        >
+          Remover
+        </button>
         <button type="button" onClick={closeModal}>Cancelar</button>
       </div>
     </BaseModal>
