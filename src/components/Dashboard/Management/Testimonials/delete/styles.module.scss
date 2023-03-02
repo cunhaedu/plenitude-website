@@ -93,5 +93,10 @@
       @apply hover:bg-gray-50;
       @apply focus:ring-indigo-500;
     }
+
+    &:disabled {
+      @apply cursor-not-allowed;
+      @apply opacity-40;
+    }
   }
 }

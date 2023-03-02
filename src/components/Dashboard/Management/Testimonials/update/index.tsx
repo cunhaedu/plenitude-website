@@ -5,48 +5,56 @@ import axios from 'axios';
 import BaseModal from '../../BaseModal';
 
 import styles from './styles.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type TestimonialData = {
+  id: string;
   name: string;
   description: string;
 }
 
-interface CreateTestimonialModalProps {
+interface UpdateTestimonialModalProps {
+  testimonial: TestimonialData;
   isOpen: boolean;
   closeModal: () => void;
   revalidateData: () => Promise<void>;
 }
 
-export default function CreateTestimonialModal({
+export default function UpdateTestimonialModal({
   isOpen,
   closeModal,
   revalidateData,
-}: CreateTestimonialModalProps) {
+  testimonial,
+}: UpdateTestimonialModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     defaultValues: {
-      name: '',
-      description: '',
+      name: testimonial.name,
+      description: testimonial.description,
     }
   });
 
-  const onSubmit = async (data: TestimonialData) => {
+  useEffect(() => {
+    reset(testimonial);
+  }, [testimonial, reset]);
+
+  const onSubmit = async (data: Omit<TestimonialData, 'id'>) => {
     setIsLoading(true);
     const { name, description } = data;
 
-    axios.post('/api/testimonials/create', {
+    axios.put('/api/testimonials/update', {
+      id: testimonial.id,
       name,
       description,
     })
     .then(async () => {
       reset();
       await revalidateData();
-      toast.success('Testemunho criado com sucesso!');
+      toast.success('Testemunho atualizado com sucesso!');
     })
     .catch((err) => {
       console.log(err);
-      toast.error('Falha ao criar testemunho');
+      toast.error('Falha ao atualizar testemunho');
     })
     .finally(() => {
       setIsLoading(false);
@@ -87,7 +95,7 @@ export default function CreateTestimonialModal({
           </div>
 
           <div className={styles.modal_footer}>
-            <button type="submit" disabled={isLoading}>Salvar</button>
+            <button type="submit" disabled={isLoading}>Atualizar</button>
             <button type="button" onClick={closeModal}>Cancelar</button>
           </div>
         </form>

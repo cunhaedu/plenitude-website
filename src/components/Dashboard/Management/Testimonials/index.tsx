@@ -17,6 +17,7 @@ import {
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
 import DeleteTestimonialModal from './delete';
 import CreateTestimonialModal from './create';
+import UpdateTestimonialModal from './update';
 
 type TestimonialData = {
   id: string;
@@ -31,6 +32,7 @@ export function TestimonialManagement() {
 
   const [selectedTestimonial, setSelectedTestimonial] = useState({} as TestimonialData);
   const [isDeleteTestimonialModalOpen, setIsDeleteTestimonialModalOpen] = useState(false);
+  const [isUpdateTestimonialModalOpen, setIsUpdateTestimonialModalOpen] = useState(false);
   const [isCreateTestimonialModalOpen, setIsCreateTestimonialModalOpen] = useState(false);
 
   let testimonials: TestimonialData[] = [];
@@ -62,9 +64,18 @@ export function TestimonialManagement() {
     setIsCreateTestimonialModalOpen(false);
   }
 
+  function closeUpdateTestimonialModal() {
+    setIsUpdateTestimonialModalOpen(false);
+  }
+
   function deleteTestimonial(testimonial: TestimonialData) {
     setSelectedTestimonial(testimonial);
     setIsDeleteTestimonialModalOpen(true);
+  }
+
+  function updateTestimonial(testimonial: TestimonialData) {
+    setSelectedTestimonial(testimonial);
+    setIsUpdateTestimonialModalOpen(true);
   }
 
   function createTestimonial() {
@@ -112,7 +123,7 @@ export function TestimonialManagement() {
               <TableRow key={testimonial.id}>
                 <TableCell>
                   <div className="dashboard__action_container">
-                    <FaPen />
+                    <FaPen onClick={() => updateTestimonial(testimonial)} />
                     <FaTrash onClick={() => deleteTestimonial(testimonial)} />
                   </div>
                 </TableCell>
@@ -133,6 +144,13 @@ export function TestimonialManagement() {
       <DeleteTestimonialModal
         isOpen={isDeleteTestimonialModalOpen}
         closeModal={closeDeleteTestimonialModal}
+        testimonial={selectedTestimonial}
+        revalidateData={revalidateData}
+      />
+
+      <UpdateTestimonialModal
+        isOpen={isUpdateTestimonialModalOpen}
+        closeModal={closeUpdateTestimonialModal}
         testimonial={selectedTestimonial}
         revalidateData={revalidateData}
       />

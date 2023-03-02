@@ -18,8 +18,9 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   async function handleSignIn(data: any) {
+    setLoading(true);
+
     try {
-      setLoading(true);
       await signIn(data);
     } catch (error) {
       toast.error('Email ou Senha inválidos', {
@@ -86,6 +87,7 @@ export default function Login() {
               <button
                 type="submit"
                 className={clx('group', {'isLoading': loading})}
+                disabled={loading}
               >
                 <span>
                   <LockClosedIcon
