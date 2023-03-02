@@ -16,6 +16,7 @@ import {
 
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
 import DeleteTestimonialModal from './delete';
+import CreateTestimonialModal from './create';
 
 type TestimonialData = {
   id: string;
@@ -30,6 +31,7 @@ export function TestimonialManagement() {
 
   const [selectedTestimonial, setSelectedTestimonial] = useState({} as TestimonialData);
   const [isDeleteTestimonialModalOpen, setIsDeleteTestimonialModalOpen] = useState(false);
+  const [isCreateTestimonialModalOpen, setIsCreateTestimonialModalOpen] = useState(false);
 
   let testimonials: TestimonialData[] = [];
 
@@ -56,15 +58,23 @@ export function TestimonialManagement() {
     setIsDeleteTestimonialModalOpen(false);
   }
 
+  function closeCreateTestimonialModal() {
+    setIsCreateTestimonialModalOpen(false);
+  }
+
   function deleteTestimonial(testimonial: TestimonialData) {
     setSelectedTestimonial(testimonial);
     setIsDeleteTestimonialModalOpen(true);
   }
 
+  function createTestimonial() {
+    setIsCreateTestimonialModalOpen(true);
+  }
+
   return (
     <Card>
       <div className="dashboard__card_header">
-        <button>
+        <button onClick={() => createTestimonial()}>
           <PlusIcon height={24} width={24} />
         </button>
 
@@ -124,6 +134,12 @@ export function TestimonialManagement() {
         isOpen={isDeleteTestimonialModalOpen}
         closeModal={closeDeleteTestimonialModal}
         testimonial={selectedTestimonial}
+        revalidateData={revalidateData}
+      />
+
+      <CreateTestimonialModal
+        isOpen={isCreateTestimonialModalOpen}
+        closeModal={closeCreateTestimonialModal}
         revalidateData={revalidateData}
       />
     </Card>

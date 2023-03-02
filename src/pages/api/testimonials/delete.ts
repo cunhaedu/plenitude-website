@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ): Promise<void> {
   if (req.method !== 'DELETE') {
-    res.setHeader('Allow', 'POST');
+    res.setHeader('Allow', 'DELETE');
     res.status(405).end('Method not allowed');
 
     return;
