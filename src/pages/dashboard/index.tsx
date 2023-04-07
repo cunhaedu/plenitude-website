@@ -10,6 +10,7 @@ import { TestimonialManagement } from '@/components/Dashboard/Management/Testimo
 import { LeadershipManagement } from '@/components/Dashboard/Management/Leaderships';
 import { MinistryManagement } from '@/components/Dashboard/Management/Ministries';
 import { ChurchManagement } from '@/components/Dashboard/Management/Churches';
+import { EventsManagement } from '@/components/Dashboard/Management/Events';
 import { AuthContext } from '@/contexts/AuthContext';
 import { Banner } from '@/components/Banner';
 import { Footer } from '@/components/Footer';
@@ -17,7 +18,12 @@ import { Header } from '@/components/Header';
 
 import styles from './styles.module.scss';
 
-type TabViews = 'leadership' | 'churches' | 'ministries' | 'testimonies';
+type TabViews =
+  'leadership'
+  | 'churches'
+  | 'ministries'
+  | 'testimonies'
+  | 'events';
 
 export default function Admin() {
   const [selectedView, setSelectedView] = useState<TabViews>('leadership');
@@ -63,6 +69,7 @@ export default function Admin() {
             <Tab value="churches" text="Igrejas" />
             <Tab value="ministries" text="Redes" />
             <Tab value="testimonies" text="Testemunhos" />
+            <Tab value="events" text="Eventos" />
           </TabList>
         </div>
 
@@ -70,6 +77,7 @@ export default function Admin() {
         {selectedView === 'churches' &&  <ChurchManagement />}
         {selectedView === 'ministries' &&  <MinistryManagement />}
         {selectedView === 'testimonies' &&  <TestimonialManagement />}
+        {selectedView === 'events' &&  <EventsManagement />}
       </main>
 
       <Footer />

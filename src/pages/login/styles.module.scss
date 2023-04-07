@@ -91,7 +91,7 @@
     @apply py-2;
     @apply px-4;
 
-    &.isLoading {
+    &:disabled {
       @apply cursor-not-allowed;
       @apply brightness-150;
     }

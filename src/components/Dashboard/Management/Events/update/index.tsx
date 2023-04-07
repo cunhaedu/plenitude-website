@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-import { TestimonialData, testimonialSchema } from '../testimonial.schema';
+import { TestimonialData, testimonialSchema } from '../event.schema';
 import BaseModal from '../../BaseModal';
 
 import styles from './styles.module.scss';

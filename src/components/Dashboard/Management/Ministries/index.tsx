@@ -16,6 +16,7 @@ import {
 } from '@tremor/react';
 
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
+import CreateMinistryModal from './create';
 
 type MinistryData = {
   id: string;
@@ -41,6 +42,12 @@ const fetcher = (args: RequestInfo) => fetch(args).then((res) => res.json());
 
 export function MinistryManagement() {
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
+
+  const [selectedMinistry, setSelectedMinistry] = useState({} as MinistryData);
+  const [isDeleteMinistryModalOpen, setIsDeleteMinistryModalOpen] = useState(false);
+  const [isUpdateMinistryModalOpen, setIsUpdateMinistryModalOpen] = useState(false);
+  const [isCreateMinistryModalOpen, setIsCreateMinistryModalOpen] = useState(false);
+
   let ministries: MinistryData[] = [];
 
   const { data, error, mutate } = useSWR(
@@ -62,6 +69,32 @@ export function MinistryManagement() {
     ministries = data.ministries
   }
 
+  function closeDeleteMinistryModal() {
+    setIsDeleteMinistryModalOpen(false);
+  }
+
+  function closeCreateMinistryModal() {
+    setIsCreateMinistryModalOpen(false);
+  }
+
+  function closeUpdateMinistryModal() {
+    setIsUpdateMinistryModalOpen(false);
+  }
+
+  function deleteMinistry(ministry: MinistryData) {
+    setSelectedMinistry(ministry);
+    setIsDeleteMinistryModalOpen(true);
+  }
+
+  function updateMinistry(ministry: MinistryData) {
+    setSelectedMinistry(ministry);
+    setIsUpdateMinistryModalOpen(true);
+  }
+
+  function createMinistry() {
+    setIsCreateMinistryModalOpen(true);
+  }
+
   function isLeaderSelected(ministry: MinistryData) {
     return selectedNames.includes(ministry.name) || selectedNames.length === 0
   }
@@ -69,7 +102,7 @@ export function MinistryManagement() {
   return (
     <Card>
       <div className="dashboard__card_header">
-        <button>
+        <button onClick={() => createMinistry()}>
           <PlusIcon height={24} width={24} />
         </button>
 
@@ -106,8 +139,8 @@ export function MinistryManagement() {
             <TableRow key={ministry.slug}>
               <TableCell>
                 <div className="dashboard__action_container">
-                  <FaPen />
-                  <FaTrash />
+                  <FaPen onClick={() => updateMinistry(ministry)} />
+                  <FaTrash onClick={() => deleteMinistry(ministry)} />
                 </div>
               </TableCell>
               <TableCell>
@@ -142,6 +175,26 @@ export function MinistryManagement() {
           ))}
         </TableBody>
       </Table>
+
+      {/* <DeleteTestimonialModal
+        isOpen={isDeleteTestimonialModalOpen}
+        closeModal={closeDeleteTestimonialModal}
+        testimonial={selectedTestimonial}
+        revalidateData={revalidateData}
+      />
+
+      <UpdateTestimonialModal
+        isOpen={isUpdateTestimonialModalOpen}
+        closeModal={closeUpdateTestimonialModal}
+        testimonial={selectedTestimonial}
+        revalidateData={revalidateData}
+      /> */}
+
+      <CreateMinistryModal
+        isOpen={isCreateMinistryModalOpen}
+        closeModal={closeCreateMinistryModal}
+        revalidateData={revalidateData}
+      />
     </Card>
   )
 }

@@ -1,11 +1,10 @@
 import { Slide, toast, ToastContainer } from 'react-toastify';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { GetServerSideProps } from 'next';
 import { useForm } from 'react-hook-form';
 import { parseCookies } from 'nookies';
 import Image from 'next/image';
-import clx from 'classnames';
 
 import { AuthContext } from '@/contexts/AuthContext';
 import { Header } from '@/components/Header';
@@ -13,13 +12,10 @@ import { Header } from '@/components/Header';
 import styles from './styles.module.scss';
 
 export default function Login() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { isSubmitting } } = useForm();
   const { signIn } = useContext(AuthContext);
-  const [loading, setLoading] = useState(false);
 
   async function handleSignIn(data: any) {
-    setLoading(true);
-
     try {
       await signIn(data);
     } catch (error) {
@@ -27,8 +23,6 @@ export default function Login() {
         position: 'bottom-right',
         transition: Slide,
       });
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -56,29 +50,24 @@ export default function Login() {
           >
             <div className={styles.input_container}>
               <div>
-                <label htmlFor="email-address">Email address</label>
+                <label htmlFor="email">Email address</label>
                 <input
-                  {...register('email')}
-                  id="email-address"
-                  name="email"
                   type="email"
                   autoComplete="email"
-                  required
                   placeholder="Endereço de email"
                   className='rounded-t-md'
+                  {...register('email')}
                 />
               </div>
               <div>
                 <label htmlFor="password">Password</label>
                 <input
-                  {...register('password')}
-                  id="password"
-                  name="password"
                   type="password"
                   autoComplete="current-password"
                   required
                   placeholder="Senha"
                   className='rounded-b-md'
+                  {...register('password')}
                 />
               </div>
             </div>
@@ -86,8 +75,8 @@ export default function Login() {
             <div className={styles.button_container}>
               <button
                 type="submit"
-                className={clx('group', {'isLoading': loading})}
-                disabled={loading}
+                className="group"
+                disabled={isSubmitting}
               >
                 <span>
                   <LockClosedIcon

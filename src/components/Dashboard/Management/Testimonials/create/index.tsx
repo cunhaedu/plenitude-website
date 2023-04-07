@@ -1,16 +1,12 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
+import { TestimonialData, testimonialSchema } from '../testimonial.schema';
 import BaseModal from '../../BaseModal';
 
 import styles from './styles.module.scss';
-import { useState } from 'react';
-
-type TestimonialData = {
-  name: string;
-  description: string;
-}
 
 interface CreateTestimonialModalProps {
   isOpen: boolean;
@@ -23,16 +19,18 @@ export default function CreateTestimonialModal({
   closeModal,
   revalidateData,
 }: CreateTestimonialModalProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
-    defaultValues: {
-      name: '',
-      description: '',
-    }
+  const createTestimonialForm = useForm<TestimonialData>({
+    resolver: zodResolver(testimonialSchema),
   });
 
-  const onSubmit = async (data: TestimonialData) => {
-    setIsLoading(true);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting }
+  } = createTestimonialForm;
+
+  function createTestimonial(data: TestimonialData) {
     const { name, description } = data;
 
     axios.post('/api/testimonials/create', {
@@ -44,14 +42,8 @@ export default function CreateTestimonialModal({
       await revalidateData();
       toast.success('Testemunho criado com sucesso!');
     })
-    .catch((err) => {
-      console.log(err);
-      toast.error('Falha ao criar testemunho');
-    })
-    .finally(() => {
-      setIsLoading(false);
-      closeModal();
-    });
+    .catch(() => toast.error('Falha ao criar testemunho'))
+    .finally(() => closeModal());
   };
 
   return (
@@ -61,36 +53,37 @@ export default function CreateTestimonialModal({
     >
       <div className={styles.modal_header}>
         <div>
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.input_group}>
-            <label htmlFor="name">
-              Nome
-            </label>
-            <input
-              type="text"
-              maxLength={45}
-              {...register("name", { required: true, maxLength: 45 })}
-            />
-            {errors.name && <span>O nome é obrigatório</span>}
-          </div>
+          <form
+            onSubmit={handleSubmit(createTestimonial)}
+            className={styles.form}
+          >
+            <div className={styles.input_group}>
+              <label htmlFor="name">
+                Nome
+              </label>
+              <input
+                type="text"
+                maxLength={45}
+                {...register("name")}
+              />
+              {errors.name && <span>{errors.name.message}</span>}
+            </div>
 
-          <div className={styles.input_group}>
-            <label htmlFor="description">
-              Testemunho
-            </label>
-            <textarea
-              rows={5}
-              maxLength={255}
-              {...register("description", { required: true, maxLength: 255 })}
-            />
-            {errors.description && <span>A descrição é obrigatória</span>}
-          </div>
+            <div className={styles.input_group}>
+              <label htmlFor="description">Testemunho</label>
+              <textarea
+                rows={5}
+                maxLength={560}
+                {...register("description")}
+              />
+              {errors.description && <span>{errors.description.message}</span>}
+            </div>
 
-          <div className={styles.modal_footer}>
-            <button type="submit" disabled={isLoading}>Salvar</button>
-            <button type="button" onClick={closeModal}>Cancelar</button>
-          </div>
-        </form>
+            <div className={styles.modal_footer}>
+              <button type="submit" disabled={isSubmitting}>Salvar</button>
+              <button type="button" onClick={closeModal}>Cancelar</button>
+            </div>
+          </form>
         </div>
       </div>
     </BaseModal>
