@@ -3,12 +3,24 @@ import { Button } from '@tremor/react';
 type FormFooterProps = {
   closeModal: () => void;
   isSaveButtonLoading: boolean;
+  mainButtonAction: 'save' | 'update' | 'remove'
 }
 
 export function FormFooter({
   closeModal,
-  isSaveButtonLoading
+  isSaveButtonLoading,
+  mainButtonAction
 }: FormFooterProps) {
+  function retrieveMainButtonText(): string {
+    const texts = {
+      'save': 'Salvar',
+      'update': 'Atualizar',
+      'remove': 'Deletar',
+    }
+
+    return texts[mainButtonAction];
+  }
+
   return (
     <div className="px-6 py-3 md:px-0 flex flex-row-reverse gap-3">
       <Button
@@ -18,7 +30,7 @@ export function FormFooter({
         size="md"
         className="w-24"
       >
-        Salvar
+        {retrieveMainButtonText()}
       </Button>
 
       <Button

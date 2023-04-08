@@ -1,0 +1,45 @@
+.modal_header {
+  @apply bg-white;
+  @apply px-4;
+  @apply pt-5;
+  @apply pb-4;
+  @apply sm:p-6;
+  @apply sm:pb-4;
+
+  > div {
+    @apply sm:flex;
+    @apply sm:items-start;
+  }
+}
+
+.form {
+  @apply w-full;
+}
+
+.input_group {
+  @apply col-span-3;
+  @apply sm:col-span-2;
+  @apply mb-3;
+
+  label {
+    @apply block;
+    @apply text-sm;
+    @apply font-medium;
+    @apply text-gray-700;
+  }
+
+  input, textarea {
+    @apply block;
+    @apply w-full;
+    @apply flex-1;
+    @apply rounded-md;
+    @apply border-gray-300;
+    @apply focus:border-indigo-500;
+    @apply focus:ring-indigo-500;
+    @apply sm:text-sm;
+  }
+
+  span {
+    @apply text-red-600;
+  }
+}

@@ -29,6 +29,7 @@ type EventData = {
   initialDate: string;
   endDate: string;
   cover: string;
+  link: string;
 }
 
 const fetcher = (args: RequestInfo) => fetch(args).then((res) => res.json());
@@ -174,19 +175,23 @@ export function EventsManagement() {
         </TableBody>
       </Table>
 
-      {/* <UpdateEventModal
-        isOpen={isUpdateEventModalOpen}
-        closeModal={closeUpdateEventModal}
-        event={selectedEvent}
-        revalidateData={revalidateData}
-      /> */}
+      {selectedEvent && (
+        <>
+          <UpdateEventModal
+            isOpen={isUpdateEventModalOpen}
+            closeModal={closeUpdateEventModal}
+            event={selectedEvent}
+            revalidateData={revalidateData}
+          />
 
-      <DeleteEventModal
-        isOpen={isDeleteEventModalOpen}
-        closeModal={closeDeleteEventModal}
-        event={selectedEvent}
-        revalidateData={revalidateData}
-      />
+          <DeleteEventModal
+            isOpen={isDeleteEventModalOpen}
+            closeModal={closeDeleteEventModal}
+            event={selectedEvent}
+            revalidateData={revalidateData}
+          />
+        </>
+      )}
 
       <CreateEventModal
         isOpen={isCreateEventModalOpen}

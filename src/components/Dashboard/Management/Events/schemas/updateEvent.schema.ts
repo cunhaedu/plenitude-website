@@ -8,12 +8,13 @@ function hasAtLeastOneImage(files: any) {
   return files && files.length && !!files.item(0)
 }
 
-export const eventSchema =
+export const updateEventSchema =
   z.object({
     title: z.string()
       .nonempty({ message: 'O titulo é obrigatório' })
       .refine(data => !data.includes('/'), 'Titulo não pode ter /'),
     link: z.string().url({ message: 'Url Inválida' }).optional().nullable().default(null),
+    isImageReplaced: z.boolean().default(false),
     rangeDate: z.any()
       .array()
       .min(2)
@@ -36,4 +37,4 @@ export const eventSchema =
     }),
   })
 
-export type EventData = z.infer<typeof eventSchema>;
+export type UpdateEventData = z.infer<typeof updateEventSchema>;
