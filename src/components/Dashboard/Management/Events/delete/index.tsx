@@ -44,8 +44,8 @@ export default function DeleteEventModal({
         key,
       });
 
-      toast.success('Evento removido com sucesso!');
       await revalidateData();
+      toast.success('Evento removido com sucesso!');
 
     } catch (err: any) {
       console.log(err);

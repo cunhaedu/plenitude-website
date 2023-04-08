@@ -1,11 +1,10 @@
-import { DateRangePicker, DateRangePickerValue } from "@tremor/react";
+import { DateRangePicker, DateRangePickerValue } from '@tremor/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { ptBR } from "date-fns/locale";
+import { ptBR } from 'date-fns/locale';
 import axios from 'axios';
 
-import { convertFileToBlob } from '@/helpers/convertFileToBlob';
 import { FormFooter } from '@/components/Dashboard/FormFooter';
 import { EventData, eventSchema } from '../event.schema';
 import BaseModal from '../../BaseModal';
@@ -18,6 +17,11 @@ interface CreateEventModalProps {
   revalidateData: () => Promise<void>;
 }
 
+type UploadEventCover = {
+  file: File;
+  name: string;
+}
+
 export default function CreateEventModal({
   isOpen,
   closeModal,
@@ -25,6 +29,9 @@ export default function CreateEventModal({
 }: CreateEventModalProps) {
   const createEventForm = useForm<EventData>({
     resolver: zodResolver(eventSchema),
+    defaultValues: {
+      link: null,
+    }
   });
 
   const {
@@ -35,25 +42,43 @@ export default function CreateEventModal({
     formState: { errors, isSubmitting }
   } = createEventForm;
 
+  async function uploadEventCover({
+    file,
+    name
+  }: UploadEventCover): Promise<{ url: string }> {
+    const { data } = await axios.post<{ url: string, presignedUrl: string }>(
+      '/api/ibm-cos/upload',
+      {
+        imageName: name,
+        imageType: file.type,
+        prefix: 'events',
+      }
+    );
+
+    await axios.put(data.presignedUrl, file, {
+      headers: {
+        "Content-type": file.type,
+        "Access-Control-Allow-Origin": "*",
+      }
+    });
+
+    return { url: data.url };
+  }
+
   async function createEvent(data: EventData) {
     try {
-      const { title, link, cover, rangeDate } = data;
-
-      const imageType = cover.type;
+      const { title, link, rangeDate, cover } = data;
       const titleSlug =  title.toLowerCase().split(' ').join('_');
-      const imageName = `events_${titleSlug}`;
-      const blobImage = await convertFileToBlob(cover);
 
-      const response = await axios.post<{ url: string }>('/api/ibm-cos/upload', {
-        file: blobImage,
-        imageType,
-        imageName
-      });
+      const { url } = await uploadEventCover({
+        file: cover,
+        name: titleSlug,
+      })
 
       await axios.post('/api/events/create', {
         link,
         title,
-        cover: response.data.url,
+        cover: url,
         initialDate: new Date(rangeDate[0]),
         endDate: new Date(rangeDate[1]),
       });
@@ -61,7 +86,7 @@ export default function CreateEventModal({
       reset();
       await revalidateData();
       toast.success('Evento cadastrado com sucesso!');
-    } catch {
+    } catch (err) {
       toast.error('Falha ao cadastrar evento');
     } finally {
       closeModal();

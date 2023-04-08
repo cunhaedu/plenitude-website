@@ -22,8 +22,8 @@ export default async function handler(
       headers: { "Authorization" : `Bearer ${mutationToken}` },
     });
 
-    const { createEvent } = await hygraph.request(
-      `mutation createEvent($title: String!, $link: String!, $cover: String!, $initialDate: Date!, $endDate: Date!) {
+    await hygraph.request(
+      `mutation createAndPublishEvent($title: String!, $link: String!, $cover: String!, $initialDate: Date!, $endDate: Date!) {
         createEvent(data: {
           title: $title,
           link: $link,
@@ -33,17 +33,12 @@ export default async function handler(
         }) {
           id
         }
-      }`,
-      { title, link, cover, initialDate, endDate }
-    );
 
-    await hygraph.request(
-      `mutation publishEvent($id: ID!) {
-        publishEvent(where: { id: $id }) {
-          id
+        publishEvent(where: { title: $title }) {
+          title
         }
       }`,
-      { id: createEvent.id }
+      { title, link, cover, initialDate, endDate }
     );
 
     res.status(201).json({ message: 'created' });

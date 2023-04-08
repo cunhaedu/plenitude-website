@@ -10,10 +10,10 @@ function hasAtLeastOneImage(files: any) {
 
 export const eventSchema =
   z.object({
-    title: z.string().nonempty({
-      message: 'O titulo é obrigatório',
-    }),
-    link: z.string().url().optional().nullable(),
+    title: z.string()
+      .nonempty({ message: 'O titulo é obrigatório' })
+      .refine(data => !data.includes('/'), 'Titulo não pode ter /'),
+    link: z.string().url({ message: 'Url Inválida' }).optional().nullable().default(null),
     rangeDate: z.any()
       .array()
       .min(2)
@@ -27,7 +27,7 @@ export const eventSchema =
       ),
     cover: z.any()
     .refine((files) => hasAtLeastOneImage(files), "A imagem de perfil é obrigatória")
-    .refine((files) => hasAtLeastOneImage(files) && files.item(0)!.size <= MAX_FILE_SIZE, `Tamanho máximo de 5MB`)
+    .refine((files) => hasAtLeastOneImage(files) && files.item(0)!.size <= MAX_FILE_SIZE, `Tamanho máximo de 2MB`)
     .refine(
       (files) => hasAtLeastOneImage(files) && ACCEPTED_IMAGE_TYPES.includes(files.item(0)!.type),
       "Formato de imagem inválido"

@@ -22,7 +22,7 @@ export default async function handler(
 
     const { events } = await hygraph.request(
       `query Events {
-        events {
+        events(orderBy: initialDate_DESC) {
           id
           title
           link

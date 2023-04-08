@@ -12,18 +12,26 @@ export default async function handler(
     return;
   }
 
-  const { file, imageType, imageName } = req.body;
-  const key = `${imageName}.${imageType.split('/')[1]}`;
+  const { imageName, prefix, imageType } = req.body;
+  const key = `${prefix}_${imageName}`;
 
-  ibmCOS.putObject({
-    Bucket: 'comunidade-plenitude-bucket',
+  const presignedUrl = await ibmCOS.getSignedUrlPromise('putObject', {
+    Bucket: String(process.env.IBM_COS_BUCKET_NAME),
     Key: key,
-    Body: file,
-  }).promise().then(() => {
-    res.json({ url: `https://s3.us-south.cloud-object-storage.appdomain.cloud/comunidade-plenitude-bucket/${key}` });
-  })
-  .catch((e) => {
-    console.error(`ERROR: ${e.code} - ${e.message}\n`);
-    res.status(500).json(e);
+    ContentType: imageType,
+    ACL: 'public-read',
+    Expires: 60 * 5, // 5 minutes
   });
+
+  const url = `https://s3.us-south.cloud-object-storage.appdomain.cloud/comunidade-plenitude-bucket/${key}`
+
+  res.json({ presignedUrl, url })
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "8mb", // Set desired value here
+    },
+  },
+};

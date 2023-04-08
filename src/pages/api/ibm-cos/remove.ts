@@ -14,10 +14,8 @@ export default async function handler(
 
   const { key } = req.body;
 
-  console.log(key);
-
   ibmCOS.deleteObject({
-    Bucket: 'comunidade-plenitude-bucket',
+    Bucket: String(process.env.IBM_COS_BUCKET_NAME),
     Key: key,
   }).promise().then(() => {
     res.json({ message: 'objeto removido' });

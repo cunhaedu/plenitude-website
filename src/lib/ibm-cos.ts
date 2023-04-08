@@ -1,10 +1,15 @@
-import { S3 } from 'ibm-cos-sdk';
+import { Credentials, S3 } from 'ibm-cos-sdk';
 
 const ibmCOS = new S3({
-  endpoint: 'https://s3.us-south.cloud-object-storage.appdomain.cloud',
-  apiKeyId: 'SlI_Qw6KeCbBtgYewA80CqCdkzeN1_RQhZa1che-CYl5',
-  ibmAuthEndpoint: 'https://iam.cloud.ibm.com/identity/token',
-  serviceInstanceId: 'crn:v1:bluemix:public:iam-identity::a/afabd2ef74104ab4962753cb0b4e482e::serviceid:ServiceId-240e4423-269c-40a1-b13d-28407dfdef56',
+  endpoint: String(process.env.IBM_COS_ENDPOINT),
+  apiKeyId: String(process.env.IBM_COS_API_KEY_ID),
+  ibmAuthEndpoint: String(process.env.IBM_COS_AUTH_ENDPOINT),
+  serviceInstanceId: String(process.env.IBM_COS_SERVICE_INSTANCE_ID),
+  credentials: new Credentials({
+    accessKeyId: String(process.env.IBM_COS_CREDENTIALS_ACCESS_KEY_ID),
+    secretAccessKey: String(process.env.IBM_COS_CREDENTIALS_SECRET_ACCESS_KEY_ID)
+  }),
+  signatureVersion: 'v4',
 });
 
 export { ibmCOS };
