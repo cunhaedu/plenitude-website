@@ -76,37 +76,12 @@
 
 .button_container {
   button {
-    @apply text-sm;
-    @apply font-medium;
     @apply text-white;
     @apply bg-indigo-600;
     @apply hover:bg-indigo-700;
-    @apply relative;
-    @apply flex;
     @apply w-full;
-    @apply justify-center;
-    @apply rounded-md;
-    @apply border;
-    @apply border-transparent;
+    @apply border-none;
     @apply py-2;
     @apply px-4;
-
-    &:disabled {
-      @apply cursor-not-allowed;
-      @apply brightness-150;
-    }
-
-    span {
-      @apply absolute;
-      @apply inset-y-0;
-      @apply left-0;
-      @apply flex;
-      @apply items-center;
-      @apply pl-3;
-
-      svg {
-        @apply text-indigo-500;
-      }
-    }
   }
 }

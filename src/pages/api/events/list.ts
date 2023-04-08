@@ -25,6 +25,7 @@ export default async function handler(
         events {
           id
           title
+          link
           initialDate
           endDate
           cover

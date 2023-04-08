@@ -12,15 +12,15 @@ export default async function handler(
     return;
   }
 
-  const { file, imageType, imageName } = req.body;
-  const key = `${imageName}.${imageType.split('/')[1]}`;
+  const { key } = req.body;
 
-  ibmCOS.putObject({
+  console.log(key);
+
+  ibmCOS.deleteObject({
     Bucket: 'comunidade-plenitude-bucket',
     Key: key,
-    Body: file,
   }).promise().then(() => {
-    res.json({ url: `https://s3.us-south.cloud-object-storage.appdomain.cloud/comunidade-plenitude-bucket/${key}` });
+    res.json({ message: 'objeto removido' });
   })
   .catch((e) => {
     console.error(`ERROR: ${e.code} - ${e.message}\n`);

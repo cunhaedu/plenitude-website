@@ -1,9 +1,12 @@
+import { DateRangePicker, DateRangePickerValue } from "@tremor/react";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { toast } from 'react-toastify';
+import { ptBR } from "date-fns/locale";
 import axios from 'axios';
-import { Datepicker } from "@tremor/react";
 
+import { convertFileToBlob } from '@/helpers/convertFileToBlob';
+import { FormFooter } from '@/components/Dashboard/FormFooter';
 import { EventData, eventSchema } from '../event.schema';
 import BaseModal from '../../BaseModal';
 
@@ -28,23 +31,41 @@ export default function CreateEventModal({
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting }
   } = createEventForm;
 
-  function createEvent(data: EventData) {
-    const { endDate, initialDate, title, link } = data;
+  async function createEvent(data: EventData) {
+    try {
+      const { title, link, cover, rangeDate } = data;
 
-    // axios.post('/api/events/create', {
-    //   name,
-    //   description,
-    // })
-    // .then(async () => {
-    //   reset();
-    //   await revalidateData();
-    //   toast.success('Testemunho criado com sucesso!');
-    // })
-    // .catch(() => toast.error('Falha ao criar testemunho'))
-    // .finally(() => closeModal());
+      const imageType = cover.type;
+      const titleSlug =  title.toLowerCase().split(' ').join('_');
+      const imageName = `events_${titleSlug}`;
+      const blobImage = await convertFileToBlob(cover);
+
+      const response = await axios.post<{ url: string }>('/api/ibm-cos/upload', {
+        file: blobImage,
+        imageType,
+        imageName
+      });
+
+      await axios.post('/api/events/create', {
+        link,
+        title,
+        cover: response.data.url,
+        initialDate: new Date(rangeDate[0]),
+        endDate: new Date(rangeDate[1]),
+      });
+
+      reset();
+      await revalidateData();
+      toast.success('Evento cadastrado com sucesso!');
+    } catch {
+      toast.error('Falha ao cadastrar evento');
+    } finally {
+      closeModal();
+    }
   };
 
   return (
@@ -58,16 +79,38 @@ export default function CreateEventModal({
             onSubmit={handleSubmit(createEvent)}
             className={styles.form}
           >
-            <div className='flex'>
-              <div className={styles.input_group}>
-                <Datepicker placeholder='Data de Início' />
-                {errors.initialDate && <span>{errors.initialDate.message}</span>}
-              </div>
+            <Controller
+              name="rangeDate"
+              control={control}
+              render={({ field }) => (
+                <div className={styles.input_group}>
+                  <label>Data de inicio e fim do evento</label>
+                  <DateRangePicker
+                    placeholder='Data de Início'
+                    className="w-full"
+                    enableDropdown={false}
+                    locale={ptBR}
+                    value={field.value as DateRangePickerValue}
+                    onValueChange={(e) => field.onChange(e)}
+                  />
 
-              <div className={styles.input_group}>
-                <Datepicker placeholder='Data de fim' />
-                {errors.endDate && <span>{errors.endDate.message}</span>}
-              </div>
+                  {errors.rangeDate && <span>{errors.rangeDate.message}</span>}
+                </div>
+              )}
+            />
+
+            <div className={styles.input_group}>
+              <label>Imagem</label>
+              <input
+                type="file"
+                accept="image/*"
+                className="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                {...register('cover')}
+              />
+              <p className="mt-1 text-sm text-gray-500">
+                PNG, JPG, PNG ou WEBP (MAX 2MB | 400x400px).
+              </p>
+              {errors.cover && <span>{errors.cover.message}</span>}
             </div>
 
             <div className={styles.input_group}>
@@ -89,10 +132,10 @@ export default function CreateEventModal({
               {errors.link && <span>{errors.link.message}</span>}
             </div>
 
-            <div className={styles.modal_footer}>
-              <button type="submit" disabled={isSubmitting}>Salvar</button>
-              <button type="button" onClick={closeModal}>Cancelar</button>
-            </div>
+            <FormFooter
+              closeModal={closeModal}
+              isSaveButtonLoading={isSubmitting}
+            />
           </form>
         </div>
       </div>

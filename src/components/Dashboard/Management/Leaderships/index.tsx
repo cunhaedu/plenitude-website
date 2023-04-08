@@ -60,9 +60,9 @@ export function LeadershipManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={(value) => setSelectedRoles(value)}
+          onValueChange={(value) => setSelectedRoles(value)}
           placeholder="Filtrar por cargos"
-          maxWidth="max-w-xs"
+          className="max-w-xs"
         >
           {removeDuplicateKeyInObjectArrayHelper(leaderships, 'role')
             .map((leader) => (
@@ -70,12 +70,13 @@ export function LeadershipManagement() {
                 key={leader.slug}
                 value={leader.role}
                 text={leader.role}
+                className='py-2'
               />
             ))
           }
         </MultiSelectBox>
       </div>
-      <Table marginTop="mt-6">
+      <Table className="mt-6">
         <TableHead>
           <TableRow>
             <TableHeaderCell>Ações</TableHeaderCell>

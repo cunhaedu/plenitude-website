@@ -1,8 +1,11 @@
-import { PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon, StatusOfflineIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
+import { format } from 'date-fns';
 import { useState } from 'react';
+import Image from 'next/image';
 import useSWR from 'swr';
 import {
+  Badge,
   Card,
   MultiSelectBox,
   MultiSelectBoxItem,
@@ -18,9 +21,7 @@ import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicate
 import DeleteEventModal from './delete';
 import CreateEventModal from './create';
 import UpdateEventModal from './update';
-import { format } from 'date-fns';
-import Image from 'next/image';
-import { DashboardImage } from '@/components/DashboardImage';
+import { StatusOnlineIcon } from '@heroicons/react/solid';
 
 type EventData = {
   id: string;
@@ -95,9 +96,9 @@ export function EventsManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={values => setSelectedTitles(values)}
+          onValueChange={values => setSelectedTitles(values)}
           placeholder="Filtrar pelo titulo"
-          maxWidth="max-w-xs"
+          className='max-w-xs'
         >
           {removeDuplicateKeyInObjectArrayHelper(events, 'title')
             .map((event) => (
@@ -105,12 +106,13 @@ export function EventsManagement() {
                 key={event.id}
                 value={event.title}
                 text={event.title}
+                className='py-2'
               />
             ))
           }
         </MultiSelectBox>
       </div>
-      <Table marginTop="mt-6">
+      <Table className='mt-6'>
         <TableHead>
           <TableRow>
             <TableHeaderCell>Ações</TableHeaderCell>
@@ -118,6 +120,7 @@ export function EventsManagement() {
             <TableHeaderCell>Título</TableHeaderCell>
             <TableHeaderCell>Data de início</TableHeaderCell>
             <TableHeaderCell>Data de fim</TableHeaderCell>
+            <TableHeaderCell>Status no site</TableHeaderCell>
           </TableRow>
         </TableHead>
 
@@ -126,45 +129,64 @@ export function EventsManagement() {
             .filter((event) =>
               !selectedTitles.length || selectedTitles.includes(event.title)
             )
-            .map((event) => (
-              <TableRow key={event.id}>
-                <TableCell>
-                  <div className="dashboard__action_container">
-                    <FaPen onClick={() => updateEvent(event)} />
-                    <FaTrash onClick={() => deleteEvent(event)} />
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <DashboardImage alt={event.title} url={event.cover} />
-                </TableCell>
-                <TableCell>
-                  {event.title}
-                </TableCell>
-                <TableCell>
-                  {format(new Date(event.initialDate), 'dd/MM/yyyy')}
-                </TableCell>
-                <TableCell>
-                  {format(new Date(event.endDate), 'dd/MM/yyyy')}
-                </TableCell>
-              </TableRow>
-            ))
-          }
+            .map((event) => {
+              const isEventActive = new Date(event.endDate) > new Date();
+
+              return (
+                <TableRow key={event.id}>
+                  <TableCell>
+                    <div className="dashboard__action_container">
+                      <FaPen onClick={() => updateEvent(event)} />
+                      <FaTrash onClick={() => deleteEvent(event)} />
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Image
+                      src={event.cover}
+                      alt={event.title}
+                      width={64}
+                      height={64}
+                      className='dashboard__multi_image'
+                    />
+                  </TableCell>
+                  <TableCell>
+                    {event.title}
+                  </TableCell>
+                  <TableCell>
+                    {format(new Date(event.initialDate), 'dd/MM/yyyy')}
+                  </TableCell>
+                  <TableCell>
+                    {format(new Date(event.endDate), 'dd/MM/yyyy')}
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      color={isEventActive ? "emerald" : "red"}
+                      icon={isEventActive ? StatusOnlineIcon : StatusOfflineIcon}
+                      size="md"
+                    >
+                      {isEventActive ? 'Habilitado' : 'Desabilitado'}
+                    </Badge>
+                  </TableCell>
+                </TableRow>
+              )
+            }
+          )}
         </TableBody>
       </Table>
 
-      {/* <DeleteEventModal
-        isOpen={isDeleteEventModalOpen}
-        closeModal={closeDeleteEventModal}
-        event={selectedEvent}
-        revalidateData={revalidateData}
-      />
-
-      <UpdateEventModal
+      {/* <UpdateEventModal
         isOpen={isUpdateEventModalOpen}
         closeModal={closeUpdateEventModal}
         event={selectedEvent}
         revalidateData={revalidateData}
       /> */}
+
+      <DeleteEventModal
+        isOpen={isDeleteEventModalOpen}
+        closeModal={closeDeleteEventModal}
+        event={selectedEvent}
+        revalidateData={revalidateData}
+      />
 
       <CreateEventModal
         isOpen={isCreateEventModalOpen}

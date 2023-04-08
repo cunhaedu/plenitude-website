@@ -26,7 +26,7 @@ type TabViews =
   | 'events';
 
 export default function Admin() {
-  const [selectedView, setSelectedView] = useState<TabViews>('leadership');
+  const [selectedView, setSelectedView] = useState<string>('leadership');
   const { logout } = useContext(AuthContext);
 
   return (
@@ -60,10 +60,10 @@ export default function Admin() {
 
         <div className={styles.dashboard_tab_container}>
           <TabList
-            color='indigo'
+            color="indigo"
             defaultValue="leadership"
-            handleSelect={ (value) => setSelectedView(value) }
-            marginTop="mt-2"
+            onValueChange={value => setSelectedView(value)}
+            className="mt-2"
           >
             <Tab value="leadership" text="Liderança" />
             <Tab value="churches" text="Igrejas" />

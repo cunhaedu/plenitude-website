@@ -22,8 +22,8 @@ export default async function handler(
     });
 
     await hygraph.request(
-      `mutation deleteTestimonial($id: ID!) {
-        deleteTestimonial(where: { id: $id}) {
+      `mutation deleteEvent($id: ID!) {
+        deleteEvent(where: { id: $id}) {
           id
         }
       }`,

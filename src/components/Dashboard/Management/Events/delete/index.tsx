@@ -1,52 +1,60 @@
 import { ExclamationIcon } from '@heroicons/react/outline'
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 import axios from 'axios';
 
 import BaseModal from '../../BaseModal';
 
 import styles from './styles.module.scss';
-import { useState } from 'react';
 
-type TestimonialData = {
+type EventData = {
   id: string;
-  name: string;
+  title: string;
+  cover: string;
 }
 
-interface DeleteTestimonialModalProps {
-  testimonial: TestimonialData;
+interface DeleteEventModalProps {
+  event: EventData;
   isOpen: boolean;
   closeModal: () => void;
   revalidateData: () => Promise<void>;
 }
 
-export default function DeleteTestimonialModal({
+export default function DeleteEventModal({
   isOpen,
   closeModal,
-  testimonial,
+  event,
   revalidateData,
-}: DeleteTestimonialModalProps) {
+}: DeleteEventModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  async function deleteTestimonial() {
+  async function deleteEvent() {
     setIsLoading(true);
 
-    axios.delete('/api/testimonials/delete', {
-      data: {
-        id: testimonial.id,
-      }
-    })
-    .then(async () => {
+    try {
+      await axios.delete('/api/events/delete', {
+        data: {
+          id: event.id,
+        }
+      });
+
+      const key = event.cover.split('/').pop();
+
+      await axios.post('/api/ibm-cos/remove', {
+        key,
+      });
+
+      toast.success('Evento removido com sucesso!');
       await revalidateData();
-      toast.success('Testemunho removido com sucesso!');
-    })
-    .catch((err) => {
+
+    } catch (err: any) {
       console.log(err);
-      toast.error('Falha ao remover testemunho');
-    })
-    .finally(() => {
+      toast.error('Falha ao remover evento');
+    }
+    finally {
       setIsLoading(false);
       closeModal();
-    });
+    }
   }
 
   return (
@@ -62,8 +70,8 @@ export default function DeleteTestimonialModal({
           <div className={styles.delete_modal_header__title_container}>
             <h3>Remover Testemunho</h3>
             <p>
-              Você tem certeza que deseja remover o testemunho do(a)
-              {testimonial.name}
+              Você tem certeza que deseja remover o evento {' '}
+              <strong>{event.title}</strong>
             </p>
           </div>
         </div>
@@ -73,7 +81,7 @@ export default function DeleteTestimonialModal({
         <button
           type="button"
           disabled={isLoading}
-          onClick={deleteTestimonial}
+          onClick={deleteEvent}
         >
           Remover
         </button>

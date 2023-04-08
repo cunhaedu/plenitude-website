@@ -16,7 +16,7 @@ import {
 } from '@tremor/react';
 
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
-import CreateMinistryModal from './create';
+import { DashboardImage } from '@/components/DashboardImage';
 
 type MinistryData = {
   id: string;
@@ -107,26 +107,27 @@ export function MinistryManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={(value) => setSelectedNames(value)}
+          onValueChange={(value) => setSelectedNames(value)}
           placeholder="Filtrar pelo nome da rede"
-          maxWidth="max-w-xs"
+          className="max-w-xs"
         >
           {removeDuplicateKeyInObjectArrayHelper(ministries, 'name')
             .map((leader) => (
               <MultiSelectBoxItem
-                key={ leader.slug }
-                value={ leader.name }
-                text={ leader.name }
+                key={leader.slug}
+                value={leader.name}
+                text={leader.name}
+                className='py-2'
               />
             ))
           }
         </MultiSelectBox>
       </div>
-      <Table marginTop="mt-6">
+      <Table className="mt-6">
         <TableHead>
           <TableRow>
             <TableHeaderCell>Ações</TableHeaderCell>
-            <TableHeaderCell textAlignment='text-center'>
+            <TableHeaderCell className='text-center'>
               Imagem
             </TableHeaderCell>
             <TableHeaderCell>Nome</TableHeaderCell>
@@ -144,16 +145,7 @@ export function MinistryManagement() {
                 </div>
               </TableCell>
               <TableCell>
-                <div className='dashboard__image_container'>
-                  <div>
-                    <Image
-                      src={ministry.cover}
-                      alt={ministry.name}
-                      width={120}
-                      height={120}
-                    />
-                  </div>
-                </div>
+                <DashboardImage alt={ministry.name} url={ministry.cover} />
               </TableCell>
               <TableCell>
                 {ministry.name}
@@ -190,11 +182,11 @@ export function MinistryManagement() {
         revalidateData={revalidateData}
       /> */}
 
-      <CreateMinistryModal
+      {/* <CreateMinistryModal
         isOpen={isCreateMinistryModalOpen}
         closeModal={closeCreateMinistryModal}
         revalidateData={revalidateData}
-      />
+      /> */}
     </Card>
   )
 }

@@ -13,7 +13,8 @@ export default async function handler(
   }
 
   try {
-    const { name, description } = req.body;
+    const { title, link, cover, initialDate, endDate } = req.body;
+
     const url = String(process.env.NEXT_PUBLIC_HYGRAPH_API_URL);
     const mutationToken = String(process.env.NEXT_HYGRAPH_MUTATION_API_ACCESS_TOKEN);
 
@@ -21,22 +22,28 @@ export default async function handler(
       headers: { "Authorization" : `Bearer ${mutationToken}` },
     });
 
-    const { createTestimonial } = await hygraph.request(
-      `mutation createTestimonial($name: String!, $description: String!) {
-        createTestimonial(data: { name: $name, description: $description }) {
+    const { createEvent } = await hygraph.request(
+      `mutation createEvent($title: String!, $link: String!, $cover: String!, $initialDate: Date!, $endDate: Date!) {
+        createEvent(data: {
+          title: $title,
+          link: $link,
+          cover: $cover,
+          initialDate: $initialDate,
+          endDate: $endDate
+        }) {
           id
         }
       }`,
-      { name, description }
+      { title, link, cover, initialDate, endDate }
     );
 
     await hygraph.request(
-      `mutation publishTestimonial($id: ID!) {
-        publishTestimonial(where: { id: $id }) {
+      `mutation publishEvent($id: ID!) {
+        publishEvent(where: { id: $id }) {
           id
         }
       }`,
-      { id: createTestimonial.id }
+      { id: createEvent.id }
     );
 
     res.status(201).json({ message: 'created' });

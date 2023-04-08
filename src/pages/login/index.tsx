@@ -10,6 +10,7 @@ import { AuthContext } from '@/contexts/AuthContext';
 import { Header } from '@/components/Header';
 
 import styles from './styles.module.scss';
+import { Button } from '@tremor/react';
 
 export default function Login() {
   const { register, handleSubmit, formState: { isSubmitting } } = useForm();
@@ -73,21 +74,13 @@ export default function Login() {
             </div>
 
             <div className={styles.button_container}>
-              <button
+              <Button
                 type="submit"
-                className="group"
-                disabled={isSubmitting}
+                loading={isSubmitting}
+                size='md'
               >
-                <span>
-                  <LockClosedIcon
-                    aria-hidden
-                    height={20}
-                    width={20}
-                    className="group-hover:text-indigo-400"
-                  />
-                </span>
                 Login
-              </button>
+              </Button>
             </div>
           </form>
         </div>
