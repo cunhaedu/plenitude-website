@@ -26,14 +26,14 @@ export const createEventSchema =
         'Data inicial não pode ser menor que hoje'
       ),
     cover: z.any()
-    .refine((files) => hasAtLeastOneImage(files), "A imagem de perfil é obrigatória")
-    .refine((files) => hasAtLeastOneImage(files) && files.item(0)!.size <= MAX_FILE_SIZE, `Tamanho máximo de 2MB`)
-    .refine(
-      (files) => hasAtLeastOneImage(files) && ACCEPTED_IMAGE_TYPES.includes(files.item(0)!.type),
-      "Formato de imagem inválido"
-    ).transform(files => {
-      return files.item(0)!
-    }),
+      .refine((files) => hasAtLeastOneImage(files), "A imagem é obrigatória")
+      .refine((files) => hasAtLeastOneImage(files) && files.item(0)!.size <= MAX_FILE_SIZE, `Tamanho máximo de 2MB`)
+      .refine(
+        (files) => hasAtLeastOneImage(files) && ACCEPTED_IMAGE_TYPES.includes(files.item(0)!.type),
+        "Formato de imagem inválido"
+      ).transform(files => {
+        return files.item(0)!
+      }),
   })
 
 export type CreateEventData = z.infer<typeof createEventSchema>;

@@ -6,8 +6,8 @@ import { ptBR } from 'date-fns/locale';
 import axios from 'axios';
 
 import { FormFooter } from '@/components/Dashboard/FormFooter';
-import { CreateEventData, createEventSchema } from '../schemas/createEvent.schema';
-import BaseModal from '../../BaseModal';
+import { CreateEventData, createEventSchema } from '../../schemas/createEvent.schema';
+import BaseModal from '../../../BaseModal';
 
 import styles from './styles.module.scss';
 
@@ -73,7 +73,7 @@ export default function CreateEventModal({
       const { url } = await uploadEventCover({
         file: cover,
         name: titleSlug,
-      })
+      });
 
       await axios.post('/api/events/create', {
         link,

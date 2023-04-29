@@ -3,13 +3,13 @@ import { Button } from '@tremor/react';
 type FormFooterProps = {
   closeModal: () => void;
   isSaveButtonLoading: boolean;
-  mainButtonAction: 'save' | 'update' | 'remove'
+  mainButtonAction: 'save' | 'update' | 'remove';
 }
 
 export function FormFooter({
   closeModal,
   isSaveButtonLoading,
-  mainButtonAction
+  mainButtonAction,
 }: FormFooterProps) {
   function retrieveMainButtonText(): string {
     const texts = {
@@ -19,6 +19,10 @@ export function FormFooter({
     }
 
     return texts[mainButtonAction];
+  }
+
+  function handleCancel() {
+    closeModal();
   }
 
   return (
@@ -39,7 +43,7 @@ export function FormFooter({
         size="md"
         type="button"
         className="w-24"
-        onClick={closeModal}
+        onClick={handleCancel}
       >
         Cancelar
       </Button>

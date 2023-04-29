@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-import { TestimonialData, testimonialSchema } from '../testimonial.schema';
-import BaseModal from '../../BaseModal';
+import { TestimonialData, testimonialSchema } from '../../schemas/testimonial.schema';
+import BaseModal from '../../../BaseModal';
 
 import styles from './styles.module.scss';
 

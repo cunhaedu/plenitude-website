@@ -13,7 +13,8 @@ export default async function handler(
   }
 
   try {
-    const { id, description, name } = req.body;
+    const { id, title, link, cover, initialDate, endDate } = req.body;
+
     const url = String(process.env.NEXT_PUBLIC_HYGRAPH_API_URL);
     const mutationToken = String(process.env.NEXT_HYGRAPH_MUTATION_API_ACCESS_TOKEN)
 
@@ -22,21 +23,23 @@ export default async function handler(
     });
 
     await hygraph.request(
-      `mutation updateTestimonial($id: ID!, $name: String!, $description: String!) {
-        updateTestimonial(where: { id: $id}, data: { name: $name, description: $description }) {
-          id
-        }
-      }`,
-      { id, name, description }
-    );
+      `mutation updateEvent($id: ID!, $title: String!, $link: String!, $cover: String!, $initialDate: Date!, $endDate: Date!) {
+        updateEvent(
+          where: { id: $id},
+          data: {
+            title: $title,
+            link: $link,
+            cover: $cover,
+            initialDate: $initialDate,
+            endDate: $endDate
+          }
+        ) { id }
 
-    await hygraph.request(
-      `mutation publishTestimonial($id: ID!) {
-        publishTestimonial(where: { id: $id }) {
+        publishEvent(where: { id: $id }) {
           id
         }
       }`,
-      { id }
+      { id, title, link, cover, initialDate, endDate }
     );
 
     res.status(200).json({ message: 'ok' });

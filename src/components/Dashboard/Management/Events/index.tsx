@@ -1,4 +1,5 @@
 import { PlusIcon, StatusOfflineIcon } from '@heroicons/react/outline';
+import { StatusOnlineIcon } from '@heroicons/react/solid';
 import { FaTrash, FaPen } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { useState } from 'react';
@@ -18,10 +19,9 @@ import {
 } from '@tremor/react';
 
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
-import DeleteEventModal from './delete';
-import CreateEventModal from './create';
-import UpdateEventModal from './update';
-import { StatusOnlineIcon } from '@heroicons/react/solid';
+import DeleteEventModal from './modals/delete';
+import CreateEventModal from './modals/create';
+import UpdateEventModal from './modals/update';
 
 type EventData = {
   id: string;
@@ -175,8 +175,9 @@ export function EventsManagement() {
         </TableBody>
       </Table>
 
-      {selectedEvent && (
+      {!!selectedEvent.title && (
         <>
+          {/* <pre>{JSON.stringify(selectedEvent)}</pre> */}
           <UpdateEventModal
             isOpen={isUpdateEventModalOpen}
             closeModal={closeUpdateEventModal}

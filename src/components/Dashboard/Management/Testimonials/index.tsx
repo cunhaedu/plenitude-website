@@ -15,9 +15,9 @@ import {
 } from '@tremor/react';
 
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
-import DeleteTestimonialModal from './delete';
-import CreateTestimonialModal from './create';
-import UpdateTestimonialModal from './update';
+import DeleteTestimonialModal from './modals/delete';
+import CreateTestimonialModal from './modals/create';
+import UpdateTestimonialModal from './modals/update';
 
 type TestimonialData = {
   id: string;

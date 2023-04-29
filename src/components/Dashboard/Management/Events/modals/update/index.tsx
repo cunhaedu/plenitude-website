@@ -1,4 +1,4 @@
-import { DateRangePicker, DateRangePickerValue, Toggle, ToggleItem } from '@tremor/react';
+import { DateRangePicker, DateRangePickerValue } from '@tremor/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -6,10 +6,11 @@ import { ptBR } from 'date-fns/locale';
 import axios from 'axios';
 
 import { FormFooter } from '@/components/Dashboard/FormFooter';
-import { UpdateEventData, updateEventSchema } from '../schemas/updateEvent.schema';
-import BaseModal from '../../BaseModal';
+import { UpdateEventData, updateEventSchema } from '../../schemas/updateEvent.schema';
+import BaseModal from '../../../BaseModal';
 
 import styles from './styles.module.scss';
+import { useEffect } from 'react';
 
 type UploadEventCover = {
   file: File;
@@ -38,16 +39,22 @@ export default function UpdateEventModal({
   revalidateData,
   event,
 }: UpdateEventModalProps) {
-  const updateEventForm = useForm<UpdateEventData>({
-    resolver: zodResolver(updateEventSchema),
-    defaultValues: {
+  function retrieveFormDefaultValue() {
+    return {
       link: event.link,
       title: event.title,
+      isImageReplaced: false,
       rangeDate: [
         new Date(event.initialDate),
-        new Date(event.endDate)
+        new Date(event.endDate),
+        null
       ],
     }
+  }
+
+  const updateEventForm = useForm<UpdateEventData>({
+    resolver: zodResolver(updateEventSchema),
+    defaultValues: retrieveFormDefaultValue(),
   });
 
   const {
@@ -58,6 +65,11 @@ export default function UpdateEventModal({
     watch,
     formState: { errors, isSubmitting }
   } = updateEventForm;
+
+  useEffect(() => {
+    reset(retrieveFormDefaultValue());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [event]);
 
   async function uploadEventCover({
     file,
@@ -84,15 +96,22 @@ export default function UpdateEventModal({
 
   async function updateEvent(data: UpdateEventData) {
     try {
-      const { title, link, rangeDate, cover } = data;
+      const { title, link, rangeDate, cover, isImageReplaced } = data;
       const titleSlug =  title.toLowerCase().split(' ').join('_');
 
-      const { url } = await uploadEventCover({
-        file: cover,
-        name: titleSlug,
-      })
+      let url = event.cover;
 
-      await axios.post('/api/events/update', {
+      if(isImageReplaced) {
+        const response = await uploadEventCover({
+          file: cover,
+          name: titleSlug,
+        });
+
+        url = response.url;
+      }
+
+      await axios.put('/api/events/update', {
+        id: event.id,
         link,
         title,
         cover: url,
@@ -100,11 +119,19 @@ export default function UpdateEventModal({
         endDate: new Date(rangeDate[1]),
       });
 
+      if(isImageReplaced && event.title !== title) {
+        const key = event.cover.split('/').pop();
+
+        await axios.post('/api/ibm-cos/remove', {
+          key,
+        });
+      }
+
       reset();
       await revalidateData();
-      toast.success('Evento cadastrado com sucesso!');
+      toast.success('Evento atualizado com sucesso!');
     } catch (err) {
-      toast.error('Falha ao cadastrar evento');
+      toast.error('Falha ao atualizar o evento');
     } finally {
       closeModal();
     }
@@ -141,26 +168,20 @@ export default function UpdateEventModal({
               )}
             />
 
-            <Controller
-              name="isImageReplaced"
-              control={control}
-              render={({ field }) => (
-                <div className={styles.input_group}>
-                  <label>Deseja trocar a imagem</label>
-                  <Toggle
-                    color="zinc"
-                    defaultValue={String(field.value)}
-                    value={String(field.value)}
-                    onValueChange={(value) => field.onChange(value === 'true')}
-                  >
-                    <ToggleItem value="true" text="Sim" />
-                    <ToggleItem value="false" text="Não" />
-                  </Toggle>
-
-                  {errors.isImageReplaced && <span>{errors.isImageReplaced.message}</span>}
-                </div>
-              )}
-            />
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="checked-checkbox"
+                className="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2"
+                {...register('isImageReplaced')}
+              />
+              <label
+                htmlFor="checked-checkbox"
+                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Desejo trocar a imagem
+              </label>
+            </div>
 
             <div className={styles.input_group}>
               <label>Imagem</label>

@@ -65,11 +65,11 @@ export default function Admin() {
             onValueChange={value => setSelectedView(value)}
             className="mt-2"
           >
-            <Tab value="leadership" text="Liderança" />
-            <Tab value="churches" text="Igrejas" />
-            <Tab value="ministries" text="Redes" />
-            <Tab value="testimonies" text="Testemunhos" />
             <Tab value="events" text="Eventos" />
+            <Tab value="testimonies" text="Testemunhos" />
+            <Tab value="ministries" text="Redes" />
+            <Tab value="churches" text="Igrejas" />
+            <Tab value="leadership" text="Liderança" />
           </TabList>
         </div>
 
