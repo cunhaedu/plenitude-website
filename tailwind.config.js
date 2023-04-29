@@ -29,8 +29,6 @@ module.exports = {
   plugins: [
     require('tailwind-scrollbar'),
     require('tailwind-scrollbar-hide'),
-    require('@tailwindcss/line-clamp'),
-    require("tailwindcss-hyphens"),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
     require("tailwindcss-inner-border"),

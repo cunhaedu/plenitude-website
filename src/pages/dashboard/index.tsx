@@ -26,7 +26,7 @@ type TabViews =
   | 'events';
 
 export default function Admin() {
-  const [selectedView, setSelectedView] = useState<string>('leadership');
+  const [selectedView, setSelectedView] = useState<TabViews>('events');
   const { logout } = useContext(AuthContext);
 
   return (
@@ -62,7 +62,7 @@ export default function Admin() {
           <TabList
             color="indigo"
             defaultValue="leadership"
-            onValueChange={value => setSelectedView(value)}
+            onValueChange={value => setSelectedView(value as TabViews)}
             className="mt-2"
           >
             <Tab value="events" text="Eventos" />
