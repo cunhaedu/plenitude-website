@@ -61,7 +61,7 @@ export default function Admin() {
         <div className={styles.dashboard_tab_container}>
           <TabList
             color="indigo"
-            defaultValue="leadership"
+            defaultValue="events"
             onValueChange={value => setSelectedView(value as TabViews)}
             className="mt-2"
           >
