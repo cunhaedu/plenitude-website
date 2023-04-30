@@ -10,6 +10,7 @@ import { TestimonialManagement } from '@/components/Dashboard/Management/Testimo
 import { LeadershipManagement } from '@/components/Dashboard/Management/Leaderships';
 import { MinistryManagement } from '@/components/Dashboard/Management/Ministries';
 import { ChurchManagement } from '@/components/Dashboard/Management/Churches';
+import { EventsManagement } from '@/components/Dashboard/Management/Events';
 import { AuthContext } from '@/contexts/AuthContext';
 import { Banner } from '@/components/Banner';
 import { Footer } from '@/components/Footer';
@@ -17,10 +18,15 @@ import { Header } from '@/components/Header';
 
 import styles from './styles.module.scss';
 
-type TabViews = 'leadership' | 'churches' | 'ministries' | 'testimonies';
+type TabViews =
+  'leadership'
+  | 'churches'
+  | 'ministries'
+  | 'testimonies'
+  | 'events';
 
 export default function Admin() {
-  const [selectedView, setSelectedView] = useState<TabViews>('leadership');
+  const [selectedView, setSelectedView] = useState<TabViews>('events');
   const { logout } = useContext(AuthContext);
 
   return (
@@ -54,15 +60,16 @@ export default function Admin() {
 
         <div className={styles.dashboard_tab_container}>
           <TabList
-            color='indigo'
-            defaultValue="leadership"
-            handleSelect={ (value) => setSelectedView(value) }
-            marginTop="mt-2"
+            color="indigo"
+            defaultValue="events"
+            onValueChange={value => setSelectedView(value as TabViews)}
+            className="mt-2"
           >
-            <Tab value="leadership" text="Liderança" />
-            <Tab value="churches" text="Igrejas" />
-            <Tab value="ministries" text="Redes" />
+            <Tab value="events" text="Eventos" />
             <Tab value="testimonies" text="Testemunhos" />
+            <Tab value="ministries" text="Redes" />
+            <Tab value="churches" text="Igrejas" />
+            <Tab value="leadership" text="Liderança" />
           </TabList>
         </div>
 
@@ -70,6 +77,7 @@ export default function Admin() {
         {selectedView === 'churches' &&  <ChurchManagement />}
         {selectedView === 'ministries' &&  <MinistryManagement />}
         {selectedView === 'testimonies' &&  <TestimonialManagement />}
+        {selectedView === 'events' &&  <EventsManagement />}
       </main>
 
       <Footer />

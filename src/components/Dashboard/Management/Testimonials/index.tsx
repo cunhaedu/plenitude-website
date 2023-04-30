@@ -15,9 +15,9 @@ import {
 } from '@tremor/react';
 
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
-import DeleteTestimonialModal from './delete';
-import CreateTestimonialModal from './create';
-import UpdateTestimonialModal from './update';
+import DeleteTestimonialModal from './modals/delete';
+import CreateTestimonialModal from './modals/create';
+import UpdateTestimonialModal from './modals/update';
 
 type TestimonialData = {
   id: string;
@@ -90,9 +90,9 @@ export function TestimonialManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={values => setSelectedNames(values)}
+          onValueChange={values => setSelectedNames(values)}
           placeholder="Filtrar pelo nome"
-          maxWidth="max-w-xs"
+          className='max-w-xs'
         >
           {removeDuplicateKeyInObjectArrayHelper(testimonials, 'name')
             .map((testimonial) => (
@@ -100,12 +100,13 @@ export function TestimonialManagement() {
                 key={testimonial.id}
                 value={testimonial.name}
                 text={testimonial.name}
+                className='py-2'
               />
             ))
           }
         </MultiSelectBox>
       </div>
-      <Table marginTop="mt-6">
+      <Table className='mt-6'>
         <TableHead>
           <TableRow>
             <TableHeaderCell>Ações</TableHeaderCell>

@@ -6,6 +6,7 @@ module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
+    "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -28,10 +29,9 @@ module.exports = {
   plugins: [
     require('tailwind-scrollbar'),
     require('tailwind-scrollbar-hide'),
-    require('@tailwindcss/line-clamp'),
-    require("tailwindcss-hyphens"),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
     require("tailwindcss-inner-border"),
+    require("flowbite/plugin"),
   ],
 }

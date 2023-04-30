@@ -16,6 +16,7 @@ import {
 } from '@tremor/react';
 
 import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
+import { DashboardImage } from '@/components/DashboardImage';
 
 type ChurchData = {
   id: string;
@@ -69,22 +70,23 @@ export function ChurchManagement() {
         </button>
 
         <MultiSelectBox
-          handleSelect={(value) => setSelectedCities(value)}
+          onValueChange={(value) => setSelectedCities(value)}
           placeholder="Filtrar por cidades"
-          maxWidth="max-w-xs"
+          className="max-w-xs"
         >
           {removeDuplicateKeyInObjectArrayHelper(churches, 'city')
             .map((leader) => (
               <MultiSelectBoxItem
-                key={ leader.slug }
-                value={ leader.city }
-                text={ leader.city }
+                key={leader.slug}
+                value={leader.city}
+                text={leader.city}
+                className='py-2'
               />
             ))
           }
         </MultiSelectBox>
       </div>
-      <Table marginTop="mt-6">
+      <Table className="mt-6">
         <TableHead>
           <TableRow>
             <TableHeaderCell>Ações</TableHeaderCell>
@@ -107,16 +109,7 @@ export function ChurchManagement() {
                 </div>
               </TableCell>
               <TableCell>
-                <div className='dashboard__image_container'>
-                  <div>
-                    <Image
-                      src={church.cityImageURL}
-                      alt={church.name}
-                      width={120}
-                      height={120}
-                    />
-                  </div>
-                </div>
+                <DashboardImage alt={church.name} url={church.cityImageURL} />
               </TableCell>
               <TableCell>
                 {church.name}

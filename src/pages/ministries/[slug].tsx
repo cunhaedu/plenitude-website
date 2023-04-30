@@ -193,6 +193,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         collage: data.ministry.collage ?? data.ministry.cover,
       },
     },
-    revalidate: 60 * 60 * 12 // 12 hours
+    revalidate: 60 * 60 * 24 // 24 hours
   };
 };
