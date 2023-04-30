@@ -121,6 +121,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       churches: data?.churches || [],
     },
-    revalidate: 60 * 60 * 12 // 12 hours
+    revalidate: 60 * 60 * 24 // 24 hours
  };
 }

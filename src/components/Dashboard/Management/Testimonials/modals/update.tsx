@@ -1,13 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-import { TestimonialData, testimonialSchema } from '../../schemas/testimonial.schema';
-import BaseModal from '../../../BaseModal';
+import { TestimonialData, testimonialSchema } from '../schemas/testimonial.schema';
+import BaseModal from '../../BaseModal';
 
-import styles from './styles.module.scss';
+import { Form } from '@/components/Form';
+import { Button } from '@tremor/react';
 
 type UpdateTestimonialData = TestimonialData & {
   id: string;
@@ -34,12 +35,7 @@ export default function UpdateTestimonialModal({
     }
   });
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting }
-  } = updateTestimonialForm;
+  const { handleSubmit, reset, formState: { isSubmitting } } = updateTestimonialForm;
 
   useEffect(() => {
     reset(testimonial);
@@ -67,39 +63,40 @@ export default function UpdateTestimonialModal({
       closeModal={closeModal}
       isOpen={isOpen}
     >
-      <div className={styles.modal_header}>
-        <div>
+      <FormProvider {...updateTestimonialForm}>
         <form
           onSubmit={handleSubmit(updateTestimonial)}
-          className={styles.form}
+          className="flex flex-col gap-4 w-full"
         >
-          <div className={styles.input_group}>
-            <label htmlFor="name">Nome</label>
-            <input
-              type="text"
-              maxLength={45}
-              {...register("name")}
-            />
-            {errors.name && <span>{errors.name.message}</span>}
-          </div>
+          <Form.Field>
+            <Form.Label htmlFor="name">
+              Nome
+            </Form.Label>
 
-          <div className={styles.input_group}>
-            <label htmlFor="description">Testemunho</label>
-            <textarea
-              rows={5}
-              maxLength={560}
-              {...register("description")}
-            />
-            {errors.description && <span>{errors.description.message}</span>}
-          </div>
+            <Form.Input type="text" name="name" />
+            <Form.ErrorMessage field="name" />
+          </Form.Field>
 
-          <div className={styles.modal_footer}>
-            <button type="submit" disabled={isSubmitting}>Atualizar</button>
-            <button type="button" onClick={closeModal}>Cancelar</button>
-          </div>
+          <Form.Field>
+            <Form.Label htmlFor="description">
+              Testemunho
+            </Form.Label>
+
+            <Form.TextArea name="description" />
+            <Form.ErrorMessage field="description" />
+          </Form.Field>
+
+          <Form.ButtonGroup>
+            <Button type="button" variant="secondary" color="zinc" onClick={closeModal} className="w-full sm:w-24">
+              Cancelar
+            </Button>
+
+            <Button type="submit" color="red" loading={isSubmitting} disabled={isSubmitting} className="w-full sm:w-24">
+              Atualizar
+            </Button>
+          </Form.ButtonGroup>
         </form>
-        </div>
-      </div>
+      </FormProvider>
     </BaseModal>
   )
 }

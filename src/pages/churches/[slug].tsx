@@ -207,6 +207,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       church: data.church,
     },
-    revalidate: 60 * 60 * 12 // 12 hours
+    revalidate: 60 * 60 * 24 // 24 hours
   };
 };

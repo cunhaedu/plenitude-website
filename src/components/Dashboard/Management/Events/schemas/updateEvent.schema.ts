@@ -9,7 +9,10 @@ export const updateEventSchema =
     title: z.string()
       .nonempty({ message: 'O titulo é obrigatório' })
       .refine(data => !data.includes('/'), 'Titulo não pode ter /'),
-    link: z.string().url({ message: 'Url Inválida' }).optional().nullable().default(null),
+    link: z.string()
+      .url({ message: 'Url Inválida' })
+      .optional()
+      .or(z.literal('')),
     isImageReplaced: z.boolean().default(false),
     rangeDate: z.any()
       .array()

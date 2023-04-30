@@ -11,7 +11,7 @@ export const testimonialSchema = z.object({
       .join(' ')
   }),
   description: z.string().nonempty({
-    message: 'A descrição é obrigatória',
+    message: 'O testemunho é obrigatório',
   })
     .max(560)
     .min(10, 'Testemunho deve ter mais de 10 caracteres'),

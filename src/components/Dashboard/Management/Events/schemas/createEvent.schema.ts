@@ -13,7 +13,10 @@ export const createEventSchema =
     title: z.string()
       .nonempty({ message: 'O titulo é obrigatório' })
       .refine(data => !data.includes('/'), 'Titulo não pode ter /'),
-    link: z.string().url({ message: 'Url Inválida' }).optional().nullable().default(null),
+    link: z.string()
+      .url({ message: 'Url Inválida' })
+      .optional()
+      .or(z.literal('')),
     rangeDate: z.any()
       .array()
       .min(2)
