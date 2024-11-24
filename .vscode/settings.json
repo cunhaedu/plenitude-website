@@ -3,5 +3,6 @@
     "hookform",
     "Peniel",
     "toastify"
-  ]
+  ],
+  "remote.autoForwardPortsFallback": 0
 }

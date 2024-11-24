@@ -6,7 +6,7 @@ import axios from 'axios';
 import BaseModal from '../../BaseModal';
 
 import { Form } from '@/components/Form';
-import { Button } from '@tremor/react';
+import { Button } from '@/components/@ui/button';
 
 type EventData = {
   id: string;
@@ -85,7 +85,7 @@ export default function DeleteEventModal({
             Cancelar
           </Button>
 
-          <Button type="button" color="red" loading={isLoading} disabled={isLoading} onClick={deleteEvent} className="w-full sm:w-24">
+          <Button type="button" color="red" isLoading={isLoading} disabled={isLoading} onClick={deleteEvent} className="w-full sm:w-24">
             Remover
           </Button>
         </Form.ButtonGroup>

@@ -18,7 +18,7 @@ export default async function handler(
     Bucket: String(process.env.IBM_COS_BUCKET_NAME),
     Key: key,
   }).promise().then(() => {
-    res.json({ message: 'objeto removido' });
+    res.status(200).json({ message: 'objeto removido' });
   })
   .catch((e) => {
     console.error(`ERROR: ${e.code} - ${e.message}\n`);

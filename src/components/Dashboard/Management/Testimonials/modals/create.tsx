@@ -7,7 +7,7 @@ import { TestimonialData, testimonialSchema } from '../schemas/testimonial.schem
 import BaseModal from '../../BaseModal';
 
 import { Form } from '@/components/Form';
-import { Button } from '@tremor/react';
+import { Button } from '@/components/@ui/button';
 
 interface CreateTestimonialModalProps {
   isOpen: boolean;
@@ -75,7 +75,7 @@ export default function CreateTestimonialModal({
               Cancelar
             </Button>
 
-            <Button type="submit" color="red" loading={isSubmitting} disabled={isSubmitting} className="w-full sm:w-24">
+            <Button type="submit" color="red" isLoading={isSubmitting} disabled={isSubmitting} className="w-full sm:w-24">
               Salvar
             </Button>
           </Form.ButtonGroup>

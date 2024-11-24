@@ -18,8 +18,8 @@ export default function InProgress() {
         mas não se preocupe, logo logo ela será disponibilizada por aqui
       </h2>
 
-      <Link href="/" passHref>
-        <a>Voltar ao início</a>
+      <Link href="/">
+        Voltar ao início
       </Link>
     </main>
   )

@@ -1,6 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { GraphQLClient } from 'graphql-request';
 
+type GetLeadershipsResponse = {
+  id: string;
+  name: string;
+  bio: string;
+  avatar: string;
+  role: string;
+  instagram: string;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -20,7 +29,7 @@ export default async function handler(
       headers: { "Authorization" : `Bearer ${mutationToken}` },
     });
 
-    const { leaderships } = await hygraph.request(
+    const { leaderships } = await hygraph.request<{ leaderships: GetLeadershipsResponse[] }>(
       `query Leaderships {
         leaderships {
           id

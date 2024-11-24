@@ -1,16 +1,15 @@
 import { Slide, toast, ToastContainer } from 'react-toastify';
-import { LockClosedIcon } from '@heroicons/react/solid';
-import { useContext } from 'react';
 import { GetServerSideProps } from 'next';
 import { useForm } from 'react-hook-form';
 import { parseCookies } from 'nookies';
+import { useContext } from 'react';
 import Image from 'next/image';
 
 import { AuthContext } from '@/contexts/AuthContext';
+import { Button } from '@/components/@ui/button';
 import { Header } from '@/components/Header';
 
 import styles from './styles.module.scss';
-import { Button } from '@tremor/react';
 
 export default function Login() {
   const { register, handleSubmit, formState: { isSubmitting } } = useForm();
@@ -76,8 +75,7 @@ export default function Login() {
             <div className={styles.button_container}>
               <Button
                 type="submit"
-                loading={isSubmitting}
-                size='md'
+                isLoading={isSubmitting}
               >
                 Login
               </Button>

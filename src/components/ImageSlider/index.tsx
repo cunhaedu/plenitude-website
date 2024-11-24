@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { Pagination } from 'swiper';
 import Link from 'next/link';
 
@@ -41,20 +41,18 @@ export function ImageSlider({ data }: ImageSliderProps) {
       >
         {data.map(content => (
           <SwiperSlide key={content.slug}>
-            <Link href={`/leadership/${content.slug}`} passHref>
-              <a>
-                <div className={styles.item_container}>
-                  <Image
-                    src={content.imageURL}
-                    alt={content.title}
-                    fill
-                  />
-                  <div>
-                    <p>{content.title}</p>
-                    <span>{content.shortDescription}</span>
-                  </div>
+            <Link href={`/leadership/${content.slug}`}>
+              <div className={styles.item_container}>
+                <Image
+                  src={content.imageURL}
+                  alt={content.title}
+                  fill
+                />
+                <div>
+                  <p>{content.title}</p>
+                  <span>{content.shortDescription}</span>
                 </div>
-              </a>
+              </div>
             </Link>
           </SwiperSlide>
         ))}

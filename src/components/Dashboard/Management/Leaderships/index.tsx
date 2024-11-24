@@ -1,21 +1,17 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useState } from 'react';
 import useSWR from 'swr';
 import {
-  Card,
-  MultiSelectBox,
-  MultiSelectBoxItem,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
-} from '@tremor/react';
-
-import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
+} from '@/components/@ui/table';
+import { Card } from '@/components/@ui/card';
 
 type LeadershipData = {
   id: string;
@@ -59,7 +55,7 @@ export function LeadershipManagement() {
           <PlusIcon height={24} width={24} />
         </button>
 
-        <MultiSelectBox
+        {/* <MultiSelectBox
           onValueChange={(value) => setSelectedRoles(value)}
           placeholder="Filtrar por cargos"
           className="max-w-xs"
@@ -74,7 +70,7 @@ export function LeadershipManagement() {
               />
             ))
           }
-        </MultiSelectBox>
+        </MultiSelectBox> */}
       </div>
       <Table className="mt-6">
         <TableHead>

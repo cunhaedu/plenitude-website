@@ -1,6 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { GraphQLClient } from 'graphql-request';
 
+type GetChurchesResponse = {
+  churches: Array<{
+    id: string;
+    slug: string;
+    name: string;
+    city: string;
+    state: string;
+    street: string;
+    number: string;
+    district: string;
+    serviceTimes: string;
+    cover: string;
+    cityImageURL: string;
+    description: string;
+  }>
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -20,7 +37,7 @@ export default async function handler(
       headers: { "Authorization" : `Bearer ${mutationToken}` },
     });
 
-    const { churches } = await hygraph.request(
+    const { churches } = await hygraph.request<{ churches: GetChurchesResponse[] }>(
       `query Churches {
         churches {
           id

@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { gql } from '@apollo/client';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -70,19 +70,17 @@ export default function Ministries({ministries}: GetMinistriesResponse) {
               <Link
                 href={`/ministries/${ministry.slug}`}
                 key={ministry.slug}
-                passHref
+                className={styles.ministry_card}
               >
-                <a className={styles.ministry_card}>
-                  <div>
-                    <Image
-                      src={ministry.cover}
-                      alt={ministry.name}
-                      fill
-                    />
-                  </div>
+                <div>
+                  <Image
+                    src={ministry.cover}
+                    alt={ministry.name}
+                    fill
+                  />
+                </div>
 
-                  <h3>{ministry.name}</h3>
-                </a>
+                <h3>{ministry.name}</h3>
               </Link>
             ))}
           </div>

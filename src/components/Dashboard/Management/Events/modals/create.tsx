@@ -1,14 +1,14 @@
-import { Button, DateRangePicker, DateRangePickerValue } from '@tremor/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller, FormProvider } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { ptBR } from 'date-fns/locale';
 import axios from 'axios';
 
 import { CreateEventData, createEventSchema } from '../schemas/createEvent.schema';
 import BaseModal from '../../BaseModal';
 
 import { Form } from '@/components/Form';
+import { Button } from '@/components/@ui/button';
+import { DateRange, DateRangePicker } from '@/components/@ui/date-range-picker';
 
 interface CreateEventModalProps {
   isOpen: boolean;
@@ -74,8 +74,8 @@ export default function CreateEventModal({
         link,
         title,
         cover: url,
-        initialDate: new Date(rangeDate[0]),
-        endDate: new Date(rangeDate[1]),
+        initialDate: new Date(rangeDate.from),
+        endDate: new Date(rangeDate.to),
       });
 
       reset();
@@ -109,13 +109,16 @@ export default function CreateEventModal({
 
                 <DateRangePicker
                   placeholder='Selecione a data de início e fim do evento'
+                  translations={{
+                    cancel: "Cancelar",
+                    apply: "Salvar",
+                    range: "Intervalo entre as datas",
+                  }}
                   className="w-full"
-                  enableDropdown={false}
-                  locale={ptBR}
-                  value={field.value as DateRangePickerValue}
-                  onValueChange={(e) => field.onChange(e)}
+                  value={field.value as DateRange}
+                  onChange={(e) => field.onChange(e)}
                   id="rangeDate"
-                  minDate={new Date()}
+                  fromDate={new Date()}
                 />
                 <Form.ErrorMessage field="rangeDate" />
               </Form.Field>
@@ -157,7 +160,7 @@ export default function CreateEventModal({
               Cancelar
             </Button>
 
-            <Button type="submit" color="red" loading={isSubmitting} disabled={isSubmitting} className="w-full sm:w-24">
+            <Button type="submit" color="red" isLoading={isSubmitting} disabled={isSubmitting} className="w-full sm:w-24">
               Salvar
             </Button>
           </Form.ButtonGroup>

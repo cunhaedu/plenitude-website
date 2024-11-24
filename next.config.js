@@ -2,12 +2,16 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: [
-      'tailwindui.com',
-      'images.unsplash.com',
-      'drive.google.com',
-      's3.us-south.cloud-object-storage.appdomain.cloud',
-      'comunidade-plenitude-bucket.s3.us-south.cloud-object-storage.appdomain.cloud',
-    ]
+    remotePatterns: [
+      { hostname: 'tailwindui.com'  },
+      { hostname: 'images.unsplash.com' },
+      { hostname: 'drive.google.com' },
+      { hostname: 's3.us-south.cloud-object-storage.appdomain.cloud' },
+      { hostname: 'comunidade-plenitude-bucket.s3.us-south.cloud-object-storage.appdomain.cloud' },
+    ],
+  },
+  experimental: {
+    workerThreads: false,
+    cpus: 1,
   }
 }

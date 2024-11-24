@@ -3,18 +3,15 @@ import { FaTrash, FaPen } from 'react-icons/fa';
 import { useState } from 'react';
 import useSWR from 'swr';
 import {
-  Card,
-  MultiSelectBox,
-  MultiSelectBoxItem,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
-} from '@tremor/react';
+} from '@/components/@ui/table';
+import { Card } from '@/components/@ui/card';
 
-import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
 import DeleteTestimonialModal from './modals/delete';
 import CreateTestimonialModal from './modals/create';
 import UpdateTestimonialModal from './modals/update';
@@ -89,7 +86,7 @@ export function TestimonialManagement() {
           <PlusIcon height={24} width={24} />
         </button>
 
-        <MultiSelectBox
+        {/* <MultiSelectBox
           onValueChange={values => setSelectedNames(values)}
           placeholder="Filtrar pelo nome"
           className='max-w-xs'
@@ -104,7 +101,7 @@ export function TestimonialManagement() {
               />
             ))
           }
-        </MultiSelectBox>
+        </MultiSelectBox> */}
       </div>
       <Table className='mt-6'>
         <TableHead>

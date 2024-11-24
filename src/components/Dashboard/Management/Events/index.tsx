@@ -1,24 +1,20 @@
-import { PlusIcon, StatusOfflineIcon } from '@heroicons/react/outline';
-import { StatusOnlineIcon } from '@heroicons/react/solid';
+import { PlusIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import Image from 'next/image';
 import useSWR from 'swr';
 import {
-  Badge,
-  Card,
-  MultiSelectBox,
-  MultiSelectBoxItem,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
-} from '@tremor/react';
+} from '@/components/@ui/table';
+import { Badge } from '@/components/@ui/badge';
+import { Card } from '@/components/@ui/card';
 
-import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
 import DeleteEventModal from './modals/delete';
 import CreateEventModal from './modals/create';
 import UpdateEventModal from './modals/update';
@@ -26,8 +22,8 @@ import UpdateEventModal from './modals/update';
 type EventData = {
   id: string;
   title: string;
-  initialDate: string;
-  endDate: string;
+  initialDate: Date;
+  endDate: Date;
   cover: string;
   link: string;
 }
@@ -96,7 +92,7 @@ export function EventsManagement() {
           <PlusIcon height={24} width={24} />
         </button>
 
-        <MultiSelectBox
+        {/* <MultiSelectBox
           onValueChange={values => setSelectedTitles(values)}
           placeholder="Filtrar pelo titulo"
           className='max-w-xs'
@@ -111,7 +107,7 @@ export function EventsManagement() {
               />
             ))
           }
-        </MultiSelectBox>
+        </MultiSelectBox> */}
       </div>
       <Table className='mt-6'>
         <TableHead>
@@ -161,9 +157,7 @@ export function EventsManagement() {
                   </TableCell>
                   <TableCell>
                     <Badge
-                      color={isEventActive ? "emerald" : "red"}
-                      icon={isEventActive ? StatusOnlineIcon : StatusOfflineIcon}
-                      size="md"
+                      variant={isEventActive ? "success" : "error"}
                     >
                       {isEventActive ? 'Habilitado' : 'Desabilitado'}
                     </Badge>

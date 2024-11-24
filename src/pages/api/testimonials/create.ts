@@ -21,7 +21,7 @@ export default async function handler(
       headers: { "Authorization" : `Bearer ${mutationToken}` },
     });
 
-    const { createTestimonial } = await hygraph.request(
+    const { createTestimonial } = await hygraph.request<{  createTestimonial: { id: string }}>(
       `mutation createTestimonial($name: String!, $description: String!) {
         createTestimonial(data: { name: $name, description: $description }) {
           id

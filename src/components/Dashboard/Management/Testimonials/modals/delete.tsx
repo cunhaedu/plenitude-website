@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import { Form } from '@/components/Form';
-import { Button } from '@tremor/react';
+import { Button } from '@/components/@ui/button';
 
 import BaseModal from '../../BaseModal';
 
@@ -76,7 +76,7 @@ export default function DeleteTestimonialModal({
             Cancelar
           </Button>
 
-          <Button type="button" color="red" disabled={isLoading} loading={isLoading} onClick={deleteTestimonial} className="w-full sm:w-24">
+          <Button type="button" color="red" disabled={isLoading} isLoading={isLoading} onClick={deleteTestimonial} className="w-full sm:w-24">
             Remover
           </Button>
         </Form.ButtonGroup>

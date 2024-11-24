@@ -1,15 +1,15 @@
-import { Button, DateRangePicker, DateRangePickerValue } from '@tremor/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller, FormProvider } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import { ptBR } from 'date-fns/locale';
+import { useEffect } from 'react';
 import axios from 'axios';
 
 import { UpdateEventData, updateEventSchema } from '../schemas/updateEvent.schema';
 import BaseModal from '../../BaseModal';
 
-import { useEffect } from 'react';
+import { DateRange, DateRangePicker } from '@/components/@ui/date-range-picker';
+import { Button } from '@/components/@ui/button';
 import { Form } from '@/components/Form';
+import { toast } from 'react-toastify';
 
 type UploadEventCover = {
   file: File;
@@ -19,8 +19,8 @@ type UploadEventCover = {
 type EventData = {
   id: string;
   title: string;
-  initialDate: string;
-  endDate: string;
+  initialDate: Date;
+  endDate: Date;
   cover: string;
   link: string;
 }
@@ -43,11 +43,10 @@ export default function UpdateEventModal({
       link: event.link,
       title: event.title,
       isImageReplaced: false,
-      rangeDate: [
-        new Date(event.initialDate),
-        new Date(event.endDate),
-        null
-      ],
+      rangeDate: {
+        from: new Date(event.initialDate),
+        to: new Date(event.endDate),
+      },
     }
   }
 
@@ -113,8 +112,8 @@ export default function UpdateEventModal({
         link,
         title,
         cover: url,
-        initialDate: new Date(rangeDate[0]),
-        endDate: new Date(rangeDate[1]),
+        initialDate: new Date(rangeDate.from),
+        endDate: new Date(rangeDate.to),
       });
 
       if(isImageReplaced && event.title !== title) {
@@ -156,11 +155,14 @@ export default function UpdateEventModal({
 
                 <DateRangePicker
                   placeholder='Selecione a data de início e fim do evento'
+                  translations={{
+                    cancel: "Cancelar",
+                    apply: "Salvar",
+                    range: "Intervalo entre as datas",
+                  }}
                   className="w-full"
-                  enableDropdown={false}
-                  locale={ptBR}
-                  value={field.value as DateRangePickerValue}
-                  onValueChange={(e) => field.onChange(e)}
+                  value={field.value as DateRange}
+                  onChange={(e) => field.onChange(e)}
                   id="rangeDate"
                 />
                 <Form.ErrorMessage field="rangeDate" />
@@ -217,7 +219,7 @@ export default function UpdateEventModal({
               Cancelar
             </Button>
 
-            <Button type="submit" color="red" loading={isSubmitting} disabled={isSubmitting} className="w-full sm:w-24">
+            <Button type="submit" color="red" isLoading={isSubmitting} disabled={isSubmitting} className="w-full sm:w-24">
               Salvar
             </Button>
           </Form.ButtonGroup>

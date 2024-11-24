@@ -1,21 +1,17 @@
 import { PlusIcon } from '@heroicons/react/outline';
 import { FaTrash, FaPen } from 'react-icons/fa';
-import Image from 'next/future/image';
 import { useState } from 'react';
 import useSWR from 'swr';
 import {
-  Card,
-  MultiSelectBox,
-  MultiSelectBoxItem,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
-} from '@tremor/react';
+} from '@/components/@ui/table';
+import { Card } from '@/components/@ui/card';
 
-import { removeDuplicateKeyInObjectArrayHelper } from '@/helpers/removeDuplicateKeyInObjectArray.helper';
 import { DashboardImage } from '@/components/DashboardImage';
 
 type ChurchData = {
@@ -69,7 +65,7 @@ export function ChurchManagement() {
           <PlusIcon height={24} width={24} />
         </button>
 
-        <MultiSelectBox
+        {/* <MultiSelectBox
           onValueChange={(value) => setSelectedCities(value)}
           placeholder="Filtrar por cidades"
           className="max-w-xs"
@@ -84,7 +80,7 @@ export function ChurchManagement() {
               />
             ))
           }
-        </MultiSelectBox>
+        </MultiSelectBox> */}
       </div>
       <Table className="mt-6">
         <TableHead>

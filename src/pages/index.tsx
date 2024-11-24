@@ -114,10 +114,11 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
               }))}
             />
 
-            <Link href='/ministries' passHref>
-              <a className={styles.home_leadership_section__view_more}>
-                Ver tudo
-              </a>
+            <Link
+              href='/ministries'
+              className={styles.home_leadership_section__view_more}
+            >
+              Ver tudo
             </Link>
           </div>
         </section>
@@ -130,8 +131,8 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
 
             <p>Confira nossa igreja mais próxima de você</p>
 
-            <Link href='/churches' passHref>
-              <a>Conferir</a>
+            <Link href='/churches'>
+              Conferir
             </Link>
           </div>
 

@@ -17,17 +17,18 @@ export const createEventSchema =
       .url({ message: 'Url Inválida' })
       .optional()
       .or(z.literal('')),
-    rangeDate: z.any()
-      .array()
-      .min(2)
-      .refine((data) =>
-        isBefore(data[0], data[1]),
-        'Data final deve ser depois da data inicial'
-      )
-      .refine((data) =>
-        new Date(data[0]) > new Date(),
-        'Data inicial não pode ser menor que hoje'
-      ),
+    rangeDate: z.object({
+      from: z.date(),
+      to: z.date(),
+    }),
+      // .refine((data) =>
+      //   isBefore(data[0], data[1]),
+      //   'Data final deve ser depois da data inicial'
+      // )
+      // .refine((data) =>
+      //   new Date(data[0]) > new Date(),
+      //   'Data inicial não pode ser menor que hoje'
+      // ),
     cover: z.any()
       .refine((files) => hasAtLeastOneImage(files), "A imagem é obrigatória")
       .refine((files) => hasAtLeastOneImage(files) && files.item(0)!.size <= MAX_FILE_SIZE, `Tamanho máximo de 2MB`)

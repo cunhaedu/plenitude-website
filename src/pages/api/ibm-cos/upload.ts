@@ -25,7 +25,7 @@ export default async function handler(
 
   const url = `https://s3.us-south.cloud-object-storage.appdomain.cloud/comunidade-plenitude-bucket/${key}`
 
-  res.json({ presignedUrl, url })
+  res.status(200).json({ presignedUrl, url })
 }
 
 export const config = {

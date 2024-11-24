@@ -1,6 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { GraphQLClient } from 'graphql-request';
 
+type GetTestimonialsResponse = {
+  id: string;
+  name: string;
+  description: string;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -20,7 +26,7 @@ export default async function handler(
       headers: { "Authorization" : `Bearer ${mutationToken}` },
     });
 
-    const { testimonials } = await hygraph.request(
+    const { testimonials } = await hygraph.request<{ testimonials: GetTestimonialsResponse[] }>(
       `query Testimonials {
         testimonials {
           id

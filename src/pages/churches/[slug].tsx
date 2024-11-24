@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { AiOutlineInstagram } from 'react-icons/ai';
 import { ParsedUrlQuery } from 'querystring';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { gql } from '@apollo/client';
 import Head from 'next/head';
 

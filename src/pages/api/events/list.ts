@@ -1,6 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { GraphQLClient } from 'graphql-request';
 
+type GetEventsResponse = {
+  id: string;
+  title: string;
+  link: string;
+  initialDate: string;
+  endDate: string;
+  cover: string;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -20,7 +29,7 @@ export default async function handler(
       headers: { "Authorization" : `Bearer ${mutationToken}` },
     });
 
-    const { events } = await hygraph.request(
+    const { events } = await hygraph.request<{ events: GetEventsResponse[] }>(
       `query Events {
         events(orderBy: initialDate_DESC) {
           id

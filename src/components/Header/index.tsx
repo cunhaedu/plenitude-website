@@ -1,6 +1,6 @@
 import { MenuAlt4Icon, XIcon } from '@heroicons/react/outline';
 import { Popover, Transition } from '@headlessui/react';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { Fragment } from 'react';
 import Link from 'next/link';
 import cls from 'classnames';
@@ -23,7 +23,6 @@ export function Header({ currentPage }: IHeaderProps) {
     <Popover className={styles.popover}>
       <div className={styles.logo_container}>
         <Link href="/">
-          <a>
             <span>Comunidade Plenitude</span>
             <div>
               <Image
@@ -33,7 +32,6 @@ export function Header({ currentPage }: IHeaderProps) {
                 width={128}
               />
             </div>
-          </a>
         </Link>
       </div>
 
@@ -45,62 +43,48 @@ export function Header({ currentPage }: IHeaderProps) {
       </div>
 
       <Popover.Group as="nav" className={styles.desktop_navigation_container}>
-        <Link href='/' passHref>
-          <a>
-            <span className={cls({'text-black' : currentPage === 'home' })}>
-              Início
-            </span>
-          </a>
+        <Link href='/'>
+          <span className={cls({'text-black' : currentPage === 'home' })}>
+            Início
+          </span>
         </Link>
 
-        <Link href='/about' passHref>
-          <a>
-            <span className={cls({ 'text-black' : currentPage === 'about' })}>
-              Sobre
-            </span>
-          </a>
+        <Link href='/about'>
+          <span className={cls({ 'text-black' : currentPage === 'about' })}>
+            Sobre
+          </span>
         </Link>
 
-        <Link href='/ministries' passHref>
-          <a>
-            <span className={cls({ 'text-black' : currentPage === 'ministries' })}>
-              Redes
-            </span>
-          </a>
+        <Link href='/ministries'>
+          <span className={cls({ 'text-black' : currentPage === 'ministries' })}>
+            Redes
+          </span>
         </Link>
 
-        <Link href='/churches' passHref>
-          <a>
-            <span className={cls({ 'text-black' : currentPage === 'churches' })}>
-              Igrejas
-            </span>
-          </a>
+        <Link href='/churches'>
+          <span className={cls({ 'text-black' : currentPage === 'churches' })}>
+            Igrejas
+          </span>
         </Link>
 
-        <Link href='/peniel' passHref>
-          <a>
-            <span className={cls({ 'text-black' : currentPage === 'peniel' })}>
-              Peniel
-            </span>
-          </a>
+        <Link href='/peniel'>
+          <span className={cls({ 'text-black' : currentPage === 'peniel' })}>
+            Peniel
+          </span>
         </Link>
 
-        <Link href='/events' passHref>
-          <a>
-            <span className={cls({ 'text-black' : currentPage === 'events' })}>
-              Eventos
-            </span>
-          </a>
+        <Link href='/events'>
+          <span className={cls({ 'text-black' : currentPage === 'events' })}>
+            Eventos
+          </span>
         </Link>
 
-        <Link href='/login' passHref>
-          <a className={cls({
-              'bg-gray-500 text-white': currentPage === 'adm',
-              'text-gray-500 bg-none': currentPage !== 'adm',
-            })}
-          >
-            Admin
-          </a>
+        <Link href='/login' className={cls({
+            'bg-gray-500 text-white': currentPage === 'adm',
+            'text-gray-500 bg-none': currentPage !== 'adm',
+          })}
+        >
+          Admin
         </Link>
       </Popover.Group>
 
@@ -136,57 +120,45 @@ export function Header({ currentPage }: IHeaderProps) {
 
             <div className={styles.phone_menu_links_container}>
               <div>
-                <Link href='/' passHref>
-                  <a>
-                    <span className={cls({ 'text-black': currentPage === 'home' })}>
-                      Inicio
-                    </span>
-                  </a>
+                <Link href='/'>
+                  <span className={cls({ 'text-black': currentPage === 'home' })}>
+                    Inicio
+                  </span>
                 </Link>
 
-                <Link href='/about' passHref>
-                  <a>
-                    <span className={cls({ 'text-black': currentPage === 'about' })}>
-                      Sobre
-                    </span>
-                  </a>
+                <Link href='/about'>
+                  <span className={cls({ 'text-black': currentPage === 'about' })}>
+                    Sobre
+                  </span>
                 </Link>
 
-                <Link href='/churches' passHref>
-                  <a>
-                    <span className={cls({ 'text-black': currentPage === 'churches' })}>
-                      Igrejas
-                    </span>
-                  </a>
+                <Link href='/churches'>
+                  <span className={cls({ 'text-black': currentPage === 'churches' })}>
+                    Igrejas
+                  </span>
                 </Link>
 
-                <Link href='/ministries' passHref>
-                  <a>
-                    <span className={cls({ 'text-black': currentPage === 'ministries' })}>
-                      Redes
-                    </span>
-                  </a>
+                <Link href='/ministries'>
+                  <span className={cls({ 'text-black': currentPage === 'ministries' })}>
+                    Redes
+                  </span>
                 </Link>
 
-                <Link href='/peniel' passHref>
-                  <a>
-                    <span className={cls({ 'text-black': currentPage === 'peniel' })}>
-                      Peniel
-                    </span>
-                  </a>
+                <Link href='/peniel'>
+                  <span className={cls({ 'text-black': currentPage === 'peniel' })}>
+                    Peniel
+                  </span>
                 </Link>
 
-                <Link href='/events' passHref>
-                  <a>
-                    <span className={cls({ 'text-black': currentPage === 'events' })}>
-                      Eventos
-                    </span>
-                  </a>
+                <Link href='/events'>
+                  <span className={cls({ 'text-black': currentPage === 'events' })}>
+                    Eventos
+                  </span>
                 </Link>
               </div>
 
-              <Link href='/login' passHref>
-                <a>Admin</a>
+              <Link href='/login'>
+                Admin
               </Link>
             </div>
           </div>

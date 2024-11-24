@@ -8,8 +8,9 @@ import { Header } from '@/components/Header';
 import { client } from '@/lib/apollo';
 
 import styles from './styles.module.scss';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { formatEventDate } from '@/helpers/formmatEventDate';
+import { isAfter, isEqual, parse, startOfDay } from 'date-fns';
 
 type GetEventsResponse = {
   events: Array<{
@@ -107,7 +108,12 @@ export const getStaticProps: GetStaticProps = async () => {
   const events = data?.events || [];
 
   const sanitizedEvents = events
-    .filter(event => new Date(event.initialDate) > new Date())
+    .filter(event => {
+      const date = parse(event.initialDate, 'yyyy-MM-dd', new Date());
+      const today = startOfDay(new Date());
+
+      return isEqual(date, today) || isAfter(date, today);
+    })
     .map(event => ({
       ...event,
       date: formatEventDate(event.initialDate, event.endDate),

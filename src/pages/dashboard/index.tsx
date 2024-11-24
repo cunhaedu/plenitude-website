@@ -1,7 +1,6 @@
 import { Slide, ToastContainer } from 'react-toastify';
 import { LogoutIcon } from '@heroicons/react/outline';
-import { Tab, TabList } from '@tremor/react';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
 import Head from 'next/head';
@@ -9,6 +8,7 @@ import Head from 'next/head';
 import { TestimonialManagement } from '@/components/Dashboard/Management/Testimonials';
 import { LeadershipManagement } from '@/components/Dashboard/Management/Leaderships';
 import { MinistryManagement } from '@/components/Dashboard/Management/Ministries';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/@ui/tab';
 import { ChurchManagement } from '@/components/Dashboard/Management/Churches';
 import { EventsManagement } from '@/components/Dashboard/Management/Events';
 import { AuthContext } from '@/contexts/AuthContext';
@@ -26,7 +26,6 @@ type TabViews =
   | 'events';
 
 export default function Admin() {
-  const [selectedView, setSelectedView] = useState<TabViews>('events');
   const { logout } = useContext(AuthContext);
 
   return (
@@ -58,26 +57,41 @@ export default function Admin() {
           </div>
         </section>
 
-        <div className={styles.dashboard_tab_container}>
-          <TabList
-            color="indigo"
-            defaultValue="events"
-            onValueChange={value => setSelectedView(value as TabViews)}
-            className="mt-2"
-          >
-            <Tab value="events" text="Eventos" />
-            <Tab value="testimonies" text="Testemunhos" />
-            <Tab value="ministries" text="Redes" />
-            <Tab value="churches" text="Igrejas" />
-            <Tab value="leadership" text="Liderança" />
-          </TabList>
-        </div>
+        <Tabs defaultValue="events">
+          <div className={styles.dashboard_tab_container}>
+            <TabsList
+              variant="solid"
+              color="indigo"
+              className="mt-2"
+            >
+              <TabsTrigger value="events">Eventos</TabsTrigger>
+              <TabsTrigger value="testimonies">Testemunhos</TabsTrigger>
+              <TabsTrigger value="ministries">Redes</TabsTrigger>
+              <TabsTrigger value="churches">Igrejas</TabsTrigger>
+              <TabsTrigger value="leadership">Liderança</TabsTrigger>
+            </TabsList>
+          </div>
 
-        {selectedView === 'leadership' &&  <LeadershipManagement />}
-        {selectedView === 'churches' &&  <ChurchManagement />}
-        {selectedView === 'ministries' &&  <MinistryManagement />}
-        {selectedView === 'testimonies' &&  <TestimonialManagement />}
-        {selectedView === 'events' &&  <EventsManagement />}
+          <TabsContent value="events">
+            <EventsManagement />
+          </TabsContent>
+
+          <TabsContent value="testimonies">
+            <TestimonialManagement />
+          </TabsContent>
+
+          <TabsContent value="ministries">
+            <MinistryManagement />
+          </TabsContent>
+
+          <TabsContent value="churches">
+            <ChurchManagement />
+          </TabsContent>
+
+          <TabsContent value="leadership">
+            <LeadershipManagement />
+          </TabsContent>
+        </Tabs>
       </main>
 
       <Footer />
