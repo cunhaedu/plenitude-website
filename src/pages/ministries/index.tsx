@@ -9,6 +9,7 @@ import { Header } from '@/components/Header';
 import { client } from '@/lib/apollo';
 
 import styles from './ministries-style.module.scss';
+import { avoidRateLimit } from '@/helpers/avoid-rate-limit';
 
 type GetMinistriesResponse = {
   ministries: Array<{
@@ -93,6 +94,8 @@ export default function Ministries({ministries}: GetMinistriesResponse) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  await avoidRateLimit()
+
   const { data } = await client.query<GetMinistriesResponse>({
     query: GET_MINISTRIES_QUERY,
   });

@@ -11,6 +11,7 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import { formatEventDate } from '@/helpers/formmatEventDate';
 import { isAfter, isEqual, parse, startOfDay } from 'date-fns';
+import { avoidRateLimit } from '@/helpers/avoid-rate-limit';
 
 type GetEventsResponse = {
   events: Array<{
@@ -101,6 +102,8 @@ export default function Events({ events }: GetEventsResponse) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  await avoidRateLimit()
+
   const { data } = await client.query<GetEventsResponse>({
     query: GET_EVENTS_QUERY,
   });

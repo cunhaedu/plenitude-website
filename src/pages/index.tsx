@@ -15,6 +15,7 @@ import { Footer } from '@/components/Footer';
 import { client } from '@/lib/apollo';
 
 import styles from '../styles/home.module.scss';
+import { avoidRateLimit } from '@/helpers/avoid-rate-limit';
 
 type GetTestimonialsResponse = {
   testimonials: Array<{
@@ -161,9 +162,13 @@ export default function Home({ testimonials, leaderships }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  await avoidRateLimit()
+
   const { data: testimonialData } = await client.query<GetTestimonialsResponse>({
     query: GET_TESTIMONIALS_QUERY,
   });
+
+  await avoidRateLimit()
 
   const { data: leaderShipData } = await client.query<GetLeadershipsResponse>({
     query: GET_LEADERSHIPS_QUERY,

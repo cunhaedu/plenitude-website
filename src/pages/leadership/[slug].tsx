@@ -10,6 +10,7 @@ import { Header } from '@/components/Header';
 import { client } from '@/lib/apollo';
 
 import styles from './styles.module.scss';
+import { avoidRateLimit } from '@/helpers/avoid-rate-limit';
 
 type Params = ParsedUrlQuery & {
   slug: string;
@@ -122,6 +123,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { slug } = ctx.params as Params;
+
+  await avoidRateLimit()
 
   const { data } = await client.query<GetLeaderShipResponse>({
     query: GET_LEADERSHIP_QUERY,

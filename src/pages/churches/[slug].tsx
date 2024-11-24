@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { client } from '@/lib/apollo';
+import { avoidRateLimit } from '@/helpers/avoid-rate-limit';
 
 type Params = ParsedUrlQuery & {
   slug: string;
@@ -188,6 +189,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { slug } = ctx.params as Params;
+
+  await avoidRateLimit()
 
   const { data } = await client.query<GetChurchResponse>({
     query: GET_CHURCH_QUERY,

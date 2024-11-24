@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { client } from '@/lib/apollo';
+import { avoidRateLimit } from '@/helpers/avoid-rate-limit';
 
 type GetChurchesResponse = {
   churches: Array<{
@@ -111,6 +112,8 @@ export default function Churches({ churches }: GetChurchesResponse) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  await avoidRateLimit()
+
   const { data } = await client.query<GetChurchesResponse>({
     query: GET_CHURCHES_QUERY,
   });
